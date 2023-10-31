@@ -67,6 +67,7 @@ export function VideoSlider(props: VideoSliderProps) {
       sx={{
         px: { xs: "30px", sm: "60px" },
         pb: 4,
+        bgcolor: "black",
       }}
     >
       <Stack direction="row" spacing={1} onMouseLeave={handleMouseLeave}>
@@ -111,13 +112,13 @@ export function VideoSlider(props: VideoSliderProps) {
                   />
 
                   {showContainer && hoveredMovie === movieDetail && (
-                    <div className="-translate-y-80 translate-x-0 w-80 z-50 absolute bg-black">
+                    <div className="-translate-y-80 translate-x-0 w-80 h-80 z-50 absolute bg-black">
                       <img
                         className="rounded-lg "
                         src={`${IMG_URL}${movieDetail.backdrop_path}`}
                       />
 
-                      <div className="translate-x-4 -translate-y-8">
+                      <div className="translate-x-4 translate-y-10">
                         <Stack direction="row" spacing={1}>
                           <NetflixIconButton sx={{ p: 0 }}>
                             <PlayCircleIcon
@@ -153,11 +154,13 @@ export function VideoSlider(props: VideoSliderProps) {
       {showModal && (
         <Stack
           style={{
-            width: 800,
+            position: "fixed",
+            top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            position: "absolute",
-            zIndex: "1000",
+            zIndex: 1000,
+            backgroundColor: "transparent",
+            width: 800,
           }}
         >
           <MovieDetail />

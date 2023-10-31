@@ -3,7 +3,6 @@ import {
   useGetNowPlayingQuery,
   useGetPopularQuery,
   useGetTopRatedQuery,
-  useLazyGetMovieIdQuery,
 } from "../store/service/image.service";
 import { Movie } from "../types/Movie";
 import Grid from "@mui/material/Grid";

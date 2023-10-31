@@ -54,8 +54,9 @@ export function VideoPlayerContainer() {
     <Box
       sx={{
         width: "100%",
-        height: "56.25vw",
+        height: "100%",
         position: "absolute",
+        bgcolor: "black"
       }}
     >
       <Stack

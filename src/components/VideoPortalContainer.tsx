@@ -6,7 +6,14 @@ import { VideoSlider } from "./VideoSlider";
 class VideoPortalContainer extends React.Component {
   render() {
     return (
-      <Box sx={{ position: "relative", zIndex: 1 }}>
+      <Box
+        sx={{
+          position: "relative",
+          zIndex: 1,
+          bgcolor: "black",
+          height: "100%",
+        }}
+      >
         <Box
           sx={{
             mb: 3,
