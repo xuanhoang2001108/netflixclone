@@ -23,12 +23,16 @@ export function MovieDetail() {
   }, []);
   const { data } = useGetPopularQuery();
   useEffect(() => {
-    if (data && data.results) {
-      const videos = data.results.filter((item) => !!item.backdrop_path);
-      setVideo(videos[getRandomNumber(videos.length)]);
+    if (data) {
+      const videos = data.results;
+      if (videos.length > 0) {
+        const randomIndex = getRandomNumber(videos.length);
+        setVideo(videos[randomIndex]);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
+  
 
   useEffect(() => {
     if (video) {

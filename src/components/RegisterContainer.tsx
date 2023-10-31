@@ -9,7 +9,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 
-
 type UserSubmitRegisterForm = {
   email: string;
   password: string;
@@ -38,9 +37,6 @@ const RegisterContainer = () => {
     console.log({ data });
   };
 
-  const handleToHome = () => {
-    navigate("/");
-  };
   return (
     <div className="justify-center">
       <AppBar

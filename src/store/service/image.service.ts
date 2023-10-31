@@ -8,25 +8,25 @@ export const imgApi = createApi({
     reducerPath: 'imgApi',
     baseQuery: fetchBaseQuery({ baseUrl: 'https://api.themoviedb.org/3/movie' }),
     endpoints: build => ({
-        getPopular: build.query<Movie[], void>({
+        getPopular: build.query<Movie, void>({
             query: () => ({
                 url: "/popular",
                 params: { api_key: TMDB_API_KEY },
             }),
         }),
-        getTopRated: build.query<Movie[], void>({
+        getTopRated: build.query<Movie, void>({
             query: () => ({
                 url: "/top_rated",
                 params: { api_key: TMDB_API_KEY },
             }),
         }),
-        getNowPlaying: build.query<Movie[], void>({
+        getNowPlaying: build.query<Movie, void>({
             query: () => ({
                 url: "/now_playing",
                 params: { api_key: TMDB_API_KEY },
             }),
         }),
-        getSimilarVideos: build.query<Movie[], void>({
+        getSimilarVideos: build.query<Movie, void>({
             query: (id) => ({
                 url: `/${id}/similar`,
                 params: { api_key: TMDB_API_KEY },

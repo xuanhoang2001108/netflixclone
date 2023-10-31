@@ -1,7 +1,7 @@
 import { useCallback, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Stack from "@mui/material/Stack";
 import NetflixIconButton from "./NetflixIconButton";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
@@ -34,11 +34,17 @@ export function VideoSlider(props: VideoSliderProps) {
   const playerRef = useRef<Player | null>(null);
   const { movieGerne } = props;
   const [showContainer, setShowContainer] = useState(false);
+  const [showContainer2, setShowContainer2] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [hoveredMovie, setHoveredMovie] = useState<Movie | null>(null);
   const [muted, setMuted] = useState(true);
   const navigate = useNavigate();
-
+  const handleMute = useCallback((status: boolean) => {
+    if (playerRef.current) {
+      playerRef.current.muted(!status);
+      setMuted(!status);
+    }
+  }, []);
   if (movieGerne === "Popular Movies") {
     ({ data, isFetching } = useGetPopularQuery());
   }
@@ -51,12 +57,10 @@ export function VideoSlider(props: VideoSliderProps) {
   if (!data) {
     return <div>No data</div>;
   }
-  // const handleMute = useCallback((status: boolean) => {
-  //   if (playerRef.current) {
-  //     playerRef.current.muted(!status);
-  //     setMuted(!status);
-  //   }
-  // }, []);
+  const handleMouseLeave = () => {
+    setShowContainer2(false);
+  };
+
   return (
     <Container
       maxWidth={false}
@@ -65,7 +69,27 @@ export function VideoSlider(props: VideoSliderProps) {
         pb: 4,
       }}
     >
-      <h2 className="font-bold text-white text-2xl mt-3">{movieGerne}</h2>
+      <Stack direction="row" spacing={1} onMouseLeave={handleMouseLeave}>
+        <div
+          className="font-bold text-white text-2xl mt-3 mb-3"
+          onMouseEnter={() => {
+            setShowContainer2(true);
+          }}
+        >
+          {movieGerne}
+        </div>
+        {showContainer2 && (
+          <Link
+            to={`/${movieGerne}`}
+            style={{ textDecoration: "inherit" }}
+            className="font-bold text-lime-300 text-2xl mt-3 mb-3"
+          >
+            Explore All
+          </Link>
+        )}
+        <div style={{ flexGrow: 0.845 }} />
+        <div className="translate-x-4 -translate-y-14 "></div>
+      </Stack>
       <Swiper slidesPerView={6} spaceBetween={8}>
         {!isFetching &&
           data.results.map((movieDetail: Movie) => (
@@ -85,23 +109,14 @@ export function VideoSlider(props: VideoSliderProps) {
                     className="rounded-lg"
                     src={`${IMG_URL}${movieDetail.poster_path}`}
                   />
+
                   {showContainer && hoveredMovie === movieDetail && (
                     <div className="-translate-y-80 translate-x-0 w-80 z-50 absolute bg-black">
                       <img
                         className="rounded-lg "
                         src={`${IMG_URL}${movieDetail.backdrop_path}`}
                       />
-                      <Stack direction="row">
-                        <h1
-                          className="text-white font-bold translate-x-4 -translate-y-11  truncate"
-                          style={{ maxWidth: "100px" }}
-                        >
-                          {movieDetail.title}
-                        </h1>
 
-                        <div style={{ flexGrow: 0.845 }} />
-                        <div className="translate-x-4 -translate-y-14 "></div>
-                      </Stack>
                       <div className="translate-x-4 -translate-y-8">
                         <Stack direction="row" spacing={1}>
                           <NetflixIconButton sx={{ p: 0 }}>
@@ -188,7 +203,7 @@ export function VideoSlider(props: VideoSliderProps) {
               <div className="w-[350px]"></div>
               <NetflixIconButton
                 size="large"
-                // onClick={() => handleMute(muted)}
+                onClick={() => handleMute(muted)}
                 sx={{ zIndex: 1 }}
               >
                 {!muted ? <VolumeUpIcon /> : <VolumeOffIcon />}

@@ -58,5 +58,5 @@ export type Movie = {
   vote_count: number;
   video: boolean;
   vote_average: number;
-
+  results:  any
 };

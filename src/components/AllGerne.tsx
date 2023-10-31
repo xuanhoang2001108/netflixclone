@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import {
   useGetNowPlayingQuery,
   useGetPopularQuery,
@@ -26,15 +26,13 @@ import { IMG_URL, MovieDetail } from "./MovieDetail";
 export default function AllGerne() {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
-  const { movieGerne, movieId } = useParams();
-  const { data: movieDetail } = useLazyGetMovieIdQuery(movieId);
+  // useLazyGetMovieIdQuery(movieId);
 
   const [showContainer, setShowContainer] = useState(false);
   const [hoveredMovie, setHoveredMovie] = useState<Movie | null>(null);
   const playerRef = useRef<Player | null>(null);
   const [muted, setMuted] = useState(false);
-
-  const videoKey = movieDetail?.videos?.results[0]?.key;
+  const { movieGerne } = useParams();
 
   const handleMute = useCallback((status: boolean) => {
     if (playerRef.current) {
@@ -42,13 +40,16 @@ export default function AllGerne() {
       setMuted(!status);
     }
   }, []);
+
   const queries = {
     "Popular Movies": useGetPopularQuery(),
     "Top Rated Movies": useGetTopRatedQuery(),
     "Now Playing Movies": useGetNowPlayingQuery(),
   };
 
-  const { data, isFetching } = queries[movieGerne] || {};
+  const queryResult = queries[movieGerne as keyof typeof queries];
+  const { data, isFetching } = queryResult || {};
+
   if (!data) {
     return <div>No data</div>;
   }
