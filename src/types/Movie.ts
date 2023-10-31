@@ -60,3 +60,10 @@ export type Movie = {
   vote_average: number;
   results:  any
 };
+export type Userdata = {
+  email: string;
+  password: string;
+  name: string;
+  confirmPassword: string;
+  phoneNumber: string;
+};

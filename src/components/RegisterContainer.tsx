@@ -8,21 +8,29 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Userdata } from "../types/Movie";
+import { useAddAccountMutation } from "../store/service/register.service";
 
 type UserSubmitRegisterForm = {
   email: string;
   password: string;
-  username: string;
+  name: string;
+  confirmPassword: string;
+  phoneNumber: string;
 };
+
 const RegisterContainer = () => {
-  const navigate = useNavigate();
+  const [registerAccount] = useAddAccountMutation();
   const validationSchema = Yup.object().shape({
     email: Yup.string().required("Email is required").email("Email is invalid"),
     password: Yup.string()
       .required("Password is required")
       .min(6, "Password must be at least 6 characters")
       .max(40, "Password must not exceed 40 characters"),
-    username: Yup.string().required("Username is required"),
+    name: Yup.string().required("Name is required"),
+    phoneNumber: Yup.string().required("phoneNumber is required"),
+    confirmPassword: Yup.string().required("confirmPassword is required"),
   });
 
   const {
@@ -35,6 +43,7 @@ const RegisterContainer = () => {
 
   const onSubmitHandler = (data: UserSubmitRegisterForm) => {
     console.log({ data });
+    registerAccount(data);
   };
 
   return (
@@ -65,7 +74,7 @@ const RegisterContainer = () => {
           <div className="absolute flex flex-row space-y-[100px] space-x-[520px]">
             <LoginLogo sx={{ ml: { sm: 4 }, mt: 3 }} />
             <form
-              className="absolute bg-black bg-opacity-80 pl-16 pr-16 pt-16 h-auto"
+              className="absolute bg-black bg-opacity-80 pl-16 pr-16 pt-16 pb-40"
               onSubmit={handleSubmit(onSubmitHandler)}
               style={{
                 padding: "2rem",
@@ -79,24 +88,24 @@ const RegisterContainer = () => {
                 spacing={1}
               >
                 <TextField
-                  label="Username"
+                  label="Name"
                   variant="filled"
                   type="Username"
-                  {...register("username")}
-                  id="username"
+                  {...register("name")}
+                  id="name"
                   style={{
                     width: 350,
                     backgroundColor: "rgba(61, 66, 61, 1)",
                     marginTop: 20,
                   }}
                 />
-                {errors.username && (
+                {errors.name && (
                   <div className="text-sm text-orange-600">
                     Please enter a valid username.
                   </div>
                 )}
                 <TextField
-                  label="Email or phone number"
+                  label="Email"
                   type="text"
                   {...register("email")}
                   variant="filled"
@@ -112,6 +121,23 @@ const RegisterContainer = () => {
                   </div>
                 )}
                 <TextField
+                  label="Phone Number"
+                  variant="filled"
+                  type="phoneNumber"
+                  {...register("phoneNumber")}
+                  id="pass"
+                  style={{
+                    width: 350,
+                    backgroundColor: "rgba(61, 66, 61, 1)",
+                    marginTop: 20,
+                  }}
+                />
+                {errors.phoneNumber && (
+                  <div className="text-sm text-orange-600 mb-10">
+                    Your password must contain between 4 and 60 characters.
+                  </div>
+                )}
+                <TextField
                   label="Password"
                   variant="filled"
                   type="password"
@@ -124,6 +150,23 @@ const RegisterContainer = () => {
                   }}
                 />
                 {errors.password && (
+                  <div className="text-sm text-orange-600 mb-10">
+                    Your password must contain between 4 and 60 characters.
+                  </div>
+                )}
+                <TextField
+                  label="Confirm Password"
+                  variant="filled"
+                  type="password"
+                  {...register("confirmPassword")}
+                  id="pass"
+                  style={{
+                    width: 350,
+                    backgroundColor: "rgba(61, 66, 61, 1)",
+                    marginTop: 20,
+                  }}
+                />
+                {errors.confirmPassword && (
                   <div className="text-sm text-orange-600 mb-10">
                     Your password must contain between 4 and 60 characters.
                   </div>
