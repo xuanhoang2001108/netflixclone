@@ -8,11 +8,12 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
-import React from "react";
 
-type UserSubmitForm = {
+
+type UserSubmitRegisterForm = {
   email: string;
   password: string;
+  username: string;
 };
 const RegisterContainer = () => {
   const navigate = useNavigate();
@@ -22,17 +23,18 @@ const RegisterContainer = () => {
       .required("Password is required")
       .min(6, "Password must be at least 6 characters")
       .max(40, "Password must not exceed 40 characters"),
+    username: Yup.string().required("Username is required"),
   });
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<UserSubmitForm>({
+  } = useForm<UserSubmitRegisterForm>({
     resolver: yupResolver(validationSchema),
   });
 
-  const onSubmitHandler = (data: UserSubmitForm) => {
+  const onSubmitHandler = (data: UserSubmitRegisterForm) => {
     console.log({ data });
   };
 
@@ -81,6 +83,23 @@ const RegisterContainer = () => {
                 spacing={1}
               >
                 <TextField
+                  label="Username"
+                  variant="filled"
+                  type="Username"
+                  {...register("username")}
+                  id="username"
+                  style={{
+                    width: 350,
+                    backgroundColor: "rgba(61, 66, 61, 1)",
+                    marginTop: 20,
+                  }}
+                />
+                {errors.username && (
+                  <div className="text-sm text-orange-600">
+                    Please enter a valid username.
+                  </div>
+                )}
+                <TextField
                   label="Email or phone number"
                   type="text"
                   {...register("email")}
@@ -113,23 +132,11 @@ const RegisterContainer = () => {
                     Your password must contain between 4 and 60 characters.
                   </div>
                 )}
-                <TextField
-                  label="Password"
-                  variant="filled"
-                  type="password"
-                  {...register("password")}
-                  id="pass"
-                  style={{
-                    width: 350,
-                    backgroundColor: "rgba(61, 66, 61, 1)",
-                    marginTop: 20,
-                  }}
-                />
                 <button
                   className="rounded-md bg-red-600 h-12 text-lg font-semibold w-full "
                   type="submit"
                   style={{ marginTop: 40 }}
-                  onClick={handleToHome}
+                  // onClick={handleToHome}
                 >
                   Sign in
                 </button>
@@ -141,10 +148,10 @@ const RegisterContainer = () => {
                 </Stack>
                 <Stack direction={"row"}>
                   <div className="text-md text-slate-500 mt-10">
-                    New to Netflix?
+                    A member of Netflix?
                   </div>
                   <div className="text-md ml-2  mt-10">
-                    <Link to={""}>Sign up now.</Link>
+                    <Link to={"/LoginPage"}>Sign in now.</Link>
                   </div>
                 </Stack>
                 <div className="text-sm pb-60 text-slate-500 w-[20rem]">

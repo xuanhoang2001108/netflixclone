@@ -31,8 +31,8 @@ export function VideoPlayerContainer() {
   }, []);
   const { data } = useGetPopularQuery();
   useEffect(() => {
-    if (data && data.results) {
-      const videos = data.results.filter((item) => !!item.backdrop_path);
+    if (data && data) {
+      const videos = data.filter((item) => !!item.backdrop_path);
       setVideo(videos[getRandomNumber(videos.length)]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

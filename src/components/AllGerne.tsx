@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   useGetNowPlayingQuery,
   useGetPopularQuery,
   useGetTopRatedQuery,
+  useLazyGetMovieIdQuery,
 } from "../store/service/image.service";
 import { Movie } from "../types/Movie";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
-import { IMG_URL } from "./VideoSlider";
+
 import { useNavigate, useParams } from "react-router-dom";
 import NetflixIconButton from "./NetflixIconButton";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
@@ -18,24 +19,36 @@ import Stack from "@mui/material/Stack";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import VolumeOffIcon from "@mui/icons-material/VolumeOff";
 import CloseIcon from "@mui/icons-material/Close";
-import { VideoPlayer } from "./VideoPlayer";
+import Player from "video.js/dist/types/player";
+import PlayButton from "./PlayButton";
+import { IMG_URL, MovieDetail } from "./MovieDetail";
 
-export function AllGerne() {
+export default function AllGerne() {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
-  let data;
-  let isFetching;
-  let { movieGerne } = useParams();
+  const { movieGerne, movieId } = useParams();
+  const { data: movieDetail } = useLazyGetMovieIdQuery(movieId);
+
   const [showContainer, setShowContainer] = useState(false);
   const [hoveredMovie, setHoveredMovie] = useState<Movie | null>(null);
-  const [muted] = useState(true);
-  if (movieGerne === "Popular Movies") {
-    ({ data, isFetching } = useGetPopularQuery());
-  } else if (movieGerne === "Top Rated Movies") {
-    ({ data, isFetching } = useGetTopRatedQuery());
-  } else if (movieGerne === "Now Playing Movies") {
-    ({ data, isFetching } = useGetNowPlayingQuery());
-  }
+  const playerRef = useRef<Player | null>(null);
+  const [muted, setMuted] = useState(false);
+
+  const videoKey = movieDetail?.videos?.results[0]?.key;
+
+  const handleMute = useCallback((status: boolean) => {
+    if (playerRef.current) {
+      playerRef.current.muted(!status);
+      setMuted(!status);
+    }
+  }, []);
+  const queries = {
+    "Popular Movies": useGetPopularQuery(),
+    "Top Rated Movies": useGetTopRatedQuery(),
+    "Now Playing Movies": useGetNowPlayingQuery(),
+  };
+
+  const { data, isFetching } = queries[movieGerne] || {};
   if (!data) {
     return <div>No data</div>;
   }
@@ -128,15 +141,66 @@ export function AllGerne() {
             </Grid>
           ))}
         {showModal && (
-          <Stack className="absolute bg-white" style={{ width: 800 }}>
-            <VideoPlayer></VideoPlayer>
-            <NetflixIconButton sx={{ position: "absolute" }}>
-              <CloseIcon
+          <Stack
+            className="absolute bg-white"
+            style={{
+              width: 800,
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+            }}
+          >
+            <MovieDetail />
+            <Stack
+              className="absolute"
+              sx={{
+                top: 0,
+                right: 0,
+                padding: "12px",
+              }}
+            >
+              <NetflixIconButton
                 onClick={() => {
                   setShowModal(false);
                 }}
-              ></CloseIcon>
-            </NetflixIconButton>
+              >
+                <CloseIcon />
+              </NetflixIconButton>
+            </Stack>
+            <Stack
+              spacing={4}
+              sx={{
+                bottom: "35%",
+                position: "absolute",
+                left: { xs: "4%", md: "60px" },
+                width: "36%",
+                zIndex: 10,
+                top: 350,
+              }}
+            >
+              <Stack
+                direction={{ xs: "column", sm: "row" }}
+                spacing={2}
+                sx={{
+                  width: 1000,
+                }}
+              >
+                <PlayButton size="large" />
+                <NetflixIconButton size="large">
+                  <AddIcon />
+                </NetflixIconButton>
+                <NetflixIconButton size="large">
+                  <ThumbUpOffAltIcon />
+                </NetflixIconButton>
+                <div className="w-[350px]"></div>
+                <NetflixIconButton
+                  size="large"
+                  onClick={() => handleMute(muted)}
+                >
+                  {!muted ? <VolumeUpIcon /> : <VolumeOffIcon />}
+                </NetflixIconButton>
+              </Stack>
+            </Stack>
           </Stack>
         )}
       </Grid>

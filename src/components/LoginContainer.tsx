@@ -117,7 +117,7 @@ const LoginContainer = () => {
                   className="rounded-md bg-red-600 h-12 text-lg font-semibold w-full "
                   type="submit"
                   style={{ marginTop: 40 }}
-                  onClick={handleToHome}
+                  // onClick={handleToHome}
                 >
                   Sign in
                 </button>

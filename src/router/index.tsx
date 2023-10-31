@@ -6,6 +6,7 @@ import ExploreAllPage from "../pages/ExploreAllPage";
 import StartPage from "../pages/StartPage";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
+import { MovieDetail } from "../components/MovieDetail";
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ export const router = createBrowserRouter([
     element: <ExploreAllPage />,
   },
   {
+    path: "ExploreAllPage/",
+    element: <MovieDetail />,
+  },
+  {
     path: "/StartPage",
     element: <StartPage />,
   },
@@ -31,5 +36,5 @@ export const router = createBrowserRouter([
   {
     path: "/RegisterPage",
     element: <RegisterPage />,
-  }
+  },
 ]);
