@@ -29,8 +29,10 @@ const RegisterContainer = () => {
       .min(6, "Password must be at least 6 characters")
       .max(40, "Password must not exceed 40 characters"),
     name: Yup.string().required("Name is required"),
-    phoneNumber: Yup.string().required("phoneNumber is required"),
-    confirmPassword: Yup.string().required("confirmPassword is required"),
+    phoneNumber: Yup.string().required("PhoneNumber is required"),
+    confirmPassword: Yup.string()
+      .required("ConfirmPassword is required")
+      .oneOf([Yup.ref("password")], "Passwords must match"),
   });
 
   const {
@@ -81,7 +83,7 @@ const RegisterContainer = () => {
                 borderRadius: "8px",
               }}
             >
-              <div className="text-4xl font-semibold"> Sign In</div>
+              <div className="text-4xl font-semibold"> Sign Up</div>
               <Stack
                 direction={"column"}
                 sx={{ marginTop: "18px" }}
@@ -177,7 +179,7 @@ const RegisterContainer = () => {
                   style={{ marginTop: 40 }}
                   // onClick={handleToHome}
                 >
-                  Sign in
+                  Sign up
                 </button>
                 <Stack direction={"row"} sx={{ alignItems: "center" }}>
                   <Checkbox color="default" />

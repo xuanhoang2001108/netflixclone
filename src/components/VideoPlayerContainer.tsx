@@ -66,6 +66,7 @@ export function VideoPlayerContainer() {
           alignItems: "center",
           position: "absolute",
           right: 0,
+          top: 500,
           bottom: "35%",
         }}
       >
@@ -116,7 +117,7 @@ export function VideoPlayerContainer() {
           <Box
             sx={{
               position: "absolute",
-              top: 0,
+              top: 200,
               left: 0,
               right: 0,
               bottom: 0,

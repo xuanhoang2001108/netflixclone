@@ -187,13 +187,14 @@ export function VideoSlider(props: VideoSliderProps) {
               position: "absolute",
               left: { xs: "4%", md: "60px" },
               zIndex: 10,
+              top: 350
             }}
           >
             <Stack
               direction={{ xs: "column", sm: "row" }}
               spacing={2}
               sx={{
-                width: 1000,
+            
               }}
             >
               <PlayButton size="large" />
