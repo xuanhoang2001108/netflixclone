@@ -17,6 +17,7 @@ import { APP_BAR_HEIGHT } from "../constant";
 import Logo from "./Logo";
 import NetflixNavigationLink from "./NetflixNavigationLink";
 import { useNavigate } from "react-router-dom";
+import SearchBox from "./SearchBox";
 
 const pages = ["My List", "Movies", "Tv Shows"];
 
@@ -129,7 +130,7 @@ const MainHeader = () => {
         </Stack>
 
         <Box sx={{ flexGrow: 0, display: "flex", gap: 2 }}>
-          {/* <SearchBox /> */}
+          <SearchBox />
           <Tooltip title="Open settings">
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
               <Avatar

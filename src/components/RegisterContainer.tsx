@@ -3,13 +3,10 @@ import { APP_BAR_HEIGHT } from "../constant";
 import LoginLogo from "./LoginLogo";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
-import Checkbox from "@mui/material/Checkbox";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { Userdata } from "../types/Movie";
+import { Link } from "react-router-dom";
 import { useAddAccountMutation } from "../store/service/register.service";
 
 type UserSubmitRegisterForm = {
@@ -63,7 +60,7 @@ const RegisterContainer = () => {
           }}
         >
           <img
-            className="h-auto"
+            className="h-screen"
             src="src/assets/background-image.jpg"
             alt="Background"
             style={{
@@ -73,7 +70,7 @@ const RegisterContainer = () => {
             }}
           />
 
-          <div className="absolute flex flex-row space-y-[100px] space-x-[520px]">
+          <div className="absolute flex flex-row space-y-[30px] space-x-[520px]">
             <LoginLogo sx={{ ml: { sm: 4 }, mt: 3 }} />
             <form
               className="absolute bg-black bg-opacity-80 pl-16 pr-16 pt-16 pb-40"
@@ -181,12 +178,7 @@ const RegisterContainer = () => {
                 >
                   Sign up
                 </button>
-                <Stack direction={"row"} sx={{ alignItems: "center" }}>
-                  <Checkbox color="default" />
-                  <div className="text-sm text-slate-500">Remember me</div>
 
-                  <div className="text-sm ml-36 text-slate-500">Need help?</div>
-                </Stack>
                 <Stack direction={"row"}>
                   <div className="text-md text-slate-500 mt-10">
                     A member of Netflix?
@@ -195,10 +187,6 @@ const RegisterContainer = () => {
                     <Link to={"/LoginPage"}>Sign in now.</Link>
                   </div>
                 </Stack>
-                <div className="text-sm pb-60 text-slate-500 w-[20rem]">
-                  This page is protected by Google reCAPTCHA to ensure you're
-                  not a bot. Learn more.
-                </div>
               </Stack>
             </form>
           </div>

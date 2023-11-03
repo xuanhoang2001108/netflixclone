@@ -58,12 +58,17 @@ export type Movie = {
   vote_count: number;
   video: boolean;
   vote_average: number;
-  results:  any
+  results: any
 };
-export type Userdata = {
+export type UserRegisterData = {
   email: string;
   password: string;
   name: string;
   confirmPassword: string;
   phoneNumber: string;
+};
+export type UserLoginData = {
+  email: string;
+  password: string;
+
 };

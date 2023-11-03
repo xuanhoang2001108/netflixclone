@@ -24,6 +24,7 @@ import Container from "@mui/material/Container";
 import { MovieDetail } from "./MovieDetail";
 import CloseIcon from "@mui/icons-material/Close";
 import Player from "video.js/dist/types/player";
+import { Navigation } from "swiper/modules";
 interface VideoSliderProps {
   movieGerne: string;
 }
@@ -38,7 +39,9 @@ export function VideoSlider(props: VideoSliderProps) {
   const [showModal, setShowModal] = useState(false);
   const [hoveredMovie, setHoveredMovie] = useState<Movie | null>(null);
   const [muted, setMuted] = useState(true);
+
   const navigate = useNavigate();
+
   const handleMute = useCallback((status: boolean) => {
     if (playerRef.current) {
       playerRef.current.muted(!status);
@@ -89,9 +92,13 @@ export function VideoSlider(props: VideoSliderProps) {
           </Link>
         )}
         <div style={{ flexGrow: 0.845 }} />
-        <div className="translate-x-4 -translate-y-14 "></div>
       </Stack>
-      <Swiper slidesPerView={6} spaceBetween={8}>
+      <Swiper
+        navigation={true}
+        slidesPerView={6}
+        spaceBetween={0}
+        modules={[Navigation]}
+      >
         {!isFetching &&
           data.results.map((movieDetail: Movie) => (
             <SwiperSlide key={movieDetail.id}>
@@ -107,7 +114,7 @@ export function VideoSlider(props: VideoSliderProps) {
                   }}
                 >
                   <img
-                    className="rounded-lg"
+                    className="rounded-lg h-80"
                     src={`${IMG_URL}${movieDetail.poster_path}`}
                   />
 
@@ -187,16 +194,10 @@ export function VideoSlider(props: VideoSliderProps) {
               position: "absolute",
               left: { xs: "4%", md: "60px" },
               zIndex: 10,
-              top: 350
+              top: 350,
             }}
           >
-            <Stack
-              direction={{ xs: "column", sm: "row" }}
-              spacing={2}
-              sx={{
-            
-              }}
-            >
+            <Stack direction={{ xs: "column", sm: "row" }} spacing={2} sx={{}}>
               <PlayButton size="large" />
               <NetflixIconButton size="large">
                 <AddIcon />

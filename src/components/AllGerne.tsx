@@ -25,8 +25,6 @@ import { IMG_URL, MovieDetail } from "./MovieDetail";
 export default function AllGerne() {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
-  // useLazyGetMovieIdQuery(movieId);
-
   const [showContainer, setShowContainer] = useState(false);
   const [hoveredMovie, setHoveredMovie] = useState<Movie | null>(null);
   const playerRef = useRef<Player | null>(null);
