@@ -3,40 +3,40 @@ import VideoJSPlayer from "./VideoJSPlayer";
 import {
   useGetPopularQuery,
   useLazyGetAppendedVideosQuery,
-} from "../store/service/image.service";
+} from "../store/service/video.service";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Movie } from "../types/Movie";
 import Player from "video.js/dist/types/player";
-import { getRandomNumber } from "../utils/common";
-import MaxLineTypography from "./MaxLineTypography";
-import Box from "@mui/material/Box";
 
 export const IMG_URL = "https://image.tmdb.org/t/p/w500/";
 
-export function MovieDetail() {
+interface MovieDetailProps {
+  movieId: number;
+}
+
+export function MovieDetail({ movieId }: MovieDetailProps) {
   const [getVideoDetail, { data: detail }] = useLazyGetAppendedVideosQuery();
   const [video, setVideo] = useState<Movie | null>(null);
   const playerRef = useRef<Player | null>(null);
-
   const handleReady = useCallback((player: Player) => {
     playerRef.current = player;
   }, []);
+
   const { data } = useGetPopularQuery();
-  useEffect(() => {
-    if (data) {
-      const videos = data.results;
-      if (videos.length > 0) {
-        const randomIndex = getRandomNumber(videos.length);
-        setVideo(videos[randomIndex]);
+  useEffect(
+    () => {
+      if (data) {
+        const videos = data.results;
+        setVideo(videos);
       }
-    }
+    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
-  
+    [data]
+  );
 
   useEffect(() => {
     if (video) {
-      getVideoDetail({ id: video.id });
+      getVideoDetail({ id: movieId });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [video]);
@@ -68,23 +68,6 @@ export function MovieDetail() {
                 }}
                 onReady={handleReady}
               />
-              <Box
-                sx={{
-                  backgroundColor: "black",
-                  marginLeft: "60px",
-                  marginRight: "200px",
-                }}
-              >
-                <MaxLineTypography maxLine={2} sx={{ color: "white" }}>
-                  {video.overview}
-                </MaxLineTypography>
-                <div
-                  className="text-2xl font-semibold "
-                  style={{ color: "white" }}
-                >
-                  More Like This
-                </div>
-              </Box>
             </div>
           )}
         </>

@@ -60,7 +60,7 @@ const RegisterContainer = () => {
           }}
         >
           <img
-            className="h-screen"
+            className="h-screen w-screen"
             src="src/assets/background-image.jpg"
             alt="Background"
             style={{
@@ -69,11 +69,12 @@ const RegisterContainer = () => {
               backgroundSize: "cover",
             }}
           />
-
-          <div className="absolute flex flex-row space-y-[30px] space-x-[520px]">
+          <div className="absolute">
             <LoginLogo sx={{ ml: { sm: 4 }, mt: 3 }} />
+          </div>
+          <div className="absolute flex flex-row left-0 right-0 place-content-center top-14">
             <form
-              className="absolute bg-black bg-opacity-80 pl-16 pr-16 pt-16 pb-40"
+              className="absolute bg-black bg-opacity-80"
               onSubmit={handleSubmit(onSubmitHandler)}
               style={{
                 padding: "2rem",
@@ -166,14 +167,14 @@ const RegisterContainer = () => {
                   }}
                 />
                 {errors.confirmPassword && (
-                  <div className="text-sm text-orange-600 mb-10">
+                  <div className="text-sm text-orange-600 ">
                     Your password must contain between 4 and 60 characters.
                   </div>
                 )}
                 <button
                   className="rounded-md bg-red-600 h-12 text-lg font-semibold w-full "
                   type="submit"
-                  style={{ marginTop: 40 }}
+                  style={{ marginTop: 20 }}
                   // onClick={handleToHome}
                 >
                   Sign up
@@ -183,7 +184,7 @@ const RegisterContainer = () => {
                   <div className="text-md text-slate-500 mt-10">
                     A member of Netflix?
                   </div>
-                  <div className="text-md ml-2  mt-10">
+                  <div className="text-md ml-2 mt-10">
                     <Link to={"/LoginPage"}>Sign in now.</Link>
                   </div>
                 </Stack>

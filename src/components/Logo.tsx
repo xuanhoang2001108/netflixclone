@@ -3,11 +3,11 @@ import { Link as RouterLink } from "react-router-dom";
 
 export default function Logo({ sx }: BoxProps) {
   return (
-    <RouterLink to={"/"}>
+    <RouterLink to={"/HomePage"}>
       <Box
         component="img"
         alt="Netflix Logo"
-        src="src/assets/netflix-logo.png"
+        src="/src/assets/netflix-logo.png" 
         width={87}
         height={25}
         sx={{

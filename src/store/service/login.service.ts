@@ -5,20 +5,26 @@ export const loginApi = createApi({
     reducerPath: 'registerApi',
     baseQuery: fetchBaseQuery({ baseUrl: "http://192.168.100.60:61949/api/Account/" }),
     endpoints: (build) => ({
-        logIn: build.mutation<UserLoginData, Omit<UserLoginData, 'id'>>({
+        logIn: build.mutation<UserLoginData, Omit<UserLoginData,'id'>>({
             query(body) {
                 return {
                     url: 'Auth/Login',
                     method: 'POST',
-                    body: JSON.stringify(body),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    
+                    body
+                }
+            },
+        }),
+        logOut: build.mutation<UserLoginData, Omit<UserLoginData, 'id'>>({
+            query(body) {
+                return {
+                    url: 'Auth/Logout',
+                    method: 'POST',
+                    body
                 }
             }
         })
+
     }),
 })
 
-export const { useLogInMutation } = loginApi;
+export const { useLogInMutation, useLogOutMutation } = loginApi;

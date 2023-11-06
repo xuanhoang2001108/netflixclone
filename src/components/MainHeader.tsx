@@ -19,10 +19,8 @@ import NetflixNavigationLink from "./NetflixNavigationLink";
 import { useNavigate } from "react-router-dom";
 import SearchBox from "./SearchBox";
 
-const pages = ["My List", "Movies", "Tv Shows"];
-
-const MainHeader = () => {
-  // const isOffset = useOffSetTop(APP_BAR_HEIGHT);
+export default function MainHeader() {
+  const pages = ["My List", "Movies", "Tv Shows"];
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
@@ -44,9 +42,12 @@ const MainHeader = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
-    navigate("/StartPage");
   };
-
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    console.log("accessToken remove");
+    navigate("/");
+  };
   return (
     <AppBar
       sx={{
@@ -122,11 +123,9 @@ const MainHeader = () => {
           spacing={3}
           sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}
         >
-          {pages.map((page) => (
-            <NetflixNavigationLink to="" variant="subtitle1" key={page}>
-              {page}
-            </NetflixNavigationLink>
-          ))}
+          <NetflixNavigationLink to="/MyListPage" variant="subtitle1">
+            My List
+          </NetflixNavigationLink>
         </Stack>
 
         <Box sx={{ flexGrow: 0, display: "flex", gap: 2 }}>
@@ -156,15 +155,17 @@ const MainHeader = () => {
             open={Boolean(anchorElUser)}
             onClose={handleCloseUserMenu}
           >
-            {["Account", "Logout"].map((setting) => (
-              <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">{setting}</Typography>
+            <div>
+              <MenuItem onClick={handleCloseUserMenu}>
+                <Typography textAlign="center">Account</Typography>
               </MenuItem>
-            ))}
+              <MenuItem onClick={handleLogout}>
+                <Typography textAlign="center">Logout</Typography>
+              </MenuItem>
+            </div>
           </Menu>
         </Box>
       </Toolbar>
     </AppBar>
   );
-};
-export default MainHeader;
+}

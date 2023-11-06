@@ -1,12 +1,11 @@
-import { Box } from "@mui/material";
+import Allgenre from "../components/Allgenre";
 import { MainHeader } from "../components";
-import AllGerne from "../components/AllGerne";
 
 export default function ExploreAllPage() {
   return (
-    <Box sx={{ bgcolor: "black" }}>
+    <>
       <MainHeader />
-      <AllGerne />
-    </Box>
+      <Allgenre />
+    </>
   );
 }

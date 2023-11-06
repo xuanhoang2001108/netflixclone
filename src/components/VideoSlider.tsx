@@ -15,7 +15,7 @@ import {
   useGetNowPlayingQuery,
   useGetPopularQuery,
   useGetTopRatedQuery,
-} from "../store/service/image.service";
+} from "../store/service/video.service";
 import { Movie } from "../types/Movie";
 import { IMG_URL } from "./VideoPlayer";
 import PlayButton from "./PlayButton";
@@ -26,20 +26,20 @@ import CloseIcon from "@mui/icons-material/Close";
 import Player from "video.js/dist/types/player";
 import { Navigation } from "swiper/modules";
 interface VideoSliderProps {
-  movieGerne: string;
+  moviegenre: string;
 }
 
 export function VideoSlider(props: VideoSliderProps) {
   let data;
   let isFetching;
   const playerRef = useRef<Player | null>(null);
-  const { movieGerne } = props;
+  const { moviegenre } = props;
   const [showContainer, setShowContainer] = useState(false);
   const [showContainer2, setShowContainer2] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [hoveredMovie, setHoveredMovie] = useState<Movie | null>(null);
   const [muted, setMuted] = useState(true);
-
+  const [selectedMovieId, setSelectedMovieId] = useState<number | null>(null);
   const navigate = useNavigate();
 
   const handleMute = useCallback((status: boolean) => {
@@ -48,13 +48,13 @@ export function VideoSlider(props: VideoSliderProps) {
       setMuted(!status);
     }
   }, []);
-  if (movieGerne === "Popular Movies") {
+  if (moviegenre === "Popular Movies") {
     ({ data, isFetching } = useGetPopularQuery());
   }
-  if (movieGerne === "Top Rated Movies") {
+  if (moviegenre === "Top Rated Movies") {
     ({ data, isFetching } = useGetTopRatedQuery());
   }
-  if (movieGerne === "Now Playing Movies") {
+  if (moviegenre === "Now Playing Movies") {
     ({ data, isFetching } = useGetNowPlayingQuery());
   }
   if (!data) {
@@ -80,11 +80,11 @@ export function VideoSlider(props: VideoSliderProps) {
             setShowContainer2(true);
           }}
         >
-          {movieGerne}
+          {moviegenre}
         </div>
         {showContainer2 && (
           <Link
-            to={`/${movieGerne}`}
+            to={`/ExploreAllPage/${moviegenre}`}
             style={{ textDecoration: "inherit" }}
             className="font-bold text-lime-300 text-2xl mt-3 mb-3"
           >
@@ -131,7 +131,7 @@ export function VideoSlider(props: VideoSliderProps) {
                             <PlayCircleIcon
                               sx={{ width: 40, height: 40 }}
                               onClick={() => {
-                                navigate("/WatchPage");
+                                navigate(`/WatchPage/${movieDetail.id}`);
                               }}
                             />
                           </NetflixIconButton>
@@ -145,11 +145,15 @@ export function VideoSlider(props: VideoSliderProps) {
                           <NetflixIconButton
                             onClick={() => {
                               setShowModal(true);
+                              setSelectedMovieId(movieDetail.id);
                             }}
                           >
                             <ExpandMoreIcon />
                           </NetflixIconButton>
                         </Stack>
+                        <div className="text-white mt-6">
+                          {movieDetail.original_title}
+                        </div>
                       </div>
                     </div>
                   )}
@@ -158,7 +162,7 @@ export function VideoSlider(props: VideoSliderProps) {
             </SwiperSlide>
           ))}
       </Swiper>
-      {showModal && (
+      {showModal && selectedMovieId !== null && (
         <Stack
           style={{
             position: "fixed",
@@ -170,7 +174,7 @@ export function VideoSlider(props: VideoSliderProps) {
             width: 800,
           }}
         >
-          <MovieDetail />
+          <MovieDetail movieId={selectedMovieId} />
           <Stack
             className="absolute"
             sx={{

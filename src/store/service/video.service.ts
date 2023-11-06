@@ -26,7 +26,7 @@ export const imgApi = createApi({
                 params: { api_key: TMDB_API_KEY },
             }),
         }),
-        getSimilarVideos: build.query<Movie, void>({
+        getSimilarVideos: build.query<MovieDetail, {id:number}>({
             query: (id) => ({
                 url: `/${id}/similar`,
                 params: { api_key: TMDB_API_KEY },
@@ -34,24 +34,16 @@ export const imgApi = createApi({
         }),
         getAppendedVideos: build.query<
             MovieDetail,
-            { id: number }
+            { id: any }
         >({
             query: ({ id }) => ({
                 url: `/${id}`,
                 params: { api_key: TMDB_API_KEY, append_to_response: "videos" },
             }),
         }),
-        getMovieId: build.query<
-        MovieDetail,
-        { id: number }
-    >({
-        query: ({ id }) => ({
-            url: `/${id}/videos`,
-            params: { api_key: TMDB_API_KEY },
-        }),
-    }),
-        
+
+
     })
 })
 
-export const { useGetPopularQuery, useGetTopRatedQuery, useGetNowPlayingQuery, useGetAppendedVideosQuery, useLazyGetAppendedVideosQuery, useGetSimilarVideosQuery,useGetMovieIdQuery, useLazyGetMovieIdQuery} = imgApi
+export const { useLazyGetNowPlayingQuery,useGetPopularQuery, useGetTopRatedQuery, useGetNowPlayingQuery, useGetAppendedVideosQuery, useLazyGetAppendedVideosQuery, useGetSimilarVideosQuery } = imgApi

@@ -34,9 +34,9 @@ class VideoPortalContainer extends React.Component {
             bgcolor: "black",
           }}
         >
-          <VideoSlider movieGerne="Popular Movies" />
-          <VideoSlider movieGerne="Top Rated Movies" />
-          <VideoSlider movieGerne="Now Playing Movies" />
+          <VideoSlider moviegenre="Popular Movies" />
+          <VideoSlider moviegenre="Top Rated Movies" />
+          <VideoSlider moviegenre="Now Playing Movies" />
         </Box>
       </Box>
     );

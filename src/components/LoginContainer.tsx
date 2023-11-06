@@ -7,8 +7,9 @@ import Checkbox from "@mui/material/Checkbox";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useLogInMutation } from "../store/service/login.service";
+import { useEffect } from "react";
 
 type UserSubmitForm = {
   email: string;
@@ -17,6 +18,8 @@ type UserSubmitForm = {
 };
 
 const LoginContainer = () => {
+  const navigate = useNavigate();
+
   const validationSchema = Yup.object().shape({
     email: Yup.string().required("Email is required").email("Email is invalid"),
     password: Yup.string()
@@ -29,19 +32,29 @@ const LoginContainer = () => {
   const {
     register,
     handleSubmit,
-    setValue, 
+    setValue,
     formState: { errors },
   } = useForm<UserSubmitForm>({
     resolver: yupResolver(validationSchema),
   });
-  const [logIn] = useLogInMutation();
+  const [logIn, { data, isError, isSuccess, error }] = useLogInMutation();
+
   const onSubmitHandler = (data: UserSubmitForm) => {
     if (!data.rememberMe) {
       setValue("rememberMe", false);
     }
     logIn(data);
-    console.log({ data });
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      navigate("/HomePage");
+      localStorage.setItem("accessToken", data.accessToken);
+      console.log("accessToken", data.accessToken);
+    } else if (isError) {
+      console.log(error);
+    }
+  }, [onSubmitHandler]);
 
   return (
     <div className="justify-center">
@@ -67,11 +80,12 @@ const LoginContainer = () => {
               backgroundSize: "cover",
             }}
           />
-
-          <div className="absolute flex flex-row ">
+          <div className="absolute">
             <LoginLogo sx={{ ml: { sm: 4 }, mt: 3 }} />
+          </div>
+          <div className="absolute flex flex-row left-0 right-0 place-content-center top-20">
             <form
-              className="absolute bg-black bg-opacity-80 pl-16 pr-16 pt-16 h-auto "
+              className="absolute bg-black bg-opacity-80 "
               onSubmit={handleSubmit(onSubmitHandler)}
               style={{
                 padding: "2rem",
@@ -117,12 +131,18 @@ const LoginContainer = () => {
                     Your password must contain between 4 and 60 characters.
                   </div>
                 )}
+                {isError && (
+                  <div className="text-sm text-orange-600">
+                    <div className="text-sm text-orange-600">
+                      {error?.data.message}
+                    </div>
+                  </div>
+                )}
 
                 <button
                   className="rounded-md bg-red-600 h-12 text-lg font-semibold w-full "
                   type="submit"
                   style={{ marginTop: 40 }}
-                  // onClick={handleToHome}
                 >
                   Sign in
                 </button>
@@ -140,7 +160,7 @@ const LoginContainer = () => {
                     <Link to={"/RegisterPage"}>Sign up now.</Link>
                   </div>
                 </Stack>
-                <div className="text-sm pb-20 text-slate-500 w-[20rem]">
+                <div className="text-sm text-slate-500 w-[20rem]">
                   This page is protected by Google reCAPTCHA to ensure you're
                   not a bot. Learn more.
                 </div>

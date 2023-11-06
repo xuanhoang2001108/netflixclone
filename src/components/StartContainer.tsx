@@ -20,7 +20,7 @@ const StartContainer = () => {
         }}
       >
         <img
-          className="h-auto"
+          className="w-screen h-screen"
           src="src/assets/background-image.jpg"
           alt="Background"
           style={{
@@ -48,7 +48,11 @@ const StartContainer = () => {
                   backgroundColor: "rgba(61, 66, 61, 0.3)",
                 }}
               />
-              <button className="rounded-md bg-red-600 w-44 h-18 text-2xl font-bold"   onClick={handleNavigateToLogin}>
+
+              <button
+                className="rounded-md bg-red-600 w-44 h-18 text-2xl font-bold"
+                onClick={handleNavigateToLogin}
+              >
                 Get Started
               </button>
             </Stack>

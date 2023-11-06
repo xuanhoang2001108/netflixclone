@@ -3,7 +3,7 @@ import VideoJSPlayer from "./VideoJSPlayer";
 import {
   useGetPopularQuery,
   useLazyGetAppendedVideosQuery,
-} from "../store/service/image.service";
+} from "../store/service/video.service";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Movie } from "../types/Movie";
 import Player from "video.js/dist/types/player";
@@ -56,7 +56,7 @@ export function VideoPlayerContainer() {
         width: "100%",
         height: "100%",
         position: "absolute",
-        bgcolor: "black"
+        bgcolor: "black",
       }}
     >
       <Stack

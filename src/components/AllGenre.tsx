@@ -1,9 +1,5 @@
 import { useCallback, useRef, useState } from "react";
-import {
-  useGetNowPlayingQuery,
-  useGetPopularQuery,
-  useGetTopRatedQuery,
-} from "../store/service/image.service";
+
 import { Movie } from "../types/Movie";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
@@ -21,16 +17,22 @@ import CloseIcon from "@mui/icons-material/Close";
 import Player from "video.js/dist/types/player";
 import PlayButton from "./PlayButton";
 import { IMG_URL, MovieDetail } from "./MovieDetail";
+import {
+  useGetPopularQuery,
+  useGetTopRatedQuery,
+  useGetNowPlayingQuery,
+} from "../store/service/video.service";
 
-export default function AllGerne() {
+export default function Allgenre() {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
   const [showContainer, setShowContainer] = useState(false);
   const [hoveredMovie, setHoveredMovie] = useState<Movie | null>(null);
   const playerRef = useRef<Player | null>(null);
   const [muted, setMuted] = useState(false);
-  const { movieGerne } = useParams();
+  const { moviegenre } = useParams();
 
+  const [selectedMovieId, setSelectedMovieId] = useState<number | null>(null);
   const handleMute = useCallback((status: boolean) => {
     if (playerRef.current) {
       playerRef.current.muted(!status);
@@ -38,18 +40,23 @@ export default function AllGerne() {
     }
   }, []);
 
-  const queries = {
-    "Popular Movies": useGetPopularQuery(),
-    "Top Rated Movies": useGetTopRatedQuery(),
-    "Now Playing Movies": useGetNowPlayingQuery(),
-  };
-
-  const queryResult = queries[movieGerne as keyof typeof queries];
-  const { data, isFetching } = queryResult || {};
+  let data;
+  let isFetching;
+  if (moviegenre === "Popular Movies") {
+    ({ data, isFetching } = useGetPopularQuery());
+  } else if (moviegenre === "Top Rated Movies") {
+    ({ data, isFetching } = useGetTopRatedQuery());
+  } else if (moviegenre === "Now Playing Movies") {
+    ({ data, isFetching } = useGetNowPlayingQuery());
+  }
 
   if (!data) {
     return <div>No data</div>;
   }
+
+  const handlePlayClick = (movieId: number) => {
+    setSelectedMovieId(movieId);
+  };
 
   return (
     <Container
@@ -58,9 +65,10 @@ export default function AllGerne() {
         px: { xs: "30px", sm: "60px" },
         pb: 4,
         pt: "150px",
+        bgcolor: "black",
       }}
     >
-      <h2 className="font-bold text-white text-2xl mt-3 mb-3">{movieGerne}</h2>
+      <h2 className="font-bold text-white text-2xl mt-3 mb-3">{moviegenre}</h2>
       <Grid container spacing={2}>
         {!isFetching &&
           data.results.map((movieDetail: Movie) => (
@@ -113,7 +121,8 @@ export default function AllGerne() {
                           <PlayCircleIcon
                             sx={{ width: 40, height: 40 }}
                             onClick={() => {
-                              navigate("/WatchPage");
+                              handlePlayClick(movieDetail.id);
+                              navigate(`/WatchPage/${movieDetail.id}`);
                             }}
                           />
                         </NetflixIconButton>
@@ -127,6 +136,7 @@ export default function AllGerne() {
                         <NetflixIconButton
                           onClick={() => {
                             setShowModal(true);
+                            setSelectedMovieId(movieDetail.id);
                           }}
                         >
                           <ExpandMoreIcon />
@@ -138,7 +148,7 @@ export default function AllGerne() {
               </div>
             </Grid>
           ))}
-        {showModal && (
+        {showModal && selectedMovieId !== null && (
           <Stack
             className="absolute bg-white"
             style={{
@@ -148,7 +158,7 @@ export default function AllGerne() {
               transform: "translate(-50%, -50%)",
             }}
           >
-            <MovieDetail />
+            <MovieDetail movieId={selectedMovieId} />
             <Stack
               className="absolute"
               sx={{

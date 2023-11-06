@@ -1,10 +1,6 @@
 import Button, { ButtonProps } from "@mui/material/Button";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import { useNavigate } from "react-router-dom";
-
 export default function PlayButton({ sx, ...others }: ButtonProps) {
-  const navigate = useNavigate();
-
   return (
     <Button
       color="inherit"
@@ -32,7 +28,6 @@ export default function PlayButton({ sx, ...others }: ButtonProps) {
         bgcolor: "whitesmoke",
         ...sx,
       }}
-      onClick={() => navigate(`/WatchPage`)}
     >
       Play
     </Button>

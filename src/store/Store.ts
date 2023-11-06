@@ -1,15 +1,17 @@
 import { configureStore } from '@reduxjs/toolkit'
 import imgReducer from './Slice/image.slice'
-import { imgApi } from './service/image.service'
+import { imgApi } from './service/video.service'
 import registerReducer from './Slice/regiser.slice'
 import { registerApi } from './service/register.service'
+// import authReducer from './Slice/auth.slice'
 
 export const store = configureStore({
   reducer: {
     img: imgReducer,
     [imgApi.reducerPath]: imgApi.reducer,
     register: registerReducer,
-    [registerApi.reducerPath]: registerApi.reducer
+    [registerApi.reducerPath]: registerApi.reducer,
+    // auth: authReducer
   },
 
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(imgApi.middleware, registerApi.middleware),
