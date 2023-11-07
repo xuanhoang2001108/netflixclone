@@ -23,7 +23,7 @@ import {
   useGetNowPlayingQuery,
 } from "../store/service/video.service";
 
-export default function Allgenre() {
+export default function AllGenre() {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
   const [showContainer, setShowContainer] = useState(false);

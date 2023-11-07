@@ -9,15 +9,9 @@ import palette from "./theme/palette";
 import { store } from "./store/Store";
 import { router } from "./router";
 
-
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
-// const dispatch = useDispatch();
-// const storedToken = localStorage.getItem("userToken");
-// if (storedToken) {
-//   dispatch(setToken(storedToken));
-// }
 root.render(
   <Provider store={store}>
     <React.StrictMode>

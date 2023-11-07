@@ -6,6 +6,11 @@ import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import { VideoPlayer } from "../components/VideoPlayer";
 import MyListPage from "../pages/MyListPage";
+import AdminPage from "../pages/AdminPage";
+import UserPage from "../components/UserPage";
+import RolePage from "../components/RolePage";
+import PolicyPage from "../components/PolicyPage";
+import PermissionSetPage from "../components/PermissionSetPage";
 
 export const router = createBrowserRouter([
   {
@@ -36,5 +41,27 @@ export const router = createBrowserRouter([
   {
     path: "/MyListPage",
     element: <MyListPage />,
+  },
+  {
+    path: "/AdminPage",
+    element: <AdminPage />,
+    children: [
+      {
+        path: "UserPage",
+        element: <UserPage  />,
+      },
+      {
+        path: "Role",
+        element: <RolePage />,
+      },
+      {
+        path: "PolicyPage",
+        element: <PolicyPage />,
+      },
+      {
+        path: "PermissionSetPage",
+        element: <PermissionSetPage />,
+      },
+    ],
   },
 ]);

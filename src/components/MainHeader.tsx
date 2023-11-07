@@ -41,6 +41,7 @@ export default function MainHeader() {
   };
 
   const handleCloseUserMenu = () => {
+    navigate("/Dashboard");
     setAnchorElUser(null);
   };
   const handleLogout = () => {

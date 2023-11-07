@@ -77,3 +77,4 @@ export type UserLoginData = {
 export type Token = {
   accessToken: string
 }
+

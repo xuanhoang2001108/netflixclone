@@ -1,11 +1,12 @@
-import Allgenre from "../components/Allgenre";
 import { MainHeader } from "../components";
+
+import AllGenre from "../components/AllGenre";
 
 export default function ExploreAllPage() {
   return (
     <>
       <MainHeader />
-      <Allgenre />
+      <AllGenre />
     </>
   );
 }
