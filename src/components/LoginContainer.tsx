@@ -38,19 +38,35 @@ const LoginContainer = () => {
     resolver: yupResolver(validationSchema),
   });
   const [logIn, { data, isError, isSuccess, error }] = useLogInMutation();
-
+  useEffect(() => {
+    const savedEmail = localStorage.getItem("email");
+    const savedPassword = localStorage.getItem("password");
+    if (savedEmail) {
+      setValue("email", savedEmail);
+    }
+    if (savedPassword) {
+      setValue("password", savedPassword);
+    }
+  }, [setValue]);
   const onSubmitHandler = (data: UserSubmitForm) => {
-    if (!data.rememberMe) {
-      setValue("rememberMe", false);
+    if (data.rememberMe) {
+      localStorage.setItem("rememberMe", "true");
+      localStorage.setItem("email", data.email);
+      localStorage.setItem("password", data.password);
+    } else {
+      localStorage.removeItem("rememberMe");
+      localStorage.removeItem("email");
+      localStorage.removeItem("password");
     }
     logIn(data);
   };
-
   useEffect(() => {
     if (isSuccess) {
       navigate("/HomePage");
-      localStorage.setItem("accessToken", data.accessToken);
-      console.log("accessToken", data.accessToken);
+      if (data?.accessToken) {
+        localStorage.setItem("accessToken", data.accessToken);
+        console.log("accessToken", data.accessToken);
+      }
     } else if (isError) {
       console.log(error);
     }
@@ -127,15 +143,15 @@ const LoginContainer = () => {
                   }}
                 />
                 {errors.password && (
-                  <div className="text-sm text-orange-600 mb-10">
+                  <div className="text-sm text-orange-600 ">
                     Your password must contain between 4 and 60 characters.
                   </div>
                 )}
                 {isError && (
                   <div className="text-sm text-orange-600">
-                    <div className="text-sm text-orange-600">
-                      {error?.data.message}
-                    </div>
+                    {error instanceof Error
+                      ? error.message
+                      : "Invalid email or password."}
                   </div>
                 )}
 

@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-
 import { MainHeader } from "../components";
 import VideoPortalContainer from "../components/VideoPortalContainer";
 import { Box } from "@mui/material";
@@ -12,7 +11,7 @@ export default function MainLayout() {
     const storedAccessToken = localStorage.getItem("accessToken");
 
     if (!storedAccessToken) {
-      navigate("/");
+      navigate("/LoginPage");
     }
   }, [navigate]);
 

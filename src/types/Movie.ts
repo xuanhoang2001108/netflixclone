@@ -70,5 +70,10 @@ export type UserRegisterData = {
 export type UserLoginData = {
   email: string;
   password: string;
-  accessToken: any
+  rememberMe: boolean;
+  accessToken: string
 };
+
+export type Token = {
+  accessToken: string
+}
