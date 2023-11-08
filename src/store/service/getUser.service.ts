@@ -1,20 +1,19 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
-import { Movie } from "../../types/Movie"
+import { UserData } from "../../types/Movie"
 
 
 export const getUserApi = createApi({
     reducerPath: 'getUserApi',
-    baseQuery: fetchBaseQuery({ baseUrl: 'https://api.themoviedb.org/3/movie' }),
+    baseQuery: fetchBaseQuery({ baseUrl: 'http://192.168.100.60:56367/api/' }),
     endpoints: build => ({
-        getCurrentUser: build.query<Movie, void>({
+        getAllUser: build.query<UserData, void>({
             query: () => ({
-                url: "/popular",
-                params: { },
+                url: "/Account/User",
             }),
         }),
-    
+
 
     })
 })
 
-export const { useLazyGetCurrentUserQuery } = getUserApi
+export const { useGetAllUserQuery } = getUserApi

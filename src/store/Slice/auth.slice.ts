@@ -1,20 +1,19 @@
-// import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit"
 
-// const authSlice = createSlice({
-//     name: 'auth',
-//     initialState: {
-//         token: localStorage.getItem('userToken') || null,
-//     },
-//     reducers: {
-//         setToken: (state, action) => {
-//             state.token = action.payload;
-//         },
-//         clearToken: (state) => {
-//             state.token = null;
-//         },
-//     },
-// });
+interface ImageState {
+    userId: string
+}
 
-// export const { setToken, clearToken } = authSlice.actions;
-// const authReducer = authSlice.reducer
-// export default authReducer;
+const initialState: ImageState = {
+    userId: ''
+}
+
+const userSlice = createSlice({
+    name: 'images',
+    initialState,
+    reducers: {},
+})
+
+const userReducer = userSlice.reducer
+
+export default userReducer;

@@ -78,3 +78,10 @@ export type Token = {
   accessToken: string
 }
 
+export type UserData = {
+  data: any;
+  email: string;
+  phoneNumber: string;
+  userRole: string;
+  id: string
+}
