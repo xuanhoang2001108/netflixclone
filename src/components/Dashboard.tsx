@@ -18,25 +18,24 @@ import Collapse from "@mui/material/Collapse";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import Button from "@mui/material/Button";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import KeyIcon from "@mui/icons-material/Key";
-import { DataGrid } from "@mui/x-data-grid";
+
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import { useNavigate } from "react-router-dom";
 
-const drawerWidth = 240;
-
-const DrawerHeader = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  padding: theme.spacing(0, 1),
-  ...theme.mixins.toolbar,
-  justifyContent: "flex-end",
-}));
-
 export default function PersistentDrawerLeft() {
+  const drawerWidth = 240;
+
+  const DrawerHeader = styled("div")(({ theme }) => ({
+    display: "flex",
+    alignItems: "center",
+    padding: theme.spacing(0, 1),
+    ...theme.mixins.toolbar,
+    justifyContent: "flex-end",
+  }));
+
   const theme = useTheme();
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
@@ -52,95 +51,11 @@ export default function PersistentDrawerLeft() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const VisuallyHiddenInput = styled("input")({
-    clip: "rect(0 0 0 0)",
-    clipPath: "inset(50%)",
-    height: 1,
-    overflow: "hidden",
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    whiteSpace: "nowrap",
-    width: 1,
-  });
-  const columns = [
-    { field: "email", headerName: "Email", width: 200 },
-    { field: "userName", headerName: "Username", width: 200 },
-    { field: "phoneNumber", headerName: "Phone Number", width: 200 },
-    { field: "userRoles", headerName: "User Role", width: 200 },
-  ];
 
-  const rows = [
-    {
-      id: 1,
-      email: "Snow",
-      userName: "Jon",
-      phoneNumber: 35,
-      userRoles: "admin",
-    },
-    // {
-    //   id: 2,
-    //   email: "Lannister",
-    //   userName: "Cersei",
-    //   phoneNumber: 42,
-    //   userRoles: "admin",
-    // },
-    // {
-    //   id: 3,
-    //   email: "Lannister",
-    //   userName: "Jaime",
-    //   phoneNumber: 45,
-    //   userRoles: "admin",
-    // },
-    // {
-    //   id: 4,
-    //   email: "Stark",
-    //   userName: "Arya",
-    //   phoneNumber: 16,
-    //   userRoles: "admin",
-    // },
-    // {
-    //   id: 5,
-    //   email: "Targaryen",
-    //   userName: "Daenerys",
-    //   phoneNumber: null,
-    //   userRoles: "admin",
-    // },
-    // {
-    //   id: 6,
-    //   email: "Melisandre",
-    //   userName: null,
-    //   phoneNumber: 150,
-    //   userRoles: "admin",
-    // },
-    // {
-    //   id: 7,
-    //   email: "Clifford",
-    //   userName: "Ferrara",
-    //   phoneNumber: 44,
-    //   userRoles: "admin",
-    // },
-    // {
-    //   id: 8,
-    //   email: "Frances",
-    //   userName: "Rossini",
-    //   phoneNumber: 36,
-    //   userRoles: "admin",
-    // },
-    // {
-    //   id: 9,
-    //   email: "Roxie",
-    //   userName: "Harvey",
-    //   phoneNumber: 65,
-    //   userRoles: "admin",
-    // },
-  ];
   const handleNavigateHome = () => {
     navigate("/AdminPage");
   };
-  const handleNavigate = () => {
-    navigate("/AdminPage/UserPage");
-  };
+
   return (
     <Box sx={{ display: "flex" }}>
       <MuiAppBar position="fixed">
@@ -192,19 +107,39 @@ export default function PersistentDrawerLeft() {
           </ListItemButton>
           <Collapse in={openDropDown} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItemButton sx={{ pl: 4 }} onClick={handleNavigate}>
+              <ListItemButton
+                sx={{ pl: 4 }}
+                onClick={() => {
+                  navigate("/AdminPage/UserPage");
+                }}
+              >
                 <GroupIcon />
                 <ListItemText primary="User" sx={{ marginLeft: "20px" }} />
               </ListItemButton>
-              <ListItemButton sx={{ pl: 4 }}>
+              <ListItemButton
+                sx={{ pl: 4 }}
+                onClick={() => {
+                  navigate("/AdminPage/RolePage");
+                }}
+              >
                 <SettingsIcon />
                 <ListItemText primary="Role" sx={{ marginLeft: "20px" }} />
               </ListItemButton>
-              <ListItemButton sx={{ pl: 4 }}>
+              <ListItemButton
+                sx={{ pl: 4 }}
+                onClick={() => {
+                  navigate("/AdminPage/PolicyPage");
+                }}
+              >
                 <AdminPanelSettingsIcon />
                 <ListItemText primary="Policy" sx={{ marginLeft: "20px" }} />
               </ListItemButton>
-              <ListItemButton sx={{ pl: 4 }}>
+              <ListItemButton
+                sx={{ pl: 4 }}
+                onClick={() => {
+                  navigate("/AdminPage/PermissionSetPage");
+                }}
+              >
                 <KeyIcon />
                 <ListItemText
                   primary="Permission"
@@ -215,41 +150,6 @@ export default function PersistentDrawerLeft() {
           </Collapse>
         </List>
       </Drawer>
-      <div
-        style={{
-          height: 400,
-          width: "100%",
-          marginTop: 100,
-          marginRight: "5%",
-          marginLeft: "5%",
-        }}
-      >
-        <Button
-          component="label"
-          variant="contained"
-          startIcon={<CloudUploadIcon />}
-        >
-          Upload file
-          <VisuallyHiddenInput type="file" />
-        </Button>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          initialState={{
-            pagination: {
-              paginationModel: { page: 0, pageSize: 5 },
-            },
-          }}
-          pageSizeOptions={[5, 10]}
-          checkboxSelection
-          sx={{
-            "& .MuiDataGrid-columnHeader, & .MuiDataGrid-cell, & .MuiTablePagination-root, & .MuiTablePagination-item":
-              {
-                color: "black",
-              },
-          }}
-        />
-      </div>
     </Box>
   );
 }
