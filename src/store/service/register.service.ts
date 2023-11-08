@@ -15,6 +15,16 @@ export const registerApi = createApi({
                 }
             }
         }),
+        deleteAccount: build.mutation<{}, Omit<{}, 'id'>>({
+            query(id) {
+                return {
+                    url: `user/${id}`,
+                    method: 'DELETE',
+
+
+                }
+            }
+        }),
 
     }),
 

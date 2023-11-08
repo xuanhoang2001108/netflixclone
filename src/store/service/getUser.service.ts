@@ -12,8 +12,12 @@ export const getUserApi = createApi({
             }),
         }),
 
-
+        getRole: build.query<UserData, void>({
+            query: (roleIds) => ({
+                url: `/Account/Role/${roleIds}`,
+            }),
+        }),
     })
 })
 
-export const { useGetAllUserQuery } = getUserApi
+export const { useGetAllUserQuery, useGetRoleQuery } = getUserApi

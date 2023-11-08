@@ -2,7 +2,7 @@ import Button from "@mui/material/Button";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { styled } from "@mui/material/styles";
 import { DataGrid } from "@mui/x-data-grid";
-import React from "react";
+import React, { useState } from "react";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
@@ -13,13 +13,18 @@ import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import Box from "@mui/material/Box";
 import { useGetAllUserQuery } from "../store/service/getUser.service";
+import TextField from "@mui/material/TextField";
+import IconButton from "@mui/material/IconButton";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 interface UserData {
   email: string;
   userName: string;
   phoneNumber: number;
-  userRoles: string;
-  id: string
+  roleIds: string;
+  id: string;
 }
+
 export default function UserPage() {
   const [selectedIndex, setSelectedIndex] = React.useState(1);
   const [open, setOpen] = React.useState(false);
@@ -43,14 +48,37 @@ export default function UserPage() {
     { field: "userName", headerName: "Username", width: 200 },
     { field: "phoneNumber", headerName: "Phone Number", width: 200 },
     { field: "userRoles", headerName: "User Role", width: 200 },
+    {
+      field: "edit",
+      headerName: "",
+      width: 20,
+      renderCell: () => (
+        <IconButton color="primary">
+          <EditIcon />
+        </IconButton>
+      ),
+    },
+    {
+      field: "delete",
+      headerName: "",
+      width: 20,
+      renderCell: () => (
+        <IconButton color="primary">
+          <DeleteIcon />
+        </IconButton>
+      ),
+    },
   ];
-const rows = usersData ? usersData.data.map((user: UserData) => ({
-  id: user.id,
-  email: user.email,
-  userName: user.userName,
-  phoneNumber: user.phoneNumber,
-  
-})) : [];
+
+  const rows = usersData
+    ? usersData.data.map((user: UserData) => ({
+        id: user.id,
+        email: user.email,
+        userName: user.userName,
+        phoneNumber: user.phoneNumber,
+        userRoles: user.roleIds,
+      }))
+    : [];
 
   const options = [
     "Export to Excel(All found)",
@@ -79,10 +107,26 @@ const rows = usersData ? usersData.data.map((user: UserData) => ({
 
     setOpen(false);
   };
+  const [searchQuery, setSearchQuery] = useState("");
 
+  const handleSearchInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setSearchQuery(event.target.value);
+  };
+  const filteredRows = rows.filter((row: UserData) => {
+    const rowData = Object.values(row).join(" ").toLowerCase();
+    return rowData.includes(searchQuery.toLowerCase());
+  });
   return (
-    <div className="mt-24 ml-80 mr-20  space-x-1">
-      <Box sx={{ flexDirection: "row", marginBottom: 2 }}>
+    <Box sx={{ marginLeft: "20%", marginRight: "10%", marginTop: 10 }}>
+      <Box
+        sx={{
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <Button variant="contained">CREATE NEW USER</Button>
         <ButtonGroup
           variant="contained"
@@ -146,9 +190,19 @@ const rows = usersData ? usersData.data.map((user: UserData) => ({
           Upload file
           <VisuallyHiddenInput type="file" />
         </Button>
+        <TextField
+          label="Search"
+          variant="outlined"
+          value={searchQuery}
+          onChange={handleSearchInputChange}
+          sx={{ marginLeft: 1 }}
+          InputProps={{
+            style: { color: "black" },
+          }}
+        />
       </Box>
       <DataGrid
-        rows={rows}
+        rows={filteredRows}
         columns={columns}
         initialState={{
           pagination: {
@@ -164,6 +218,6 @@ const rows = usersData ? usersData.data.map((user: UserData) => ({
             },
         }}
       />
-    </div>
+    </Box>
   );
 }
