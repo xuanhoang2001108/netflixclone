@@ -54,35 +54,34 @@ export default function CreateUser() {
   };
 
   return (
-    <Box
-      sx={{
-        marginLeft: "17%",
-        marginRight: "10%",
-        marginTop: 10,
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
+    <Box sx={{ marginLeft: "20%", marginRight: "10%", marginTop: 10 }}>
       <Typography variant="h5">User Form</Typography>
 
       <form className="  mr-20" onSubmit={handleSubmit(onSubmitHandler)}>
         <Button
           className="rounded-md  "
           type="submit"
-          style={{ marginTop: 20 }}
+          style={{ marginTop: 20, marginBottom: 4 }}
           variant="contained"
         >
           CREATE
         </Button>
         <Button
           className="rounded-md  "
-          style={{ marginTop: 20, marginLeft: 2 }}
+          style={{ marginTop: 20, marginLeft: 4, marginBottom: 4 }}
           variant="contained"
           onClick={() => navigate("/AdminPage/UserPage")}
         >
           CANCEL
         </Button>
-        <Stack direction={"column"} spacing={1}>
+        <Stack
+          direction={"column"}
+          spacing={1}
+          style={{
+            border: "1px solid #000000",
+            borderRadius: "8px",
+          }}
+        >
           <TextField
             label="Email"
             type="text"

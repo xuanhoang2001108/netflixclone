@@ -69,7 +69,7 @@ export default function UserPage() {
       sortable: false,
       renderCell: () => (
         <IconButton color="primary">
-          <EditIcon />
+          <EditIcon onClick={() => navigate("/AdminPage/UserPage/EditUser")} />
         </IconButton>
       ),
     },
@@ -97,7 +97,7 @@ export default function UserPage() {
         userName: user.userName,
         phoneNumber: user.phoneNumber,
         userRoles: user.roleIds,
-      }))
+      })) 
     : [];
 
   const options = [
@@ -123,7 +123,7 @@ export default function UserPage() {
       console.error(error);
       toast.error("Error deleting user");
     } finally {
-      setDeleteUserId(null); // Close the confirmation dialog
+      setDeleteUserId(null);
     }
   };
   const handleDeleteConfirmation = (id: any) => {
@@ -257,6 +257,7 @@ export default function UserPage() {
             <DataGrid
               rows={filteredRows}
               columns={columns}
+            
               initialState={{
                 pagination: {
                   paginationModel: { page: 0, pageSize: 5 },
