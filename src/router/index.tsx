@@ -11,6 +11,7 @@ import UserPage from "../components/UserPage";
 import RolePage from "../components/RolePage";
 import PolicyPage from "../components/PolicyPage";
 import PermissionSetPage from "../components/PermissionSetPage";
+import CreateUser from "../components/CreateUser";
 
 export const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ export const router = createBrowserRouter([
       {
         path: "UserPage",
         element: <UserPage />,
+        children: [{
+          path: "CreateUser",
+          element: <CreateUser/>
+        }]
       },
       {
         path: "RolePage",

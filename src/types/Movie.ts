@@ -63,7 +63,6 @@ export type Movie = {
 export type UserRegisterData = {
   email: string;
   password: string;
-  name: string;
   confirmPassword: string;
   phoneNumber: string;
 };
@@ -79,9 +78,20 @@ export type Token = {
 }
 
 export type UserData = {
+
   data: any;
   email: string;
   phoneNumber: string;
   userRole: string;
   id: string
 }
+interface RoleData {
+  data: any;
+  id: string;
+  name: string;
+  permissionSetIds: string[];
+  userIds: string[];
+  length: number
+}
+
+export default RoleData; 

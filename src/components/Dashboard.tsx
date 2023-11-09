@@ -38,8 +38,8 @@ export default function PersistentDrawerLeft() {
 
   const theme = useTheme();
   const navigate = useNavigate();
-  const [open, setOpen] = React.useState(false);
-  const [openDropDown, setOpenDropDown] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
+  const [openDropDown, setOpenDropDown] = React.useState(true);
 
   const handleClick = () => {
     setOpenDropDown(!openDropDown);

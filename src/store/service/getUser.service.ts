@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
-import { UserData } from "../../types/Movie"
+import RoleData, { UserData } from "../../types/Movie"
+
 
 
 export const getUserApi = createApi({
@@ -12,9 +13,9 @@ export const getUserApi = createApi({
             }),
         }),
 
-        getRole: build.query<UserData, void>({
-            query: (roleIds) => ({
-                url: `/Account/Role/${roleIds}`,
+        getRole: build.query<RoleData, void>({
+            query: () => ({
+                url: `/Account/Role`,
             }),
         }),
     })

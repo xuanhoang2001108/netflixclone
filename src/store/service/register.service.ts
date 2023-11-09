@@ -20,8 +20,6 @@ export const registerApi = createApi({
                 return {
                     url: `user/${id}`,
                     method: 'DELETE',
-
-
                 }
             }
         }),
@@ -30,4 +28,4 @@ export const registerApi = createApi({
 
 })
 
-export const { useAddAccountMutation } = registerApi 
+export const { useAddAccountMutation, useDeleteAccountMutation } = registerApi 

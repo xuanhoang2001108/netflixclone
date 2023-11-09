@@ -3,6 +3,8 @@ import imgReducer from './Slice/image.slice'
 import { imgApi } from './service/video.service'
 import userReducer from './Slice/auth.slice'
 import { getUserApi } from './service/getUser.service'
+import { registerApi } from './service/register.service'
+import registerReducer from './Slice/register.slice'
 
 
 export const store = configureStore({
@@ -11,10 +13,12 @@ export const store = configureStore({
     [imgApi.reducerPath]: imgApi.reducer,
     user: userReducer,
     [getUserApi.reducerPath]: getUserApi.reducer,
+    register: registerReducer,
+    [registerApi.reducerPath]: registerApi.reducer,
     // auth: authReducer
   },
 
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(imgApi.middleware, getUserApi.middleware),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(imgApi.middleware, getUserApi.middleware, registerApi.middleware),
 
 })
 
