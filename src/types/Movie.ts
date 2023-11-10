@@ -88,10 +88,18 @@ export type UserData = {
 interface RoleData {
   data: any;
   id: string;
-  name: string;
+  userName: string;
   permissionSetIds: string[];
   userIds: string[];
   length: number
 }
 
-export default RoleData; 
+export default RoleData;
+
+export type ViewUserData = {
+  userName: string
+  roleIds: []
+  email: string;
+  phoneNumber: string;
+  id: string
+}

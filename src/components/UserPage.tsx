@@ -25,7 +25,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import Dialog from "@mui/material/Dialog";
 import { Typography } from "@mui/material";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 
 interface UserData {
   email: string;
@@ -67,9 +67,15 @@ export default function UserPage() {
       width: 20,
       disableColumnMenu: true,
       sortable: false,
-      renderCell: () => (
-        <IconButton color="primary">
-          <EditIcon onClick={() => navigate("/AdminPage/UserPage/EditUser")} />
+      renderCell: (params: any) => (
+        <IconButton
+          color="primary"
+          onClick={(event) => {
+            navigate(`/AdminPage/UserPage/EditUser/${params.id}`);
+            event.stopPropagation();
+          }}
+        >
+          <EditIcon />
         </IconButton>
       ),
     },
@@ -82,7 +88,10 @@ export default function UserPage() {
       renderCell: (params: any) => (
         <IconButton
           color="primary"
-          onClick={() => handleDeleteConfirmation(params.id)}
+          onClick={(event) => {
+            handleDeleteConfirmation(params.id);
+            event.stopPropagation();
+          }}
         >
           <DeleteIcon />
         </IconButton>
@@ -97,7 +106,7 @@ export default function UserPage() {
         userName: user.userName,
         phoneNumber: user.phoneNumber,
         userRoles: user.roleIds,
-      })) 
+      }))
     : [];
 
   const options = [
@@ -257,7 +266,6 @@ export default function UserPage() {
             <DataGrid
               rows={filteredRows}
               columns={columns}
-            
               initialState={{
                 pagination: {
                   paginationModel: { page: 0, pageSize: 5 },
@@ -270,6 +278,9 @@ export default function UserPage() {
                   {
                     color: "black",
                   },
+              }}
+              onRowClick={(params: any) => {
+                navigate(`/AdminPage/UserPage/ViewUser/${params.id}`);
               }}
             />
           </>

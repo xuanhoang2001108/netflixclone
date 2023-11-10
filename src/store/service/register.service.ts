@@ -23,9 +23,15 @@ export const registerApi = createApi({
                 }
             }
         }),
+        editPhoneNumber: build.mutation<{}, { id: string; phoneNumber: string }>({
+            query: ({ id, phoneNumber }) => ({
+                url: `User/UpdatePhoneNumber?phoneNumber=${phoneNumber}&id=${id}`,
+                method: 'PUT',
+            }),
+        }),
 
     }),
 
 })
 
-export const { useAddAccountMutation, useDeleteAccountMutation } = registerApi 
+export const { useAddAccountMutation, useDeleteAccountMutation, useEditPhoneNumberMutation } = registerApi 
