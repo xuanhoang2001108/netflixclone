@@ -41,14 +41,13 @@ function RolePage() {
                 marginBottom: 2,
                 marginLeft: 2,
               }}
-              onMouseEnter={() => console.log(role)}
               key={role.id}
             >
               <Box sx={{ display: "flex", flexDirection: "column" }}>
                 <Typography variant="h5">{role.name}</Typography>
                 <hr></hr>
                 <Typography variant="h6">
-                  users {role.permissionSetIds.length}
+                  permissionssets {role.permissionSetIds.length}
                 </Typography>
               </Box>
             </Box>
