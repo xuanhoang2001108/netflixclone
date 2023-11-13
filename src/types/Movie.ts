@@ -78,12 +78,13 @@ export type Token = {
 }
 
 export type UserData = {
-
-  data: any;
+  userName: string
+  roleIds: string
   email: string;
   phoneNumber: string;
-  userRole: string;
   id: string
+  data: any;
+  userRole: string;
 }
 interface RoleData {
   data: any;
@@ -92,13 +93,14 @@ interface RoleData {
   permissionSetIds: string[];
   userIds: string[];
   length: number
+  name: string;
 }
 
 export default RoleData;
 
 export type ViewUserData = {
   userName: string
-  roleIds: []
+  roleIds: string
   email: string;
   phoneNumber: string;
   id: string

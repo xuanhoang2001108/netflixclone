@@ -12,7 +12,10 @@ import Popper from "@mui/material/Popper";
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import Box from "@mui/material/Box";
-import { useGetAllUserQuery } from "../store/service/getUser.service";
+import {
+  useGetAllUserQuery,
+  useGetRoleQuery,
+} from "../store/service/getUser.service";
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
@@ -44,6 +47,8 @@ export default function UserPage() {
   const [deleteUserId, setDeleteUserId] = React.useState<string | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const { data: roleData } = useGetRoleQuery();
+
   const isParentRoute = location.pathname === "/AdminPage/UserPage";
   const VisuallyHiddenInput = styled("input")({
     clip: "rect(0 0 0 0)",
@@ -56,11 +61,16 @@ export default function UserPage() {
     whiteSpace: "nowrap",
     width: 1,
   });
+
   const columns = [
     { field: "email", headerName: "Email", width: 200 },
     { field: "userName", headerName: "Username", width: 200 },
     { field: "phoneNumber", headerName: "Phone Number", width: 200 },
-    { field: "userRoles", headerName: "User Role", width: 200 },
+    {
+      field: "roleNames",
+      headerName: "User Role",
+      width: 200,
+    },
     {
       field: "edit",
       headerName: "",
@@ -98,15 +108,23 @@ export default function UserPage() {
       ),
     },
   ];
-
   const rows = usersData
-    ? usersData.data.map((user: UserData) => ({
-        id: user.id,
-        email: user.email,
-        userName: user.userName,
-        phoneNumber: user.phoneNumber,
-        userRoles: user.roleIds,
-      }))
+    ? usersData.data.map((user: UserData) => {
+        const userRoles = roleData?.data.filter((r: any) =>
+          r.userIds.includes(user.id)
+        );
+        const roleNames = userRoles
+          ? userRoles.map((role: any) => role.name)
+          : [];
+
+        return {
+          id: user.id,
+          email: user.email,
+          userName: user.userName,
+          phoneNumber: user.phoneNumber,
+          roleNames: roleNames.join(", "),
+        };
+      })
     : [];
 
   const options = [
