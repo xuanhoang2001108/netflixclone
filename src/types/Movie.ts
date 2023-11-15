@@ -65,6 +65,7 @@ export type UserRegisterData = {
   password: string;
   confirmPassword: string;
   phoneNumber: string;
+  roleIds: string[];
 };
 export type UserLoginData = {
   email: string;
@@ -95,6 +96,24 @@ interface RoleData {
   length: number
   name: string;
 }
+export interface PermissionData {
+  id: string;
+  name: string;
+  description: string;
+  sort: string;
+  permissionIdList: [];
+  roleIdList: [];
+  data: any;
+}
+export interface PermissionSetData {
+
+  name: string,
+  description: string,
+  sort: 0,
+  permissionIdList: [string],
+  roleIdList: [string]
+}
+
 
 export default RoleData;
 

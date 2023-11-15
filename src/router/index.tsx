@@ -14,6 +14,9 @@ import PermissionSetPage from "../components/PermissionSetPage";
 import CreateUser from "../components/CreateUser";
 import EditUser from "../components/EditUser";
 import ViewUser from "../components/ViewUser";
+import CreateRole from "../components/CreateRole";
+import EditRole from "../components/EditRole";
+import ViewRole from "../components/ViewRole";
 
 export const router = createBrowserRouter([
   {
@@ -64,6 +67,14 @@ export const router = createBrowserRouter([
       {
         path: "RolePage",
         element: <RolePage />,
+        children: [
+          {
+            path: "CreateRole",
+            element: <CreateRole />,
+          },
+          { path: "EditRole/:roleId", element: <EditRole/> },
+          { path: "ViewRole/:roleId", element: <ViewRole /> },
+        ],
       },
       {
         path: "PolicyPage",

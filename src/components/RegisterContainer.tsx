@@ -15,7 +15,7 @@ type UserSubmitRegisterForm = {
   name: string;
   confirmPassword: string;
   phoneNumber: string;
-};
+  };
 
 const RegisterContainer = () => {
   const [registerAccount] = useAddAccountMutation();

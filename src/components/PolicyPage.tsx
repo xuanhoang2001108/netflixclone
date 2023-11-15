@@ -1,8 +1,9 @@
 import React from 'react'
+import TabsWrappedLabel from './TabsWrappedLabel'
 
 function Policy() {
   return (
-    <div>Policy</div>
+    <></>
   )
 }
 

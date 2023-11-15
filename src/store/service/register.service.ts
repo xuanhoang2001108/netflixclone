@@ -8,7 +8,7 @@ export const registerApi = createApi({
         addAccount: build.mutation<UserRegisterData, Omit<UserRegisterData, 'id'>>({
             query(body) {
                 return {
-                    url: '/User/Register',
+                    url: '/User',
                     method: 'POST',
                     body,
 

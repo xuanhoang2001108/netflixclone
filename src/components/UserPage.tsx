@@ -33,7 +33,7 @@ import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 interface UserData {
   email: string;
   userName: string;
-  phoneNumber: number;
+  phoneNumber: string;
   roleIds: string;
   id: string;
 }

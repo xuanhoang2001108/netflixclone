@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
-import RoleData, { UserData, ViewUserData } from "../../types/Movie"
+import RoleData, { PermissionData, UserData, ViewUserData } from "../../types/Movie"
 
 
 
@@ -28,8 +28,17 @@ export const getUserApi = createApi({
                 url: `/Account/User/${id}`,
             }),
         }),
-
+        getPermission: build.query<PermissionData, void>({
+            query: () => ({
+                url: `/Account/Permission`,
+            }),
+        }),
+        getPermissionSet: build.query<PermissionData, void>({
+            query: () => ({
+                url: `/Account/PermissionSet`,
+            }),
+        }),
     })
 })
 
-export const { useGetAllUserQuery, useGetRoleQuery, useGetUserByIdQuery, useGetRoleNameQuery} = getUserApi
+export const { useGetAllUserQuery, useGetRoleQuery, useGetUserByIdQuery, useGetRoleNameQuery, useGetPermissionQuery, useGetPermissionSetQuery } = getUserApi
