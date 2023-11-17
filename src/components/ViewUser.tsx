@@ -29,7 +29,7 @@ function ViewUser() {
   const { userId } = useParams();
   const navigate = useNavigate();
   const [deleteAccountMutation] = useDeleteAccountMutation();
-  const { data: usersData, refetch } = useGetAllUserQuery();
+  const { refetch } = useGetAllUserQuery();
   const [deleteUserId, setDeleteUserId] = React.useState<string | null>(null);
   const {
     data: userData,

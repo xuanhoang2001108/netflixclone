@@ -106,6 +106,7 @@ export interface PermissionData {
   data: any;
 }
 export interface PermissionSetData {
+  data: any;
 
   name: string,
   description: string,
@@ -134,4 +135,5 @@ export type ViewRoleData = {
   permissionSetIds: [],
   userIds: [],
   data: any
+  sort: number,
 }

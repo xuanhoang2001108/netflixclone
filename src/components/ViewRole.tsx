@@ -1,6 +1,7 @@
 import Box from "@mui/material/Box";
 import {
-  useGetPermissionSetByIdQuery,
+  useGetAllUserQuery,
+  useGetPermissionSetQuery,
   useGetRoleNameQuery,
 } from "../store/service/getUser.service";
 import { useNavigate, useParams } from "react-router-dom";
@@ -10,16 +11,25 @@ import CreateIcon from "@mui/icons-material/Create";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { DataGrid } from "@mui/x-data-grid";
 
-import React from "react";
+import React, { useState } from "react";
 function ViewRole() {
   const { roleId } = useParams();
   const navigate = useNavigate();
   const [value, setValueTab] = React.useState(0);
-
+  const [searchText, setSearchText] = useState("");
+  const [selectedRows, setSelectedRows] = useState([]);
   const handleChange = (_event: any, newValue: any) => {
     setValueTab(newValue);
   };
+  const handleSearchChange = (event: any) => {
+    setSearchText(event.target.value);
+  };
 
+  const handleSelectionModelChange = (selection: any) => {
+    setSelectedRows(selection);
+  };
+  const { data: permissionSetData } = useGetPermissionSetQuery();
+  const { data: usernameHasPermission } = useGetAllUserQuery();
   const {
     data: roleData,
     error,
@@ -38,15 +48,40 @@ function ViewRole() {
     return <Box>User not found</Box>;
   }
   const { name, permissionSetIds, userIds } = roleData;
+  const rowTab0 = permissionSetIds.map((id) => {
+    const matchedPermissionSet = permissionSetData?.data.find(
+      (permissionSet: any) => permissionSet.id === id
+    );
 
-  console.log(roleData)
-  const rowTab0 = [{}];
+    return {
+      id,
+      name: matchedPermissionSet?.name || "",
+      sort: matchedPermissionSet?.sort || 0,
+    };
+  });
 
-  const rowTab1 = [{}];
+  const rowTab1 = userIds.map((id) => {
+    const matchedUsernameHasPermission = usernameHasPermission?.data.find(
+      (UsernameHasPermission: any) => UsernameHasPermission.id === id
+    );
+
+    return {
+      id,
+      userName: matchedUsernameHasPermission?.userName || "",
+    };
+  });
+
+  const filteredRowTab0 = rowTab0.filter((row) =>
+    row.name.toLowerCase().includes(searchText.toLowerCase())
+  );
+
+  const filteredRowTab1 = rowTab1.filter((row) =>
+    row.userName.toLowerCase().includes(searchText.toLowerCase())
+  );
   return (
     <Box sx={{ marginLeft: "20%", marginRight: "10%" }}>
       <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
-        <Typography variant="h3">{name}</Typography>
+        <Typography variant="h3">{roleData.name}</Typography>
         <Box sx={{ display: "flex", flexDirection: "row" }}>
           <Button
             variant="contained"
@@ -84,6 +119,16 @@ function ViewRole() {
         <Tab value={0} label="PERMISSIONSETS"></Tab>
         <Tab value={1} label="USERS" />
       </Tabs>
+      <TextField
+        label="Search"
+        variant="outlined"
+        sx={{ width: "100%" }}
+        InputProps={{
+          style: { color: "black" },
+        }}
+        value={searchText}
+        onChange={handleSearchChange}
+      />
       {value === 0 && (
         <Box>
           <Typography component="div">
@@ -96,16 +141,22 @@ function ViewRole() {
             >
               <Typography variant="h6">
                 <DataGrid
-                  rows={rowTab0}
+                  rows={filteredRowTab0}
                   columns={[
                     {
-                      field: "permissionSetId",
+                      field: "name",
                       headerName: "Name",
+                      width: 200,
+                    },
+                    {
+                      field: "sort",
+                      headerName: "Sort",
                       width: 200,
                     },
                   ]}
                   pageSizeOptions={[5, 10, 100]}
-                  checkboxSelection
+                  onRowSelectionModelChange={handleSelectionModelChange}
+                  rowSelectionModel={selectedRows}
                   sx={{
                     "& .MuiDataGrid-columnHeader, & .MuiDataGrid-cell, & .MuiTablePagination-root, & .MuiTablePagination-item":
                       {
@@ -130,16 +181,17 @@ function ViewRole() {
             >
               <Typography variant="h6">
                 <DataGrid
-                  rows={rowTab1}
+                  rows={filteredRowTab1}
                   columns={[
                     {
-                      field: "userIds",
-                      headerName: "USERS",
-                      width: 200,
+                      field: "userName",
+                      headerName: "Name",
+                      width: 400,
                     },
                   ]}
                   pageSizeOptions={[5, 10, 100]}
-                  checkboxSelection
+                  onRowSelectionModelChange={handleSelectionModelChange}
+                  rowSelectionModel={selectedRows}
                   sx={{
                     "& .MuiDataGrid-columnHeader, & .MuiDataGrid-cell, & .MuiTablePagination-root, & .MuiTablePagination-item":
                       {
