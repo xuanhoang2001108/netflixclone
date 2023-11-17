@@ -60,7 +60,7 @@ export default function TabsWrappedLabel() {
 
     formState: { errors },
   } = useForm<UserSubmitRegisterForm>({
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver(validationSchema) as any,
   });
 
   const onSubmitHandler = async (data: UserSubmitRegisterForm) => {
@@ -209,9 +209,6 @@ export default function TabsWrappedLabel() {
                         .map((row) => row.id);
                       setRoleIds(selectedRoleIds);
                       setRoleNames(selectedRoles);
-
-                      console.log("selectedRoles:", selectedRoles);
-                      console.log("ids:", selectedRoleIds);
                     }}
                     checkboxSelection
                     sx={{

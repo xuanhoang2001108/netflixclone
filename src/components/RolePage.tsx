@@ -66,6 +66,9 @@ function RolePage() {
                       marginBottom: 2,
                       marginLeft: 2,
                     }}
+                    onClick={() =>
+                      navigate(`/AdminPage/RolePage/ViewRole/${role.id}`)
+                    }
                     key={role.id}
                   >
                     <Box sx={{ display: "flex", flexDirection: "column" }}>

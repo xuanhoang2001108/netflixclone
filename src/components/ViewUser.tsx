@@ -122,7 +122,7 @@ function ViewUser() {
           }}
           sx={{ input: { color: "black" } }}
         ></TextField>
-        <Typography variant="h5" sx={{ mb: 2, color: "black" }}>
+        <Typography variant="h5" sx={{ color: "black" }}>
           List of Roles
         </Typography>
         <Table sx={{ border: "1px solid #ddd", borderRadius: 8 }}>
@@ -138,9 +138,8 @@ function ViewUser() {
               roleIds.map((roleId) => (
                 <TableRow key={roleId}>
                   <TableCell sx={{ color: "black" }}>
-                    <Box sx={{ mb: 2 }}>
+                    <Box sx={{ mb: 1 }}>
                       <RoleName roleId={roleId} />
-                      <hr />
                     </Box>
                   </TableCell>
                 </TableRow>

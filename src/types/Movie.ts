@@ -87,7 +87,7 @@ export type UserData = {
   data: any;
   userRole: string;
 }
-interface RoleData {
+export interface RoleData {
   data: any;
   id: string;
   userName: string;
@@ -114,13 +114,24 @@ export interface PermissionSetData {
   roleIdList: [string]
 }
 
-
-export default RoleData;
-
 export type ViewUserData = {
   userName: string
   roleIds: string
   email: string;
   phoneNumber: string;
   id: string
+}
+
+export type AddRoleData = {
+  name: string,
+  permissionSetIds: string[],
+  userIds: string[]
+
+}
+export type ViewRoleData = {
+  id: string,
+  name: string,
+  permissionSetIds: [],
+  userIds: [],
+  data: any
 }

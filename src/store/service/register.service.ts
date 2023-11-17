@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
-import { UserRegisterData } from "../../types/Movie"
+import { AddRoleData, UserRegisterData } from "../../types/Movie"
 
 export const registerApi = createApi({
     reducerPath: 'registerApi',
@@ -9,6 +9,16 @@ export const registerApi = createApi({
             query(body) {
                 return {
                     url: '/User',
+                    method: 'POST',
+                    body,
+
+                }
+            }
+        }),
+        addRole: build.mutation<AddRoleData, Omit<AddRoleData, 'id'>>({
+            query(body) {
+                return {
+                    url: '/Role',
                     method: 'POST',
                     body,
 
@@ -34,4 +44,4 @@ export const registerApi = createApi({
 
 })
 
-export const { useAddAccountMutation, useDeleteAccountMutation, useEditPhoneNumberMutation } = registerApi 
+export const { useAddAccountMutation, useDeleteAccountMutation, useEditPhoneNumberMutation, useAddRoleMutation } = registerApi 
