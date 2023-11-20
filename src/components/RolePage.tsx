@@ -12,6 +12,7 @@ function RolePage() {
   const handleNavigate = () => {
     navigate("/AdminPage/RolePage/CreateRole");
   };
+
   return (
     <>
       <Box

@@ -39,9 +39,27 @@ export const registerApi = createApi({
                 method: 'PUT',
             }),
         }),
+        editRole: build.mutation<{}, { id: string, permissionSetIds: string[], name: string }>({
+            query: ({ id, permissionSetIds, name }) => ({
+                url: `/Role/${id}`,
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id, name, permissionSetIds })
 
+            }),
+        }),
+        deleteRole: build.mutation<{}, Omit<{}, 'id'>>({
+            query(id) {
+                return {
+                    url: `Role/${id}`,
+                    method: 'DELETE',
+                }
+            }
+        }),
     }),
 
 })
 
-export const { useAddAccountMutation, useDeleteAccountMutation, useEditPhoneNumberMutation, useAddRoleMutation } = registerApi 
+export const { useAddAccountMutation,useDeleteRoleMutation, useDeleteAccountMutation, useEditPhoneNumberMutation, useAddRoleMutation, useEditRoleMutation } = registerApi 

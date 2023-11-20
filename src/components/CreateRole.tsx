@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import React from "react";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { useAddRoleMutation } from "../store/service/register.service";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -193,6 +193,7 @@ export default function CreateRole() {
             ))}
           </Box>
         </Box>
+      <ToastContainer/>
       </form>
     </Box>
   );

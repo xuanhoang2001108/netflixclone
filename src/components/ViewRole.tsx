@@ -3,21 +3,37 @@ import {
   useGetAllUserQuery,
   useGetPermissionSetQuery,
   useGetRoleNameQuery,
+  useGetRoleQuery,
 } from "../store/service/getUser.service";
 import { useNavigate, useParams } from "react-router-dom";
 import TextField from "@mui/material/TextField";
-import { Button, Tab, Tabs, Typography } from "@mui/material";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  Tab,
+  Tabs,
+  Typography,
+} from "@mui/material";
 import CreateIcon from "@mui/icons-material/Create";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { DataGrid } from "@mui/x-data-grid";
 
 import React, { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import { useDeleteRoleMutation } from "../store/service/register.service";
 function ViewRole() {
   const { roleId } = useParams();
   const navigate = useNavigate();
   const [value, setValueTab] = React.useState(0);
   const [searchText, setSearchText] = useState("");
   const [selectedRows, setSelectedRows] = useState([]);
+  const [deleteRole, setDeleteRole] = React.useState<string | null>(null);
+  const { refetch: refetchId } = useGetRoleNameQuery(roleId || "");
+  const { refetch } = useGetRoleQuery();
+  const [deleteRoleMutation] = useDeleteRoleMutation();
   const handleChange = (_event: any, newValue: any) => {
     setValueTab(newValue);
   };
@@ -35,6 +51,9 @@ function ViewRole() {
     error,
     isLoading,
   } = useGetRoleNameQuery(roleId || "");
+  React.useEffect(() => {
+    refetchId();
+  }, [roleId]);
 
   if (isLoading) {
     return <Box>Loading...</Box>;
@@ -47,7 +66,27 @@ function ViewRole() {
   if (!roleData) {
     return <Box>User not found</Box>;
   }
-  const { name, permissionSetIds, userIds } = roleData;
+  const handleDeleteConfirmation = (id: any) => {
+    setDeleteRole(id);
+  };
+
+  const handleCancelDelete = () => {
+    setDeleteRole(null);
+  };
+  const handleDelete = async (id: string) => {
+    try {
+      await deleteRoleMutation(id);
+      refetch();
+      toast.success("Role deleted successfully");
+      navigate("/AdminPage/RolePage");
+    } catch (error) {
+      console.error(error);
+      toast.error("Error deleting Role");
+    } finally {
+      setDeleteRole(null);
+    }
+  };
+  const { permissionSetIds, userIds } = roleData;
   const rowTab0 = permissionSetIds.map((id) => {
     const matchedPermissionSet = permissionSetData?.data.find(
       (permissionSet: any) => permissionSet.id === id
@@ -93,10 +132,10 @@ function ViewRole() {
           <Button
             variant="contained"
             sx={{ ml: 2 }}
-            // onClick={(event) => {
-            //   handleDeleteConfirmation(roleId);
-            //   event.stopPropagation();
-            // }}
+            onClick={(event) => {
+              handleDeleteConfirmation(roleId);
+              event.stopPropagation();
+            }}
           >
             <DeleteIcon sx={{ mr: 1 }}></DeleteIcon> DELETE
           </Button>
@@ -105,7 +144,7 @@ function ViewRole() {
       <Typography variant="h5">Overview</Typography>
       <TextField
         id="outlined-read-only-input"
-        defaultValue={name}
+        value={roleData.name}
         InputProps={{
           readOnly: true,
         }}
@@ -204,6 +243,31 @@ function ViewRole() {
           </Typography>
         </Box>
       )}
+      <Dialog
+        open={Boolean(deleteRole)}
+        onClose={handleCancelDelete}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are you sure you want to delete this user?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCancelDelete} color="primary">
+            Cancel
+          </Button>
+          <Button
+            onClick={() => deleteRole && handleDelete(deleteRole)}
+            color="primary"
+            autoFocus
+          >
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <ToastContainer />
     </Box>
   );
 }
