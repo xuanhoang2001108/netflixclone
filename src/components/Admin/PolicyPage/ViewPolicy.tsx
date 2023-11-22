@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import {
-    useGetPermissionQuery,
+  useGetPermissionQuery,
   useGetPermissionSetByIdQuery,
   useGetPermissionSetQuery,
 } from "../../../store/service/getUser.service";
@@ -89,8 +89,8 @@ function ViewPolicy() {
   };
   return (
     <Box>
-      <Typography variant="h3">{name}</Typography>
       <Box sx={{ display: "flex", flexDirection: "row" }}>
+        <Typography variant="h4">{name}</Typography>
         <Button
           variant="contained"
           sx={{ ml: 40 }}
@@ -99,7 +99,7 @@ function ViewPolicy() {
           }
         >
           <CreateIcon sx={{ mr: 1 }}></CreateIcon> EDIT
-        </Button>
+        </Button> 
         <Button
           variant="contained"
           sx={{ ml: 2 }}

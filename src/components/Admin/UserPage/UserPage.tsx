@@ -1,16 +1,6 @@
 import Button from "@mui/material/Button";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import { styled } from "@mui/material/styles";
 import { DataGrid } from "@mui/x-data-grid";
 import React, { useState } from "react";
-import ButtonGroup from "@mui/material/ButtonGroup";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import ClickAwayListener from "@mui/material/ClickAwayListener";
-import Grow from "@mui/material/Grow";
-import Paper from "@mui/material/Paper";
-import Popper from "@mui/material/Popper";
-import MenuItem from "@mui/material/MenuItem";
-import MenuList from "@mui/material/MenuList";
 import Box from "@mui/material/Box";
 import {
   useGetAllUserQuery,
@@ -39,9 +29,6 @@ interface UserData {
 }
 
 export default function UserPage() {
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
-  const [open, setOpen] = React.useState(false);
-  const anchorRef = React.useRef<HTMLDivElement | null>(null);
   const [deleteAccountMutation] = useDeleteAccountMutation();
   const { data: usersData, refetch } = useGetAllUserQuery();
   const [deleteUserId, setDeleteUserId] = React.useState<string | null>(null);
@@ -50,17 +37,6 @@ export default function UserPage() {
   const { data: roleData } = useGetRoleQuery();
 
   const isParentRoute = location.pathname === "/AdminPage/UserPage";
-  const VisuallyHiddenInput = styled("input")({
-    clip: "rect(0 0 0 0)",
-    clipPath: "inset(50%)",
-    height: 1,
-    overflow: "hidden",
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    whiteSpace: "nowrap",
-    width: 1,
-  });
 
   const columns = [
     { field: "email", headerName: "Email", width: 200 },
@@ -127,20 +103,6 @@ export default function UserPage() {
       })
     : [];
 
-  const options = [
-    "Export to Excel(All found)",
-    "Export to Excel(selected)",
-    "Export to CSV(All found)",
-    "Export to CSV(selected)",
-  ];
-
-  const handleMenuItemClick = (
-    _event: React.MouseEvent | MouseEvent | TouchEvent,
-    index: number
-  ) => {
-    setSelectedIndex(index);
-    setOpen(false);
-  };
   const handleDelete = async (id: string) => {
     try {
       await deleteAccountMutation(id);

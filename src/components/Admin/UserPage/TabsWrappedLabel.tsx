@@ -81,6 +81,7 @@ export default function TabsWrappedLabel() {
         <Box
           sx={{
             display: "flex",
+            flexDirection: "row",
             alignItems: "center",
           }}
         >
@@ -88,14 +89,14 @@ export default function TabsWrappedLabel() {
           <Button
             className="rounded-md  "
             type="submit"
-            style={{ marginTop: 20, marginBottom: 4, marginLeft: 20 }}
+            style={{ marginBottom: 4, marginLeft: "50%" }}
             variant="contained"
           >
             CREATE
           </Button>
           <Button
             className="rounded-md  "
-            style={{ marginTop: 20, marginLeft: 4, marginBottom: 4 }}
+            style={{ marginLeft: 4, marginBottom: 4 }}
             variant="contained"
             onClick={() => navigate("/AdminPage/UserPage")}
           >
