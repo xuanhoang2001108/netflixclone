@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
-import { AddRoleData, UserRegisterData } from "../../types/Movie"
+import { AddRoleData, PermissionData, UserRegisterData } from "../../types/Movie"
 
 export const registerApi = createApi({
     reducerPath: 'registerApi',
@@ -19,6 +19,16 @@ export const registerApi = createApi({
             query(body) {
                 return {
                     url: '/Role',
+                    method: 'POST',
+                    body,
+
+                }
+            }
+        }),
+        addPermission: build.mutation<PermissionData, Omit<PermissionData, 'id'>>({
+            query(body) {
+                return {
+                    url: '/Permission',
                     method: 'POST',
                     body,
 
@@ -49,6 +59,29 @@ export const registerApi = createApi({
                 body: JSON.stringify({ id, name, permissionSetIds })
 
             }),
+
+        }),
+        editPermission: build.mutation<{}, { id: string, sort: number, name: string }>({
+            query: ({ id, sort, name }) => ({
+                url: `/Permission/${id}`,
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id, name, sort })
+
+            }),
+        }),
+        editPolicy: build.mutation<{}, { id: string, description: string, name: string, permissionIdList: string[] }>({
+            query: ({ id, description, name, permissionIdList }) => ({
+                url: `/PermissionSet/${id}`,
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id, name, description, permissionIdList })
+
+            }),
         }),
         deleteRole: build.mutation<{}, Omit<{}, 'id'>>({
             query(id) {
@@ -58,8 +91,25 @@ export const registerApi = createApi({
                 }
             }
         }),
+
+        deletePermission: build.mutation<{}, Omit<{}, 'id'>>({
+            query(id) {
+                return {
+                    url: `Permission/${id}`,
+                    method: 'DELETE',
+                }
+            }
+        }),
+        deletePermissionSet: build.mutation<{}, Omit<{}, 'id'>>({
+            query(id) {
+                return {
+                    url: `PermissionSet/${id}`,
+                    method: 'DELETE',
+                }
+            }
+        }),
     }),
 
 })
 
-export const { useAddAccountMutation,useDeleteRoleMutation, useDeleteAccountMutation, useEditPhoneNumberMutation, useAddRoleMutation, useEditRoleMutation } = registerApi 
+export const {useEditPolicyMutation, useDeletePermissionSetMutation, useEditPermissionMutation, useDeletePermissionMutation, useAddPermissionMutation, useAddAccountMutation, useDeleteRoleMutation, useDeleteAccountMutation, useEditPhoneNumberMutation, useAddRoleMutation, useEditRoleMutation } = registerApi 

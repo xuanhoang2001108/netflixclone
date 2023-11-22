@@ -1,5 +1,5 @@
 import { MainHeader } from "../components";
-import Allgenre from "../components/Allgenre";
+
 import MyListBody from "../components/MyListBody";
 
 function MyListPage() {

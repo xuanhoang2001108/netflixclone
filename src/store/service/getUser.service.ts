@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
-import { UserData, RoleData, ViewUserData, PermissionData, ViewRoleData, PermissionSetData } from "../../types/Movie"
+import { UserData, RoleData, ViewUserData, PermissionData, ViewRoleData, PermissionSetData, ViewPermissionData, ViewPermissionSetData } from "../../types/Movie"
 
 
 
@@ -34,17 +34,22 @@ export const getUserApi = createApi({
                 url: `/Account/Permission`,
             }),
         }),
-        getPermissionSet: build.query<PermissionSetData, void>({
-            query: () => ({
-                url: `/Account/PermissionSet`,
+        getPermissionById: build.query<ViewPermissionData, string>({
+            query: (perId) => ({
+                url: `/Account/Permission/${perId}?isDeep=true`,
             }),
         }),
-        getPermissionSetById: build.query<PermissionSetData, void>({
+        getPermissionSetById: build.query<ViewPermissionSetData, string>({
             query: (perId) => ({
-                url: `/Account/PermissionSet/${perId}`,
+                url: `/Account/PermissionSet/${perId}?isDeep=true`,
             }),
-        })
+        }), 
+        getPermissionSet: build.query<PermissionSetData, void>({
+            query: () => ({
+                url: `/Account/PermissionSet?isDeep=true`,
+            }),
+        }),
     })
 })
 
-export const { useGetAllUserQuery, useGetRoleQuery, useGetUserByIdQuery, useGetRoleNameQuery, useGetPermissionQuery, useGetPermissionSetQuery , useGetPermissionSetByIdQuery} = getUserApi
+export const { useGetPermissionByIdQuery, useGetAllUserQuery, useGetRoleQuery, useGetUserByIdQuery, useGetRoleNameQuery, useGetPermissionQuery, useGetPermissionSetQuery, useGetPermissionSetByIdQuery } = getUserApi

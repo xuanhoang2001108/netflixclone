@@ -3,16 +3,24 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useGetRoleQuery } from "../store/service/getUser.service";
 import { Outlet, useNavigate } from "react-router-dom";
+import { TextField } from "@mui/material";
+import { useState } from "react";
 
 function RolePage() {
   const { data: roleData } = useGetRoleQuery();
   const navigate = useNavigate();
-
+  const [searchQuery, setSearchQuery] = useState("");
   const isParentRoute = location.pathname === "/AdminPage/RolePage";
   const handleNavigate = () => {
     navigate("/AdminPage/RolePage/CreateRole");
   };
 
+  const handleSearchInputChange = (event: any) => {
+    setSearchQuery(event.target.value);
+  };
+  const filteredRoles = roleData?.data.filter((role: any) =>
+    role.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
   return (
     <>
       <Box
@@ -45,6 +53,16 @@ function RolePage() {
               <Typography variant="h6" sx={{ mr: 2 }}>
                 {roleData?.data.length} ROLES
               </Typography>
+              <TextField
+                label="Search"
+                variant="outlined"
+                value={searchQuery}
+                onChange={handleSearchInputChange}
+                sx={{ marginLeft: 1, width: "200px" }}
+                InputProps={{
+                  style: { color: "black" },
+                }}
+              />
             </Box>
             <Box
               sx={{
@@ -53,8 +71,8 @@ function RolePage() {
                 flexDirection: "row",
               }}
             >
-              {roleData && roleData.data.length > 0 ? (
-                roleData.data.map((role: any) => (
+              {filteredRoles && filteredRoles.length > 0 ? (
+                filteredRoles.map((role: any) => (
                   <Box
                     sx={{
                       borderRadius: 4,
@@ -87,7 +105,7 @@ function RolePage() {
                   </Box>
                 ))
               ) : (
-                <Typography variant="h5">Loading...</Typography>
+                <Typography variant="h5">No matching roles found.</Typography>
               )}
             </Box>
           </>

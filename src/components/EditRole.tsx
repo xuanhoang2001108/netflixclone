@@ -29,9 +29,10 @@ function EditRole() {
     data: roleData,
     refetch: refetchId,
     isSuccess,
+    error,
+    isLoading,
   } = useGetRoleNameQuery(roleId || "");
   const [editRoleMutation] = useEditRoleMutation();
-  const { data: role, error, isLoading } = useGetRoleNameQuery(roleId || "");
   const [permissionSetName, setPermissionSetName] = React.useState<string[]>(
     []
   );
@@ -216,14 +217,13 @@ function EditRole() {
             key={name}
             name={name}
             onRemove={() => {
-              // Implement the logic to remove the selected permission set here
               setPermissionSetName((prev) =>
                 prev.filter((item) => item !== name)
               );
             }}
           />
         ))}
-      </Box>{" "}
+      </Box>
       <ToastContainer />
     </Box>
   );

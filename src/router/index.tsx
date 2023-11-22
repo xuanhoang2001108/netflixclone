@@ -10,13 +10,20 @@ import AdminPage from "../pages/AdminPage";
 import UserPage from "../components/UserPage";
 import RolePage from "../components/RolePage";
 import PolicyPage from "../components/PolicyPage";
-import PermissionSetPage from "../components/PermissionSetPage";
+
 import CreateUser from "../components/CreateUser";
 import EditUser from "../components/EditUser";
 import ViewUser from "../components/ViewUser";
 import CreateRole from "../components/CreateRole";
 import EditRole from "../components/EditRole";
 import ViewRole from "../components/ViewRole";
+import PermissionPage from "../components/PermissionPage";
+import EditPermission from "../components/EditPermission";
+import ViewPermission from "../components/ViewPermission";
+import CreatePermission from "../components/CreatePermission";
+import CreatePolicy from "../components/CreatePolicy";
+import EditPolicy from "../components/EditPolicy";
+import ViewPolicy from "../components/ViewPolicy";
 
 export const router = createBrowserRouter([
   {
@@ -72,17 +79,33 @@ export const router = createBrowserRouter([
             path: "CreateRole",
             element: <CreateRole />,
           },
-          { path: "EditRole/:roleId", element: <EditRole/> },
+          { path: "EditRole/:roleId", element: <EditRole /> },
           { path: "ViewRole/:roleId", element: <ViewRole /> },
         ],
       },
       {
         path: "PolicyPage",
         element: <PolicyPage />,
+        children: [
+          {
+            path: "CreatePolicy",
+            element: <CreatePolicy />,
+          },
+          { path: "EditPolicy/:permissionSetId", element: <EditPolicy /> },
+          { path: "ViewPolicy/:permissionSetId", element: <ViewPolicy /> },
+        ],
       },
       {
-        path: "PermissionSetPage",
-        element: <PermissionSetPage />,
+        path: "PermissionPage",
+        element: <PermissionPage />,
+        children: [
+          {
+            path: "CreatePermission",
+            element: <CreatePermission />,
+          },
+          { path: "EditPermission/:permissionId", element: <EditPermission /> },
+          { path: "ViewPermission/:permissionId", element: <ViewPermission /> },
+        ],
       },
     ],
   },

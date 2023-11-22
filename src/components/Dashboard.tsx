@@ -137,7 +137,7 @@ export default function PersistentDrawerLeft() {
               <ListItemButton
                 sx={{ pl: 4 }}
                 onClick={() => {
-                  navigate("/AdminPage/PermissionSetPage");
+                  navigate("/AdminPage/PermissionPage");
                 }}
               >
                 <KeyIcon />
