@@ -44,7 +44,7 @@ function RolePage() {
                 <Typography sx={{ fontSize: "h3.fontSize" }}>Role</Typography>
                 <Button
                   variant="contained"
-                  sx={{ height: 40, ml:98 }}
+                  sx={{ height: 40, ml: 98 }}
                   onClick={handleNavigate}
                 >
                   CREATE NEW ROLE
@@ -93,7 +93,6 @@ function RolePage() {
                     <Box sx={{ display: "flex", flexDirection: "column" }}>
                       <Typography variant="h5">{role.name}</Typography>
                       <div className="flex flex-row mt-20">
-                        <hr></hr>
                         <div className="bg-purple-600 text-sm text-white rounded-full p-1 ">
                           permissionssets ({role.permissionSetIds.length})
                         </div>

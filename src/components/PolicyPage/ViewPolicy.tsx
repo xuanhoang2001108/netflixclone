@@ -1,8 +1,7 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import {
-  useGetPermissionByIdQuery,
-  useGetPermissionQuery,
+    useGetPermissionQuery,
   useGetPermissionSetByIdQuery,
   useGetPermissionSetQuery,
 } from "../../store/service/getUser.service";

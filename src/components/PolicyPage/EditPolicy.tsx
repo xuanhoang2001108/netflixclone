@@ -149,7 +149,7 @@ function EditPolicy() {
     return <Box>User not found</Box>;
   }
   const { name, description } = permissionSetData;
-
+  console.log(permissionSetData.permissionIdList);
   return (
     <>
       <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}>

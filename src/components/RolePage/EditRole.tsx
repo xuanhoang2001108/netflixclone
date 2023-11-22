@@ -6,7 +6,7 @@ import {
   useGetRoleQuery,
 } from "../../store/service/getUser.service";
 import CancelIcon from "@mui/icons-material/Cancel";
-import React, { useEffect } from "react";
+import React from "react";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import { useNavigate, useParams } from "react-router-dom";
@@ -155,11 +155,11 @@ function EditRole() {
           label="Role Name"
           defaultValue={name}
           {...register("name")}
-          sx={{ input: { color: "black" }, mb: 2, mt:2 }}
+          sx={{ input: { color: "black" }, mb: 2, mt: 2 }}
         ></TextField>
         <Button
           variant="contained"
-          sx={{ ml: 51}}
+          sx={{ ml: 51 }}
           onClick={handleSubmit(onSubmitHandler)}
         >
           <SaveIcon sx={{ mr: 2 }}></SaveIcon> SAVE

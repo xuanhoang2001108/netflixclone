@@ -97,7 +97,13 @@ function PolicyPage() {
                     }
                     key={permission.id}
                   >
-                    <Box sx={{ display: "flex", flexDirection: "column" }}>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "start",
+                      }}
+                    >
                       <Typography variant="h5">{permission.name}</Typography>
                       <div className="flex flex-row mt-20">
                         <hr></hr>
@@ -116,7 +122,7 @@ function PolicyPage() {
             </Box>
           </>
         )}
-      <Outlet />
+        <Outlet />
       </Box>
     </>
   );
