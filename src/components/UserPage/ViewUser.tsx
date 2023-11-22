@@ -4,7 +4,7 @@ import {
   useGetAllUserQuery,
   useGetRoleNameQuery,
   useGetUserByIdQuery,
-} from "../store/service/getUser.service";
+} from "../../store/service/getUser.service";
 import {
   Dialog,
   DialogActions,
@@ -21,7 +21,7 @@ import {
 import Button from "@mui/material/Button";
 import CreateIcon from "@mui/icons-material/Create";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useDeleteAccountMutation } from "../store/service/register.service";
+import { useDeleteAccountMutation } from "../../store/service/register.service";
 import React from "react";
 import { toast } from "react-toastify";
 

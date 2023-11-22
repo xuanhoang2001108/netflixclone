@@ -2,7 +2,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import TextField from "@mui/material/TextField";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
-import { AddPolicyData, ViewPermissionData } from "../types/Movie";
+import { AddPolicyData, ViewPermissionData } from "../../types/Movie";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import SaveIcon from "@mui/icons-material/Save";
@@ -13,12 +13,12 @@ import {
   useGetPermissionQuery,
   useGetPermissionSetByIdQuery,
   useGetPermissionSetQuery,
-} from "../store/service/getUser.service";
+} from "../../store/service/getUser.service";
 import { Typography } from "@mui/material";
 import CancelIcon from "@mui/icons-material/Cancel";
 import React from "react";
 import { toast } from "react-toastify";
-import { useEditPolicyMutation } from "../store/service/register.service";
+import { useEditPolicyMutation } from "../../store/service/register.service";
 
 interface SelectedPermissionSetProps {
   name: string;
@@ -39,8 +39,7 @@ function EditPolicy() {
   const { data: permissionData } = useGetPermissionQuery();
   const {
     data: permissionSetData,
-    refetch: refetchId,
-    isSuccess,
+
     error,
     isLoading,
   } = useGetPermissionSetByIdQuery(permissionSetId || "");
@@ -215,13 +214,13 @@ function EditPolicy() {
           variant="outlined"
           value={searchQuery}
           onChange={handleSearchInputChange}
-          sx={{ marginLeft: 1, width: 400, mr: 43 }}
+          sx={{ marginLeft: 1, width: 400, mr: 50 }}
           InputProps={{
             style: { color: "black" },
           }}
         />
       </Box>
-      <Box sx={{ display: "flex", flexDirection: "row" }}>
+      <Box sx={{ display: "flex", flexDirection: "row", mr: 10 }}>
         <DataGrid
           rows={filteredRows}
           columns={columns}
@@ -252,7 +251,7 @@ function EditPolicy() {
           }}
         />
 
-        <Box sx={{}}>
+        <Box sx={{ ml: 4 }}>
           <Typography variant="h5">
             Selected Permissions ({permissionSetName.length})
           </Typography>

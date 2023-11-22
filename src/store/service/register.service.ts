@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
-import { AddRoleData, PermissionData, UserRegisterData } from "../../types/Movie"
+import { AddPolicyData, AddRoleData, PermissionData, PermissionSetData, UserRegisterData } from "../../types/Movie"
 
 export const registerApi = createApi({
     reducerPath: 'registerApi',
@@ -29,6 +29,16 @@ export const registerApi = createApi({
             query(body) {
                 return {
                     url: '/Permission',
+                    method: 'POST',
+                    body,
+
+                }
+            }
+        }),
+        addPolicy: build.mutation<PermissionData, Omit<AddPolicyData, 'id'>>({
+            query(body) {
+                return {
+                    url: '/PermissionSet',
                     method: 'POST',
                     body,
 
@@ -112,4 +122,4 @@ export const registerApi = createApi({
 
 })
 
-export const {useEditPolicyMutation, useDeletePermissionSetMutation, useEditPermissionMutation, useDeletePermissionMutation, useAddPermissionMutation, useAddAccountMutation, useDeleteRoleMutation, useDeleteAccountMutation, useEditPhoneNumberMutation, useAddRoleMutation, useEditRoleMutation } = registerApi 
+export const { useAddPolicyMutation, useEditPolicyMutation, useDeletePermissionSetMutation, useEditPermissionMutation, useDeletePermissionMutation, useAddPermissionMutation, useAddAccountMutation, useDeleteRoleMutation, useDeleteAccountMutation, useEditPhoneNumberMutation, useAddRoleMutation, useEditRoleMutation } = registerApi 

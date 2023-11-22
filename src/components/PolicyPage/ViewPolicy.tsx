@@ -5,7 +5,7 @@ import {
   useGetPermissionQuery,
   useGetPermissionSetByIdQuery,
   useGetPermissionSetQuery,
-} from "../store/service/getUser.service";
+} from "../../store/service/getUser.service";
 import { useNavigate, useParams } from "react-router-dom";
 
 import CreateIcon from "@mui/icons-material/Create";
@@ -13,7 +13,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Button from "@mui/material/Button";
 import { toast } from "react-toastify";
 import React from "react";
-import { useDeletePermissionSetMutation } from "../store/service/register.service";
+import { useDeletePermissionSetMutation } from "../../store/service/register.service";
 import { DataGrid } from "@mui/x-data-grid";
 import {
   Dialog,
@@ -80,10 +80,10 @@ function ViewPolicy() {
       await deletePermissionSetMutation(id);
       refetch();
       toast.success("Permission deleted successfully");
-      navigate("/AdminPage/PermissionPage");
+      navigate("/AdminPage/PolicyPage");
     } catch (error) {
       console.error(error);
-      toast.error("Error deleting Permission");
+      toast.error("Error deleting Policy");
     } finally {
       setDeletePermissionSet(null);
     }

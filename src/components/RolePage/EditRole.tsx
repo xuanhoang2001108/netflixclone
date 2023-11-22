@@ -4,7 +4,7 @@ import {
   useGetPermissionSetQuery,
   useGetRoleNameQuery,
   useGetRoleQuery,
-} from "../store/service/getUser.service";
+} from "../../store/service/getUser.service";
 import CancelIcon from "@mui/icons-material/Cancel";
 import React, { useEffect } from "react";
 import Typography from "@mui/material/Typography";
@@ -12,11 +12,11 @@ import TextField from "@mui/material/TextField";
 import { useNavigate, useParams } from "react-router-dom";
 import Button from "@mui/material/Button";
 import SaveIcon from "@mui/icons-material/Save";
-import { useEditRoleMutation } from "../store/service/register.service";
+import { useEditRoleMutation } from "../../store/service/register.service";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { AddRoleData } from "../types/Movie";
+import { AddRoleData } from "../../types/Movie";
 import { ToastContainer, toast } from "react-toastify";
 interface SelectedPermissionSetProps {
   name: string;
@@ -83,7 +83,7 @@ function EditRole() {
     </Box>
   );
 
-  const [selectionModel, setSelectionModel] = React.useState<string[]>([]);
+  const [, setSelectionModel] = React.useState<string[]>([]);
 
   React.useEffect(() => {
     setSelectionModel(permissionSetIds);
@@ -155,11 +155,11 @@ function EditRole() {
           label="Role Name"
           defaultValue={name}
           {...register("name")}
-          sx={{ input: { color: "black" }, mb: 2 }}
+          sx={{ input: { color: "black" }, mb: 2, mt:2 }}
         ></TextField>
         <Button
           variant="contained"
-          sx={{ ml: 30 }}
+          sx={{ ml: 51}}
           onClick={handleSubmit(onSubmitHandler)}
         >
           <SaveIcon sx={{ mr: 2 }}></SaveIcon> SAVE
@@ -179,50 +179,52 @@ function EditRole() {
           CANCEL
         </Button>
       </Box>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        pageSizeOptions={[5, 10, 100]}
-        checkboxSelection
-        onRowSelectionModelChange={(selection) => {
-          const selectedPermissionSets = selection
-            .map((selectedIndex) =>
-              rows.find((row: any) => row.id === selectedIndex)
-            )
-            .filter(Boolean)
-            .map((row) => row.name);
-          const selectedPermissionSetIds = selection
-            .map((selectedIndex) =>
-              rows.find((row: any) => row.id === selectedIndex)
-            )
-            .filter(Boolean)
-            .map((row) => row.id);
-          setPermissionSetName(selectedPermissionSets);
-          setPermissionSetIds(selectedPermissionSetIds);
-        }}
-        sx={{
-          "& .MuiDataGrid-columnHeader, & .MuiDataGrid-cell, & .MuiTablePagination-root, & .MuiTablePagination-item":
-            {
-              color: "black",
-            },
-        }}
-      />
-      <Box sx={{ ml: 10 }}>
-        <Typography variant="h5">
-          Selected Permissions ({permissionSetName.length})
-        </Typography>
+      <Box sx={{ display: "flex", flexDirection: "row" }}>
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          pageSizeOptions={[5, 10, 100]}
+          checkboxSelection
+          onRowSelectionModelChange={(selection) => {
+            const selectedPermissionSets = selection
+              .map((selectedIndex) =>
+                rows.find((row: any) => row.id === selectedIndex)
+              )
+              .filter(Boolean)
+              .map((row) => row.name);
+            const selectedPermissionSetIds = selection
+              .map((selectedIndex) =>
+                rows.find((row: any) => row.id === selectedIndex)
+              )
+              .filter(Boolean)
+              .map((row) => row.id);
+            setPermissionSetName(selectedPermissionSets);
+            setPermissionSetIds(selectedPermissionSetIds);
+          }}
+          sx={{
+            "& .MuiDataGrid-columnHeader, & .MuiDataGrid-cell, & .MuiTablePagination-root, & .MuiTablePagination-item":
+              {
+                color: "black",
+              },
+          }}
+        />
+        <Box sx={{ ml: 10 }}>
+          <Typography variant="h5">
+            Selected Permissions ({permissionSetName.length})
+          </Typography>
 
-        {permissionSetName.map((name) => (
-          <SelectedPermissionSet
-            key={name}
-            name={name}
-            onRemove={() => {
-              setPermissionSetName((prev) =>
-                prev.filter((item) => item !== name)
-              );
-            }}
-          />
-        ))}
+          {permissionSetName.map((name) => (
+            <SelectedPermissionSet
+              key={name}
+              name={name}
+              onRemove={() => {
+                setPermissionSetName((prev) =>
+                  prev.filter((item) => item !== name)
+                );
+              }}
+            />
+          ))}
+        </Box>
       </Box>
       <ToastContainer />
     </Box>

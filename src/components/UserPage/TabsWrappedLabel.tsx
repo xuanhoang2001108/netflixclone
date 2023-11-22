@@ -2,7 +2,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
-import { useAddAccountMutation } from "../store/service/register.service";
+import { useAddAccountMutation } from "../../store/service/register.service";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
@@ -12,7 +12,7 @@ import { toast } from "react-toastify";
 import {
   useGetAllUserQuery,
   useGetRoleQuery,
-} from "../store/service/getUser.service";
+} from "../../store/service/getUser.service";
 
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";

@@ -15,12 +15,12 @@ import Box from "@mui/material/Box";
 import {
   useGetAllUserQuery,
   useGetRoleQuery,
-} from "../store/service/getUser.service";
+} from "../../store/service/getUser.service";
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useDeleteAccountMutation } from "../store/service/register.service";
+import { useDeleteAccountMutation } from "../../store/service/register.service";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import DialogContentText from "@mui/material/DialogContentText";
@@ -160,18 +160,7 @@ export default function UserPage() {
   const handleCancelDelete = () => {
     setDeleteUserId(null);
   };
-  const handleToggle = () => {
-    setOpen((prevOpen) => !prevOpen);
-    console.log("data", usersData);
-  };
 
-  const handleClose = (event: React.MouseEvent | MouseEvent | TouchEvent) => {
-    if (anchorRef.current && anchorRef.current.contains(event.target as Node)) {
-      return;
-    }
-
-    setOpen(false);
-  };
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleSearchInputChange = (
@@ -188,14 +177,23 @@ export default function UserPage() {
       <Box sx={{ marginLeft: "20%", marginRight: "10%", marginTop: 10 }}>
         {isParentRoute && (
           <>
-            <Typography sx={{ fontSize: "h3.fontSize" }}>USER</Typography>
             <Box
               sx={{
+                display: "flex",
                 flexDirection: "row",
-                justifyContent: "center",
                 alignItems: "center",
               }}
             >
+              <Typography
+                sx={{
+                  fontSize: "h3.fontSize",
+                  alignItems: "end",
+                  marginRight: 92,
+                }}
+              >
+                USER
+              </Typography>
+
               <Button
                 variant="contained"
                 onClick={() => {
@@ -204,83 +202,18 @@ export default function UserPage() {
               >
                 CREATE NEW USER
               </Button>
-
-              <ButtonGroup
-                variant="contained"
-                ref={anchorRef}
-                aria-label="split button"
-              >
-                <Button sx={{ marginLeft: 1 }}>EXPORT</Button>
-                <Button
-                  size="small"
-                  aria-controls={open ? "split-button-menu" : undefined}
-                  aria-expanded={open ? "true" : undefined}
-                  aria-label="select merge strategy"
-                  aria-haspopup="menu"
-                  onClick={handleToggle}
-                >
-                  <ArrowDropDownIcon />
-                </Button>
-              </ButtonGroup>
-              <Popper
-                sx={{
-                  zIndex: 1,
-                }}
-                open={open}
-                anchorEl={anchorRef.current}
-                role={undefined}
-                transition
-                disablePortal
-              >
-                {({ TransitionProps, placement }) => (
-                  <Grow
-                    {...TransitionProps}
-                    style={{
-                      transformOrigin:
-                        placement === "bottom" ? "center top" : "center bottom",
-                    }}
-                  >
-                    <Paper>
-                      <ClickAwayListener onClickAway={handleClose}>
-                        <MenuList id="split-button-menu" autoFocusItem>
-                          {options.map((option, index) => (
-                            <MenuItem
-                              key={option}
-                              selected={index === selectedIndex}
-                              onClick={(event) =>
-                                handleMenuItemClick(event, index)
-                              }
-                            >
-                              {option}
-                            </MenuItem>
-                          ))}
-                        </MenuList>
-                      </ClickAwayListener>
-                    </Paper>
-                  </Grow>
-                )}
-              </Popper>
-
-              <Button
-                component="label"
-                variant="contained"
-                startIcon={<CloudUploadIcon />}
-                sx={{ marginLeft: 1 }}
-              >
-                Upload file
-                <VisuallyHiddenInput type="file" />
-              </Button>
-              <TextField
-                label="Search"
-                variant="outlined"
-                value={searchQuery}
-                onChange={handleSearchInputChange}
-                sx={{ marginLeft: 1 }}
-                InputProps={{
-                  style: { color: "black" },
-                }}
-              />
             </Box>
+
+            <TextField
+              label="Search"
+              variant="outlined"
+              value={searchQuery}
+              onChange={handleSearchInputChange}
+              sx={{ marginLeft: 1 }}
+              InputProps={{
+                style: { color: "black" },
+              }}
+            />
             <DataGrid
               rows={filteredRows}
               columns={columns}

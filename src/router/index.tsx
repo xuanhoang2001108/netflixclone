@@ -7,23 +7,23 @@ import RegisterPage from "../pages/RegisterPage";
 import { VideoPlayer } from "../components/VideoPlayer";
 import MyListPage from "../pages/MyListPage";
 import AdminPage from "../pages/AdminPage";
-import UserPage from "../components/UserPage";
-import RolePage from "../components/RolePage";
-import PolicyPage from "../components/PolicyPage";
+import UserPage from "../components/UserPage/UserPage";
+import RolePage from "../components/RolePage/RolePage";
+import PolicyPage from "../components/PolicyPage/PolicyPage";
 
-import CreateUser from "../components/CreateUser";
-import EditUser from "../components/EditUser";
-import ViewUser from "../components/ViewUser";
-import CreateRole from "../components/CreateRole";
-import EditRole from "../components/EditRole";
-import ViewRole from "../components/ViewRole";
-import PermissionPage from "../components/PermissionPage";
-import EditPermission from "../components/EditPermission";
-import ViewPermission from "../components/ViewPermission";
-import CreatePermission from "../components/CreatePermission";
-import CreatePolicy from "../components/CreatePolicy";
-import EditPolicy from "../components/EditPolicy";
-import ViewPolicy from "../components/ViewPolicy";
+import CreateUser from "../components/UserPage/CreateUser";
+import EditUser from "../components/UserPage/EditUser";
+import ViewUser from "../components/UserPage/ViewUser";
+import CreateRole from "../components/RolePage/CreateRole";
+import EditRole from "../components/RolePage/EditRole";
+import ViewRole from "../components/RolePage/ViewRole";
+import PermissionPage from "../components/PermissionPage/PermissionPage";
+import EditPermission from "../components/PermissionPage/EditPermission";
+import ViewPermission from "../components/PermissionPage/ViewPermission";
+import CreatePermission from "../components/PermissionPage/CreatePermission";
+import CreatePolicy from "../components/PolicyPage/CreatePolicy";
+import EditPolicy from "../components/PolicyPage/EditPolicy";
+import ViewPolicy from "../components/PolicyPage/ViewPolicy";
 
 export const router = createBrowserRouter([
   {

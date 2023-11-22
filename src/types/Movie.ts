@@ -107,7 +107,7 @@ export interface PermissionSetData {
   description: string,
   sort: 0,
   permissionIdList: [string],
-  roleIdList: [string]
+
 }
 
 export type ViewUserData = {
