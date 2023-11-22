@@ -203,13 +203,12 @@ export default function UserPage() {
                 CREATE NEW USER
               </Button>
             </Box>
-
             <TextField
               label="Search"
               variant="outlined"
               value={searchQuery}
               onChange={handleSearchInputChange}
-              sx={{ marginLeft: 1 }}
+              sx={{ marginLeft: 77, mb: 2, width: 400 }}
               InputProps={{
                 style: { color: "black" },
               }}

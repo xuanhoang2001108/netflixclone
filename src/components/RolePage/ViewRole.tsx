@@ -124,14 +124,14 @@ function ViewRole() {
         <Box sx={{ display: "flex", flexDirection: "row" }}>
           <Button
             variant="contained"
-            sx={{ ml: 40 }}
+            sx={{ ml: 72 }}
             onClick={() => navigate(`/AdminPage/RolePage/EditRole/${roleId}`)}
           >
             <CreateIcon sx={{ mr: 1 }}></CreateIcon> EDIT
           </Button>
           <Button
             variant="contained"
-            sx={{ ml: 2 }}
+            sx={{ ml: 2 }}  
             onClick={(event) => {
               handleDeleteConfirmation(roleId);
               event.stopPropagation();
@@ -193,10 +193,15 @@ function ViewRole() {
                       width: 200,
                     },
                   ]}
+                  initialState={{
+                    pagination: {
+                      paginationModel: { page: 0, pageSize: 5 },
+                    },
+                  }}
                   pageSizeOptions={[5, 10, 100]}
                   onRowSelectionModelChange={handleSelectionModelChange}
                   rowSelectionModel={selectedRows}
-                  sx={{
+                  sx={{ mb: 2,
                     "& .MuiDataGrid-columnHeader, & .MuiDataGrid-cell, & .MuiTablePagination-root, & .MuiTablePagination-item":
                       {
                         color: "black",
@@ -228,6 +233,11 @@ function ViewRole() {
                       width: 400,
                     },
                   ]}
+                  initialState={{
+                    pagination: {
+                      paginationModel: { page: 0, pageSize: 5 },
+                    },
+                  }}
                   pageSizeOptions={[5, 10, 100]}
                   onRowSelectionModelChange={handleSelectionModelChange}
                   rowSelectionModel={selectedRows}

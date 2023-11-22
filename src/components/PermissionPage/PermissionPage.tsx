@@ -147,7 +147,7 @@ function PermissionSetPage() {
               variant="outlined"
               value={searchQuery}
               onChange={handleSearchInputChange}
-              sx={{ marginLeft: 98, mb: 2 }}
+              sx={{ marginLeft: 76, mb: 2, width: 400 }}
               InputProps={{
                 style: { color: "black" },
               }}
@@ -164,6 +164,11 @@ function PermissionSetPage() {
                 <DataGrid
                   rows={filteredRows}
                   columns={columns}
+                  initialState={{
+                    pagination: {
+                      paginationModel: { page: 0, pageSize: 5 },
+                    },
+                  }}
                   pageSizeOptions={[5, 10, 100]}
                   onRowClick={(params) => {
                     navigate(

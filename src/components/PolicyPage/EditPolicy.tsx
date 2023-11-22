@@ -214,7 +214,7 @@ function EditPolicy() {
           variant="outlined"
           value={searchQuery}
           onChange={handleSearchInputChange}
-          sx={{ marginLeft: 1, width: 400, mr: 50 }}
+          sx={{ width: 400, mr: 47 }}
           InputProps={{
             style: { color: "black" },
           }}
@@ -224,6 +224,11 @@ function EditPolicy() {
         <DataGrid
           rows={filteredRows}
           columns={columns}
+          initialState={{
+            pagination: {
+              paginationModel: { page: 0, pageSize: 5 },
+            },
+          }}
           pageSizeOptions={[5, 10, 100]}
           checkboxSelection
           onRowSelectionModelChange={(selection) => {

@@ -194,6 +194,11 @@ export default function TabsWrappedLabel() {
                     rows={rows}
                     columns={columns}
                     pageSizeOptions={[5, 10, 100]}
+                    initialState={{
+                      pagination: {
+                        paginationModel: { page: 0, pageSize: 5 },
+                      },
+                    }}
                     onRowSelectionModelChange={(selection) => {
                       const selectedRoles = selection
                         .map((selectedIndex) =>

@@ -51,15 +51,15 @@ function RolePage() {
                 </Button>
               </Box>
               <TextField
-                label="Search"
-                variant="outlined"
-                value={searchQuery}
-                onChange={handleSearchInputChange}
-                sx={{ marginLeft: 104 }}
-                InputProps={{
-                  style: { color: "black" },
-                }}
-              />
+              label="Search"
+              variant="outlined"
+              value={searchQuery}
+              onChange={handleSearchInputChange}
+              sx={{ marginLeft: 80, mb: 2, width: 400 }}
+              InputProps={{
+                style: { color: "black" },
+              }}
+            />
               <Typography variant="h6" sx={{ mr: 2 }}>
                 {roleData?.data.length} ROLES
               </Typography>

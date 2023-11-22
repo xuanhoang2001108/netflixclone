@@ -121,7 +121,7 @@ function CreatePolicy() {
 
           <Button
             variant="contained"
-            sx={{ ml: 30 }}
+            sx={{ ml: 45 }}
             onClick={handleSubmit(createPolicy)}
           >
             <FileDownloadDoneIcon sx={{ mr: 2 }}></FileDownloadDoneIcon> CREATE
@@ -166,14 +166,14 @@ function CreatePolicy() {
             variant="outlined"
             value={searchQuery}
             onChange={handleSearchInputChange}
-            sx={{ marginLeft: 1, width: 400, mr: 50 }}
+            sx={{width: 400, mr: 47 }}
             InputProps={{
               style: { color: "black" },
             }}
           />
         </Box>
 
-        <Box sx={{ display: "flex", flexDirection: "row" , mr:10}}>
+        <Box sx={{ display: "flex", flexDirection: "row", mr: 10 }}>
           <DataGrid
             rows={filteredRows}
             columns={columns}
@@ -204,11 +204,10 @@ function CreatePolicy() {
             }}
           />
 
-          <Box sx={{ml:4}}>
-            <Typography variant="h5">
+          <Box sx={{ ml: 4 }}>
+          <Typography variant="h5">
               Selected Permissions ({permissionSetName.length})
             </Typography>
-
             {permissionSetName.map((name) => (
               <SelectedPermissionSet
                 key={name}

@@ -103,6 +103,7 @@ export default function CreateRole() {
               style: { color: "black" },
             }}
           />
+
           <Button
             sx={{ marginLeft: "56%", bgcolor: "black", color: "white" }}
             type="submit"
@@ -145,6 +146,11 @@ export default function CreateRole() {
               rows={rows}
               columns={columns}
               pageSizeOptions={[5, 10, 100]}
+              initialState={{
+                pagination: {
+                  paginationModel: { page: 0, pageSize: 5 },
+                },
+              }}
               checkboxSelection
               onRowSelectionModelChange={(selection) => {
                 const selectedPermissionSets = selection
@@ -163,6 +169,7 @@ export default function CreateRole() {
                 setPermissionSetIds(selectedPermissionSetIds);
               }}
               sx={{
+                mb: 2,
                 "& .MuiDataGrid-columnHeader, & .MuiDataGrid-cell, & .MuiTablePagination-root, & .MuiTablePagination-item":
                   {
                     color: "black",
@@ -193,7 +200,7 @@ export default function CreateRole() {
             ))}
           </Box>
         </Box>
-      <ToastContainer/>
+        <ToastContainer />
       </form>
     </Box>
   );

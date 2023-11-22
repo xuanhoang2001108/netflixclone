@@ -60,7 +60,7 @@ function PolicyPage() {
                 variant="outlined"
                 value={searchQuery}
                 onChange={handleSearchInputChange}
-                sx={{ marginLeft: 105 }}
+                sx={{ marginLeft: 81,width: 400 }}
                 InputProps={{
                   style: { color: "black" },
                 }}

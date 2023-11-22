@@ -15,7 +15,6 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-
 } from "@mui/material";
 import CreateIcon from "@mui/icons-material/Create";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -101,7 +100,7 @@ function ViewPermission() {
         <Box sx={{ display: "flex", flexDirection: "row" }}>
           <Button
             variant="contained"
-            sx={{ ml: 40 }}
+            sx={{ ml: 67 }}
             onClick={() =>
               navigate(
                 `/AdminPage/PermissionPage/EditPermission/${permissionId}`
@@ -158,6 +157,11 @@ function ViewPermission() {
                 ),
               },
             ]}
+            initialState={{
+              pagination: {
+                paginationModel: { page: 0, pageSize: 5 },
+              },
+            }}
             pageSizeOptions={[5, 10, 100]}
             sx={{
               "& .MuiDataGrid-columnHeader, & .MuiDataGrid-cell, & .MuiTablePagination-root, & .MuiTablePagination-item":
