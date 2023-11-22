@@ -4,7 +4,7 @@ import {
     useGetPermissionQuery,
   useGetPermissionSetByIdQuery,
   useGetPermissionSetQuery,
-} from "../../store/service/getUser.service";
+} from "../../../store/service/getUser.service";
 import { useNavigate, useParams } from "react-router-dom";
 
 import CreateIcon from "@mui/icons-material/Create";
@@ -12,7 +12,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Button from "@mui/material/Button";
 import { toast } from "react-toastify";
 import React from "react";
-import { useDeletePermissionSetMutation } from "../../store/service/register.service";
+import { useDeletePermissionSetMutation } from "../../../store/service/register.service";
 import { DataGrid } from "@mui/x-data-grid";
 import {
   Dialog,

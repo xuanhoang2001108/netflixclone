@@ -3,11 +3,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
   useGetAllUserQuery,
   useGetUserByIdQuery,
-} from "../../store/service/getUser.service";
+} from "../../../store/service/getUser.service";
 import { TextField, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import SaveIcon from "@mui/icons-material/Save";
-import { useEditPhoneNumberMutation } from "../../store/service/register.service";
+import { useEditPhoneNumberMutation } from "../../../store/service/register.service";
 import { useState } from "react";
 
 function EditUser() {

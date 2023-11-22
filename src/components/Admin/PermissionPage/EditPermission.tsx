@@ -3,9 +3,9 @@ import Box from "@mui/material/Box";
 import {
   useGetPermissionByIdQuery,
   useGetPermissionQuery,
-} from "../../store/service/getUser.service";
+} from "../../../store/service/getUser.service";
 import { useNavigate, useParams } from "react-router-dom";
-import { useEditPermissionMutation } from "../../store/service/register.service";
+import { useEditPermissionMutation } from "../../../store/service/register.service";
 import { ToastContainer, toast } from "react-toastify";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";

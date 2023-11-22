@@ -1,29 +1,26 @@
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { useGetPermissionSetQuery } from "../../store/service/getUser.service";
+import { useGetRoleQuery } from "../../../store/service/getUser.service";
 import { Outlet, useNavigate } from "react-router-dom";
 import { TextField } from "@mui/material";
 import { useState } from "react";
 
-function PolicyPage() {
-  const { data: permissionSetData } = useGetPermissionSetQuery();
+function RolePage() {
+  const { data: roleData } = useGetRoleQuery();
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
-  const isParentRoute = location.pathname === "/AdminPage/PolicyPage";
+  const isParentRoute = location.pathname === "/AdminPage/RolePage";
   const handleNavigate = () => {
-    navigate("/AdminPage/PolicyPage/CreatePolicy");
+    navigate("/AdminPage/RolePage/CreateRole");
   };
 
   const handleSearchInputChange = (event: any) => {
     setSearchQuery(event.target.value);
   };
-
-  const filterPermissionRows = permissionSetData?.data?.filter(
-    (permissionSet: any) =>
-      permissionSet.name.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredRoles = roleData?.data.filter((role: any) =>
+    role.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
-
   return (
     <>
       <Box
@@ -44,29 +41,27 @@ function PolicyPage() {
                   alignItems: "center",
                 }}
               >
-                <Typography sx={{ fontSize: "h3.fontSize" }}>
-                  Policies
-                </Typography>
+                <Typography sx={{ fontSize: "h3.fontSize" }}>Role</Typography>
                 <Button
                   variant="contained"
-                  sx={{ height: 40, ml: 86 }}
+                  sx={{ height: 40, ml: 98 }}
                   onClick={handleNavigate}
                 >
-                  + CREATE NEW POLICY
+                  CREATE NEW ROLE
                 </Button>
               </Box>
               <TextField
-                label="Search"
-                variant="outlined"
-                value={searchQuery}
-                onChange={handleSearchInputChange}
-                sx={{ marginLeft: 81,width: 400 }}
-                InputProps={{
-                  style: { color: "black" },
-                }}
-              />
+              label="Search"
+              variant="outlined"
+              value={searchQuery}
+              onChange={handleSearchInputChange}
+              sx={{ marginLeft: 80, mb: 2, width: 400 }}
+              InputProps={{
+                style: { color: "black" },
+              }}
+            />
               <Typography variant="h6" sx={{ mr: 2 }}>
-                {permissionSetData?.data?.length} Policies
+                {roleData?.data.length} ROLES
               </Typography>
             </Box>
             <Box
@@ -76,8 +71,8 @@ function PolicyPage() {
                 flexDirection: "row",
               }}
             >
-              {filterPermissionRows && filterPermissionRows.length > 0 ? (
-                filterPermissionRows.map((permission: any) => (
+              {filteredRoles && filteredRoles.length > 0 ? (
+                filteredRoles.map((role: any) => (
                   <Box
                     sx={{
                       borderRadius: 4,
@@ -91,41 +86,33 @@ function PolicyPage() {
                       marginLeft: 2,
                     }}
                     onClick={() =>
-                      navigate(
-                        `/AdminPage/PolicyPage/ViewPolicy/${permission.id}`
-                      )
+                      navigate(`/AdminPage/RolePage/ViewRole/${role.id}`)
                     }
-                    key={permission.id}
+                    key={role.id}
                   >
-                    <Box
-                      sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "start",
-                      }}
-                    >
-                      <Typography variant="h5">{permission.name}</Typography>
+                    <Box sx={{ display: "flex", flexDirection: "column" }}>
+                      <Typography variant="h5">{role.name}</Typography>
                       <div className="flex flex-row mt-20">
-                        <hr></hr>
                         <div className="bg-purple-600 text-sm text-white rounded-full p-1 ">
-                          ({permission.permissionIdList.length}) permissions
+                          permissionssets ({role.permissionSetIds.length})
+                        </div>
+                        <div className="ml-2 bg-purple-600 text-sm text-white rounded-full p-1 ">
+                          users ({role.userIds.length})
                         </div>
                       </div>
                     </Box>
                   </Box>
                 ))
               ) : (
-                <Typography variant="h5">
-                  No matching policies found.
-                </Typography>
+                <Typography variant="h5">No matching roles found.</Typography>
               )}
             </Box>
           </>
         )}
-        <Outlet />
       </Box>
+      <Outlet></Outlet>
     </>
   );
 }
 
-export default PolicyPage;
+export default RolePage;

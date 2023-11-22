@@ -1,8 +1,8 @@
 import { Button, TextField, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
-import { useGetPermissionQuery } from "../../store/service/getUser.service";
+import { useGetPermissionQuery } from "../../../store/service/getUser.service";
 import { useNavigate } from "react-router-dom";
-import { useAddPermissionMutation } from "../../store/service/register.service";
+import { useAddPermissionMutation } from "../../../store/service/register.service";
 import { ToastContainer, toast } from "react-toastify";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";

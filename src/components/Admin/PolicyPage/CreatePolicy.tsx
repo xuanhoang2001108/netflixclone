@@ -10,10 +10,10 @@ import { useNavigate } from "react-router-dom";
 import {
   useGetPermissionQuery,
   useGetPermissionSetQuery,
-} from "../../store/service/getUser.service";
+} from "../../../store/service/getUser.service";
 import { Typography } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import { useAddPolicyMutation } from "../../store/service/register.service";
+import { useAddPolicyMutation } from "../../../store/service/register.service";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { toast } from "react-toastify";
 

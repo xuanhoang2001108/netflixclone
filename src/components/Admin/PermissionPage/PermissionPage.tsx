@@ -10,14 +10,14 @@ import {
   Typography,
 } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import { useGetPermissionQuery } from "../../store/service/getUser.service";
+import { useGetPermissionQuery } from "../../../store/service/getUser.service";
 import { Outlet, useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { ToastContainer, toast } from "react-toastify";
 import React, { useState } from "react";
-import { useDeletePermissionMutation } from "../../store/service/register.service";
-import { ViewPermissionData } from "../../types/Movie";
+import { useDeletePermissionMutation } from "../../../store/service/register.service";
+import { ViewPermissionData } from "../../../types/Movie";
 function PermissionSetPage() {
   const { data: permissionData } = useGetPermissionQuery();
   const navigate = useNavigate();

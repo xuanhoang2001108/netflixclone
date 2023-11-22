@@ -15,12 +15,12 @@ import Box from "@mui/material/Box";
 import {
   useGetAllUserQuery,
   useGetRoleQuery,
-} from "../../store/service/getUser.service";
+} from "../../../store/service/getUser.service";
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useDeleteAccountMutation } from "../../store/service/register.service";
+import { useDeleteAccountMutation } from "../../../store/service/register.service";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import DialogContentText from "@mui/material/DialogContentText";

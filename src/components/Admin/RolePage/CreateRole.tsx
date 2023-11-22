@@ -4,11 +4,11 @@ import { DataGrid } from "@mui/x-data-grid";
 import {
   useGetPermissionSetQuery,
   useGetRoleQuery,
-} from "../../store/service/getUser.service";
+} from "../../../store/service/getUser.service";
 import { useNavigate } from "react-router-dom";
 import React from "react";
 import CancelIcon from "@mui/icons-material/Cancel";
-import { useAddRoleMutation } from "../../store/service/register.service";
+import { useAddRoleMutation } from "../../../store/service/register.service";
 import { ToastContainer, toast } from "react-toastify";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";

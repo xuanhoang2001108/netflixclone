@@ -4,7 +4,7 @@ import {
   useGetPermissionSetQuery,
   useGetRoleNameQuery,
   useGetRoleQuery,
-} from "../../store/service/getUser.service";
+} from "../../../store/service/getUser.service";
 import { useNavigate, useParams } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import {
@@ -23,7 +23,7 @@ import { DataGrid } from "@mui/x-data-grid";
 
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import { useDeleteRoleMutation } from "../../store/service/register.service";
+import { useDeleteRoleMutation } from "../../../store/service/register.service";
 function ViewRole() {
   const { roleId } = useParams();
   const navigate = useNavigate();

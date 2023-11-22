@@ -4,7 +4,7 @@ import {
   useGetPermissionByIdQuery,
   useGetPermissionQuery,
   useGetPermissionSetQuery,
-} from "../../store/service/getUser.service";
+} from "../../../store/service/getUser.service";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   Accordion,
@@ -20,7 +20,7 @@ import CreateIcon from "@mui/icons-material/Create";
 import DeleteIcon from "@mui/icons-material/Delete";
 import React from "react";
 import { ToastContainer, toast } from "react-toastify";
-import { useDeletePermissionMutation } from "../../store/service/register.service";
+import { useDeletePermissionMutation } from "../../../store/service/register.service";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { DataGrid } from "@mui/x-data-grid";
 

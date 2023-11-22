@@ -7,23 +7,23 @@ import RegisterPage from "../pages/RegisterPage";
 import { VideoPlayer } from "../components/VideoPlayer";
 import MyListPage from "../pages/MyListPage";
 import AdminPage from "../pages/AdminPage";
-import UserPage from "../components/UserPage/UserPage";
-import RolePage from "../components/RolePage/RolePage";
-import PolicyPage from "../components/PolicyPage/PolicyPage";
+import UserPage from "../components/Admin/UserPage/UserPage";
+import RolePage from "../components/Admin/RolePage/RolePage";
+import PolicyPage from "../components/Admin/PolicyPage/PolicyPage";
 
-import CreateUser from "../components/UserPage/CreateUser";
-import EditUser from "../components/UserPage/EditUser";
-import ViewUser from "../components/UserPage/ViewUser";
-import CreateRole from "../components/RolePage/CreateRole";
-import EditRole from "../components/RolePage/EditRole";
-import ViewRole from "../components/RolePage/ViewRole";
-import PermissionPage from "../components/PermissionPage/PermissionPage";
-import EditPermission from "../components/PermissionPage/EditPermission";
-import ViewPermission from "../components/PermissionPage/ViewPermission";
-import CreatePermission from "../components/PermissionPage/CreatePermission";
-import CreatePolicy from "../components/PolicyPage/CreatePolicy";
-import EditPolicy from "../components/PolicyPage/EditPolicy";
-import ViewPolicy from "../components/PolicyPage/ViewPolicy";
+import CreateUser from "../components/Admin/UserPage/CreateUser";
+import EditUser from "../components/Admin/UserPage/EditUser";
+import ViewUser from "../components/Admin/UserPage/ViewUser";
+import CreateRole from "../components/Admin/RolePage/CreateRole";
+import EditRole from "../components/Admin/RolePage/EditRole";
+import ViewRole from "../components/Admin/RolePage/ViewRole";
+import PermissionPage from "../components/Admin/PermissionPage/PermissionPage";
+import EditPermission from "../components/Admin/PermissionPage/EditPermission";
+import ViewPermission from "../components/Admin/PermissionPage/ViewPermission";
+import CreatePermission from "../components/Admin/PermissionPage/CreatePermission";
+import CreatePolicy from "../components/Admin/PolicyPage/CreatePolicy";
+import EditPolicy from "../components/Admin/PolicyPage/EditPolicy";
+import ViewPolicy from "../components/Admin/PolicyPage/ViewPolicy";
 
 export const router = createBrowserRouter([
   {

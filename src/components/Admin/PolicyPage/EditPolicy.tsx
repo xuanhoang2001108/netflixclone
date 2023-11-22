@@ -2,7 +2,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import TextField from "@mui/material/TextField";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
-import { AddPolicyData, ViewPermissionData } from "../../types/Movie";
+import { AddPolicyData, ViewPermissionData } from "../../../types/Movie";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import SaveIcon from "@mui/icons-material/Save";
@@ -13,12 +13,12 @@ import {
   useGetPermissionQuery,
   useGetPermissionSetByIdQuery,
   useGetPermissionSetQuery,
-} from "../../store/service/getUser.service";
+} from "../../../store/service/getUser.service";
 import { Typography } from "@mui/material";
 import CancelIcon from "@mui/icons-material/Cancel";
 import React from "react";
 import { toast } from "react-toastify";
-import { useEditPolicyMutation } from "../../store/service/register.service";
+import { useEditPolicyMutation } from "../../../store/service/register.service";
 
 interface SelectedPermissionSetProps {
   name: string;

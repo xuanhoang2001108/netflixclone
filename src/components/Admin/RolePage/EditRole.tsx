@@ -4,7 +4,7 @@ import {
   useGetPermissionSetQuery,
   useGetRoleNameQuery,
   useGetRoleQuery,
-} from "../../store/service/getUser.service";
+} from "../../../store/service/getUser.service";
 import CancelIcon from "@mui/icons-material/Cancel";
 import React from "react";
 import Typography from "@mui/material/Typography";
@@ -12,11 +12,11 @@ import TextField from "@mui/material/TextField";
 import { useNavigate, useParams } from "react-router-dom";
 import Button from "@mui/material/Button";
 import SaveIcon from "@mui/icons-material/Save";
-import { useEditRoleMutation } from "../../store/service/register.service";
+import { useEditRoleMutation } from "../../../store/service/register.service";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { AddRoleData } from "../../types/Movie";
+import { AddRoleData } from "../../../types/Movie";
 import { ToastContainer, toast } from "react-toastify";
 interface SelectedPermissionSetProps {
   name: string;
