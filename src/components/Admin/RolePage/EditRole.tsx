@@ -6,7 +6,7 @@ import {
   useGetRoleQuery,
 } from "../../../store/service/getUser.service";
 import CancelIcon from "@mui/icons-material/Cancel";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import { useNavigate, useParams } from "react-router-dom";
@@ -39,7 +39,7 @@ function EditRole() {
   const { refetch } = useGetRoleQuery();
   const navigate = useNavigate();
   const [permissionSetIds, setPermissionSetIds] = React.useState<string[]>([]);
-
+  const [initialSelectedRows, setInitialSelectedRows] = useState<string[]>([]);
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("Role Name is required"),
   });
@@ -79,10 +79,26 @@ function EditRole() {
     >
       <div className="text-white">{name}</div>
 
-      <CancelIcon onClick={onRemove} sx={{ color: "white", ml: 1 }} />
+      <CancelIcon
+        onClick={() => {
+          // Remove from the list of selected permissions
+          onRemove();
+
+          // Update the DataGrid selection
+          const deselectedId = rows.find((row: any) => row.name === name)?.id;
+          const newSelection = initialSelectedRows.filter(
+            (id) => id !== deselectedId
+          );
+
+          setInitialSelectedRows(newSelection);
+
+          // Update the permissionIdList
+          setPermissionSetIds(newSelection);
+        }}
+        sx={{ color: "white", ml: 1 }}
+      />
     </Box>
   );
-
   const [, setSelectionModel] = React.useState<string[]>([]);
 
   React.useEffect(() => {
@@ -93,6 +109,19 @@ function EditRole() {
       refetchId();
     }
   }, [isSuccess]);
+  useEffect(() => {
+    if (roleData) {
+      setInitialSelectedRows(roleData?.permissionSetIds || []);
+
+      const selectedPermissionSets = (roleData.permissionSetIds || [])
+        .map((selectedId) => rows.find((row: any) => row.id === selectedId))
+        .filter(Boolean)
+        .map((row) => row.name);
+      setPermissionSetName(selectedPermissionSets);
+      setPermissionSetIds(roleData.permissionSetIds || []);
+    }
+  }, [roleData]);
+
   if (isLoading) {
     return <Box>Loading...</Box>;
   }
@@ -183,6 +212,12 @@ function EditRole() {
         <DataGrid
           rows={rows}
           columns={columns}
+          initialState={{
+            pagination: {
+              paginationModel: { page: 0, pageSize: 5 },
+            },
+          }}
+          rowSelectionModel={initialSelectedRows}
           pageSizeOptions={[5, 10, 100]}
           checkboxSelection
           onRowSelectionModelChange={(selection) => {
@@ -197,17 +232,20 @@ function EditRole() {
                 rows.find((row: any) => row.id === selectedIndex)
               )
               .filter(Boolean)
-              .map((row) => row.id);
+              .map((row) => row.id.toString());
             setPermissionSetName(selectedPermissionSets);
             setPermissionSetIds(selectedPermissionSetIds);
+            setInitialSelectedRows(selection as string[]);
           }}
           sx={{
+            width: "",
             "& .MuiDataGrid-columnHeader, & .MuiDataGrid-cell, & .MuiTablePagination-root, & .MuiTablePagination-item":
               {
                 color: "black",
               },
           }}
         />
+
         <Box sx={{ ml: 10 }}>
           <Typography variant="h5">
             Selected Permissions ({permissionSetName.length})

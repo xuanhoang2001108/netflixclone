@@ -102,7 +102,7 @@ export default function UserPage() {
         };
       })
     : [];
-
+console.log(rows);
   const handleDelete = async (id: string) => {
     try {
       await deleteAccountMutation(id);

@@ -150,7 +150,7 @@ export interface ViewPermissionData {
   sort: number;
   data: any;
   id: string
-  permissionIdList: []
+  permissionIdList: string[]
   roleIdList: []
   description: string;
 }

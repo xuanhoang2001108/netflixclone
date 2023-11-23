@@ -8,7 +8,7 @@ import Button from "@mui/material/Button";
 import SaveIcon from "@mui/icons-material/Save";
 import { useNavigate, useParams } from "react-router-dom";
 import { DataGrid } from "@mui/x-data-grid";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   useGetPermissionQuery,
   useGetPermissionSetByIdQuery,
@@ -35,6 +35,7 @@ function EditPolicy() {
     resolver: yupResolver(validationSchema) as any,
   });
   const [permissionIdList, setPermissionIdList] = React.useState<string[]>([]);
+  const [initialSelectedRows, setInitialSelectedRows] = useState<string[]>([]);
 
   const { data: permissionData } = useGetPermissionQuery();
   const {
@@ -93,9 +94,27 @@ function EditPolicy() {
     >
       <div className="text-white">{name}</div>
 
-      <CancelIcon onClick={onRemove} sx={{ color: "white", ml: 1 }} />
+      <CancelIcon
+        onClick={() => {
+          // Remove from the list of selected permissions
+          onRemove();
+
+          // Update the DataGrid selection
+          const deselectedId = rows.find((row: any) => row.name === name)?.id;
+          const newSelection = initialSelectedRows.filter(
+            (id) => id !== deselectedId
+          );
+
+          setInitialSelectedRows(newSelection);
+
+          // Update the permissionIdList
+          setPermissionIdList(newSelection);
+        }}
+        sx={{ color: "white", ml: 1 }}
+      />
     </Box>
   );
+
   const onSubmitHandler = async (data: AddPolicyData) => {
     data.permissionIdList = permissionIdList;
     try {
@@ -137,6 +156,19 @@ function EditPolicy() {
     }
   };
 
+  useEffect(() => {
+    if (permissionSetData) {
+      setInitialSelectedRows(permissionSetData.permissionIdList || []);
+
+      const selectedPermissionSets = (permissionSetData.permissionIdList || [])
+        .map((selectedId) => rows.find((row: any) => row.id === selectedId))
+        .filter(Boolean)
+        .map((row) => row.name);
+      setPermissionSetName(selectedPermissionSets);
+      setPermissionIdList(permissionSetData.permissionIdList || []);
+    }
+  }, [permissionSetData]);
+
   if (isLoading) {
     return <Box>Loading...</Box>;
   }
@@ -149,7 +181,7 @@ function EditPolicy() {
     return <Box>User not found</Box>;
   }
   const { name, description } = permissionSetData;
-  console.log(permissionSetData.permissionIdList);
+  console.log(initialSelectedRows);
   return (
     <>
       <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
@@ -229,6 +261,7 @@ function EditPolicy() {
               paginationModel: { page: 0, pageSize: 5 },
             },
           }}
+          rowSelectionModel={initialSelectedRows}
           pageSizeOptions={[5, 10, 100]}
           checkboxSelection
           onRowSelectionModelChange={(selection) => {
@@ -243,9 +276,10 @@ function EditPolicy() {
                 rows.find((row: any) => row.id === selectedIndex)
               )
               .filter(Boolean)
-              .map((row) => row.id);
+              .map((row) => row.id.toString());
             setPermissionSetName(selectedPermissionSets);
             setPermissionIdList(selectedPermissionSetIds);
+            setInitialSelectedRows(selection as string[]);
           }}
           sx={{
             width: "",

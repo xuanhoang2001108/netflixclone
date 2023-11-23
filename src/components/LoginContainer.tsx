@@ -60,12 +60,12 @@ const LoginContainer = () => {
     }
     logIn(data);
   };
+
   useEffect(() => {
     if (isSuccess) {
       navigate("/HomePage");
       if (data?.accessToken) {
         localStorage.setItem("accessToken", data.accessToken);
-        console.log("accessToken", data.accessToken);
       }
     } else if (isError) {
       console.log(error);

@@ -57,7 +57,7 @@ function ViewPolicy() {
   };
   const { name, permissionIdList } = permissionSetData;
 
-  const rows = permissionIdList.map((id) => {
+  const rows = permissionIdList.map((id: any) => {
     const matchedPermissionSet = permissionData?.data.find(
       (permission: any) => permission.id === id
     );
