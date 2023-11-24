@@ -1,9 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 import { UserData, RoleData, ViewUserData, PermissionData, ViewRoleData, PermissionSetData, ViewPermissionData, ViewPermissionSetData } from "../../types/Movie"
 
-
-
-
+const accessToken = localStorage.getItem("accessToken")
 export const getUserApi = createApi({
     reducerPath: 'getUserApi',
     baseQuery: fetchBaseQuery({ baseUrl: 'http://192.168.100.60:56367/api/' }),
@@ -43,10 +41,24 @@ export const getUserApi = createApi({
             query: (perId) => ({
                 url: `/Account/PermissionSet/${perId}?isDeep=true`,
             }),
-        }), 
+        }),
         getPermissionSet: build.query<PermissionSetData, void>({
             query: () => ({
                 url: `/Account/PermissionSet?isDeep=true`,
+            }),
+        }),
+        getCurrentUser: build.query<ViewUserData, void>({
+            query: () => ({
+                url: `/Account/User/GetCurrentUser?isDeep=true`,
+                transformHeaders: (headers: any, _query: any) => {
+                    if (accessToken) {
+                        return {
+                            ...headers,
+                            Authorization: accessToken,
+                        };
+                    }
+                    return headers;
+                },
             }),
         }),
     })
