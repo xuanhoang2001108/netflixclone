@@ -60,7 +60,7 @@ function PolicyPage() {
                 variant="outlined"
                 value={searchQuery}
                 onChange={handleSearchInputChange}
-                sx={{ marginLeft: 81,width: 400 }}
+                sx={{ marginLeft: 81, width: 400 }}
                 InputProps={{
                   style: { color: "black" },
                 }}
@@ -108,7 +108,8 @@ function PolicyPage() {
                       <div className="flex flex-row mt-20">
                         <hr></hr>
                         <div className="bg-purple-600 text-sm text-white rounded-full p-1 ">
-                          ({permission.permissionIdList.length}) permissions
+                          ({permission.permissionIdList ? permission.length : 0}
+                          ) permissions
                         </div>
                       </div>
                     </Box>

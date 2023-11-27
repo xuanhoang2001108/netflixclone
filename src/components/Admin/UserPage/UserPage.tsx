@@ -86,8 +86,8 @@ export default function UserPage() {
   ];
   const rows = usersData
     ? usersData.data.map((user: UserData) => {
-        const userRoles = roleData?.data.filter((r: any) =>
-          r.userIds.includes(user.id)
+        const userRoles = roleData?.data?.filter((r: any) =>
+          r.userIds?.includes(user.id)
         );
         const roleNames = userRoles
           ? userRoles.map((role: any) => role.name)

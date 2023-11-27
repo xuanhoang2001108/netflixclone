@@ -51,15 +51,15 @@ function RolePage() {
                 </Button>
               </Box>
               <TextField
-              label="Search"
-              variant="outlined"
-              value={searchQuery}
-              onChange={handleSearchInputChange}
-              sx={{ marginLeft: 80, mb: 2, width: 400 }}
-              InputProps={{
-                style: { color: "black" },
-              }}
-            />
+                label="Search"
+                variant="outlined"
+                value={searchQuery}
+                onChange={handleSearchInputChange}
+                sx={{ marginLeft: 80, mb: 2, width: 400 }}
+                InputProps={{
+                  style: { color: "black" },
+                }}
+              />
               <Typography variant="h6" sx={{ mr: 2 }}>
                 {roleData?.data.length} ROLES
               </Typography>
@@ -94,10 +94,14 @@ function RolePage() {
                       <Typography variant="h5">{role.name}</Typography>
                       <div className="flex flex-row mt-20">
                         <div className="bg-purple-600 text-sm text-white rounded-full p-1 ">
-                          permissionssets ({role.permissionSetIds.length})
+                          permissionssets (
+                          {role.permissionSetIds
+                            ? role.permissionSetIds.length
+                            : 0}
+                          )
                         </div>
                         <div className="ml-2 bg-purple-600 text-sm text-white rounded-full p-1 ">
-                          users ({role.userIds.length})
+                          users ({role.userIds ? role.userIds.length : 0})
                         </div>
                       </div>
                     </Box>

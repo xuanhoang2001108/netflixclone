@@ -116,6 +116,7 @@ export type ViewUserData = {
   email: string;
   phoneNumber: string;
   id: string
+  roles: string[];
 }
 
 export type AddRoleData = {

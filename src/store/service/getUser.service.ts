@@ -1,7 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 import { UserData, RoleData, ViewUserData, PermissionData, ViewRoleData, PermissionSetData, ViewPermissionData, ViewPermissionSetData } from "../../types/Movie"
 
-const accessToken = localStorage.getItem("accessToken")
 export const getUserApi = createApi({
     reducerPath: 'getUserApi',
     baseQuery: fetchBaseQuery({ baseUrl: 'http://192.168.100.60:56367/api/' }),
@@ -48,20 +47,19 @@ export const getUserApi = createApi({
             }),
         }),
         getCurrentUser: build.query<ViewUserData, void>({
-            query: () => ({
-                url: `/Account/User/GetCurrentUser?isDeep=true`,
-                transformHeaders: (headers: any, _query: any) => {
-                    if (accessToken) {
-                        return {
-                            ...headers,
-                            Authorization: accessToken,
-                        };
-                    }
-                    return headers;
-                },
-            }),
+            query: () => {
+                const accessToken = localStorage.getItem('accessToken');
+                return {
+                    url: `/Account/User/GetCurrentUser?isDeep=true`,
+                    headers: {
+                        Authorization: accessToken ? `Bearer ${accessToken}` : undefined,
+                        accept: 'text/plain',
+                    },
+                };
+            },
         }),
+
     })
 })
 
-export const { useGetPermissionByIdQuery, useGetAllUserQuery, useGetRoleQuery, useGetUserByIdQuery, useGetRoleNameQuery, useGetPermissionQuery, useGetPermissionSetQuery, useGetPermissionSetByIdQuery } = getUserApi
+export const { useGetCurrentUserQuery, useGetPermissionByIdQuery, useGetAllUserQuery, useGetRoleQuery, useGetUserByIdQuery, useGetRoleNameQuery, useGetPermissionQuery, useGetPermissionSetQuery, useGetPermissionSetByIdQuery } = getUserApi
