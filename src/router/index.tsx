@@ -24,6 +24,7 @@ import CreatePermission from "../components/Admin/PermissionPage/CreatePermissio
 import CreatePolicy from "../components/Admin/PolicyPage/CreatePolicy";
 import EditPolicy from "../components/Admin/PolicyPage/EditPolicy";
 import ViewPolicy from "../components/Admin/PolicyPage/ViewPolicy";
+import AdminLoginPage from "../pages/AdminLoginPage";
 
 export const router = createBrowserRouter([
   {
@@ -54,6 +55,10 @@ export const router = createBrowserRouter([
   {
     path: "/MyListPage",
     element: <MyListPage />,
+  },
+  {
+    path: "/AdminLoginPage",
+    element: <AdminLoginPage />,
   },
   {
     path: "/AdminPage",

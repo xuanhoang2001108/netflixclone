@@ -80,7 +80,7 @@ function ViewPermission() {
   console.log(permissionData);
   const { permissionSetIdList } = permissionData;
 
-  const rowTab0 = permissionSetIdList.map((id: any) => {
+  const rowTab0 = permissionSetIdList? permissionSetIdList.map((id: any) => {
     const matchedPermissionSet = permissionSetData?.data.find(
       (permissionSet: any) => permissionSet.id === id
     );
@@ -88,9 +88,9 @@ function ViewPermission() {
     return {
       id,
       name: matchedPermissionSet?.name || "",
-      description: matchedPermissionSet?.description,
+      description: matchedPermissionSet?.description || "",
     };
-  });
+  }) : [];
 
   return (
     <Box>

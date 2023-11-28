@@ -10,6 +10,7 @@ import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import { useLogInMutation } from "../store/service/login.service";
 import { useEffect } from "react";
+import { useGetCurrentUserQuery } from "../store/service/getUser.service";
 
 type UserSubmitForm = {
   email: string;
@@ -19,6 +20,8 @@ type UserSubmitForm = {
 
 const LoginContainer = () => {
   const navigate = useNavigate();
+
+  const { data: currentUserData } = useGetCurrentUserQuery();
 
   const validationSchema = Yup.object().shape({
     email: Yup.string().required("Email is required").email("Email is invalid"),
@@ -48,6 +51,7 @@ const LoginContainer = () => {
       setValue("password", savedPassword);
     }
   }, [setValue]);
+
   const onSubmitHandler = (data: UserSubmitForm) => {
     if (data.rememberMe) {
       localStorage.setItem("rememberMe", "true");
@@ -63,14 +67,21 @@ const LoginContainer = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      navigate("/HomePage");
       if (data?.accessToken) {
         localStorage.setItem("accessToken", data.accessToken);
+
+        if (
+          currentUserData?.roles?.some((role: any) => role.name === "Admin")
+        ) {
+          navigate("/AdminLoginPage");
+        } else {
+          navigate("/HomePage");
+        }
       }
     } else if (isError) {
       console.log(error);
     }
-  }, [onSubmitHandler]);
+  }, [onSubmitHandler, isSuccess, isError, currentUserData]);
 
   return (
     <div className="justify-center">

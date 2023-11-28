@@ -7,23 +7,24 @@ import { useGetCurrentUserQuery } from "../store/service/getUser.service";
 
 export default function MainLayout() {
   const navigate = useNavigate();
-  const { data: currentUserData } = useGetCurrentUserQuery();
+  // const { data: currentUserData } = useGetCurrentUserQuery();
 
   useEffect(() => {
     const storedAccessToken = localStorage.getItem("accessToken");
 
     if (!storedAccessToken) {
       navigate("/LoginPage");
-    }
-    const isAdmin = currentUserData?.roles?.some(
-      (role: any) => role.name === "Admin"
-    );
-    if (isAdmin) {
-      navigate("/AdminPage");
-    }
-  }, [navigate, currentUserData]);
+      // }
+      // const isAdmin = currentUserData?.roles?.some(
+      //   (role: any) => role.name === "Admin"
+      // );
 
-  console.log("currentData", currentUserData?.roles);
+      // if (isAdmin) {
+      //   navigate("/AdminPage");
+      // }
+      // }, [navigate,currentUserData]);
+    }
+  }, [navigate]);
 
   return (
     <Box sx={{ backgroundColor: "black" }}>

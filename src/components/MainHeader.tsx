@@ -41,13 +41,12 @@ export default function MainHeader() {
   };
 
   const handleCloseUserMenu = () => {
-    navigate("/Dashboard");
     setAnchorElUser(null);
   };
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
     console.log("accessToken remove");
-    navigate("/");
+    navigate("/LoginPage");
   };
   return (
     <AppBar
