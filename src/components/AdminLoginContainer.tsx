@@ -25,13 +25,14 @@ function AdminLoginContainer() {
     }
   }, [navigate, currentUserData]);
   const isAdminPage = location.pathname.startsWith("/AdminLoginPage/AdminPage");
+  console.log(currentUserData)
   return (
     <Box sx={{ mt: 2, display: isAdminPage ? "none" : "block" }}>
       <Box sx={{margin: 10}}>
-        <Typography variant="h5">Admin Login Page</Typography>
+        <Typography variant="h5">You logged in as {currentUserData?.userName}</Typography>
 
-        <Typography variant="h6">Choose how you want to log in:</Typography>
-        <Box sx={{ mt: 2 }}>
+      
+        <Box sx={{ mt: 4 }}>
           <Button
             onClick={() => {
               navigate("/HomePage");

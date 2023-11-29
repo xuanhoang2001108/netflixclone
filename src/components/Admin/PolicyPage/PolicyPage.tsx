@@ -10,7 +10,8 @@ function PolicyPage() {
   const { data: permissionSetData } = useGetPermissionSetQuery();
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
-  const isParentRoute = location.pathname === "/AdminLoginPage/AdminPage/PolicyPage";
+  const isParentRoute =
+    location.pathname === "/AdminLoginPage/AdminPage/PolicyPage";
   const handleNavigate = () => {
     navigate("/AdminLoginPage/AdminPage/PolicyPage/CreatePolicy");
   };
@@ -86,7 +87,7 @@ function PolicyPage() {
                       height: "250px",
                       display: "flex",
                       alignItems: "center",
-                      justifyContent: "center",
+                  
                       marginBottom: 2,
                       marginLeft: 2,
                     }}
@@ -101,33 +102,33 @@ function PolicyPage() {
                       sx={{
                         display: "flex",
                         flexDirection: "column",
-                      
                       }}
                     >
-                      <Typography variant="h5">{permission.name}</Typography>
-                      <div
-                        style={{
-                          overflow: "hidden",
-                          display: "-webkit-box",
-                          WebkitBoxOrient: "vertical",
-                          WebkitLineClamp:1, // Limit to 5 lines
-                          textOverflow: "ellipsis",
-                        
-                        }}
-                      >
-                        {permission.description}
-                      </div>
-                      <div className="flex flex-row mt-2">
-                        <hr></hr>
-                        <div className="bg-purple-600 text-sm text-white rounded-full p-1 ">
-                          (
-                          {permission.permissions
-                            ? permission.permissions.length
-                            : 0}
-                          ) permissions
+                      <Box sx={{ ml: 2 }}>
+                        <Typography variant="h5">{permission.name}</Typography>
+                        <div
+                          style={{
+                            overflow: "hidden",
+                            display: "-webkit-box",
+                            WebkitBoxOrient: "vertical",
+                            WebkitLineClamp: 1, // Limit to 5 lines
+                            textOverflow: "ellipsis",
+                          }}
+                        >
+                          {permission.description}
                         </div>
-                      </div>
-                    </Box>
+                          <div className="flex flex-row mt-2">
+                            <hr></hr>
+                            <div className="bg-purple-600 text-sm text-white rounded-full p-1 ">
+                              (
+                              {permission.permissions
+                                ? permission.permissions.length
+                                : 0}
+                              ) permissions
+                            </div>
+                          </div>
+                          </Box>
+                        </Box>
                   </Box>
                 ))
               ) : (

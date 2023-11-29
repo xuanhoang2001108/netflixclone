@@ -172,7 +172,7 @@ function PermissionSetPage() {
                   pageSizeOptions={[5, 10, 100]}
                   onRowClick={(params) => {
                     navigate(
-                      `/AdminPage/PermissionPage/ViewPermission/${params.id}`
+                      `/AdminLoginPage/AdminPage/PermissionPage/ViewPermission/${params.id}`
                     );
                   }}
                   checkboxSelection

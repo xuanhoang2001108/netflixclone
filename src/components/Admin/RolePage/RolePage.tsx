@@ -10,7 +10,7 @@ function RolePage() {
   const { data: roleData } = useGetRoleQuery();
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
-  const isParentRoute = location.pathname.startsWith ("/AdminLoginPage/AdminPage/RolePage");
+  const isParentRoute = location.pathname === "/AdminLoginPage/AdminPage/RolePage";
   const handleNavigate = () => {
     navigate("/AdminLoginPage/AdminPage/RolePage/CreateRole");
   };
@@ -86,7 +86,7 @@ function RolePage() {
                       marginLeft: 2,
                     }}
                     onClick={() =>
-                      navigate(`/AdminPage/RolePage/ViewRole/${role.id}`)
+                      navigate(`/AdminLoginPage/AdminPage/RolePage/ViewRole/${role.id}`)
                     }
                     key={role.id}
                   >
