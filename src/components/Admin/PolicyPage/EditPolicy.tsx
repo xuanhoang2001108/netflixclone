@@ -147,7 +147,7 @@ function EditPolicy() {
         });
         refetch();
         toast.success("Policy update successful");
-        navigate("/AdminPage/PolicyPage");
+        navigate("/AdminLoginPage/AdminPage/PolicyPage");
       } else {
         toast.error("Policy update failed - roleId is undefined");
       }
@@ -158,17 +158,20 @@ function EditPolicy() {
 
   useEffect(() => {
     if (permissionSetData) {
-      setInitialSelectedRows(permissionSetData.permissionIdList || []);
+      const selectedPermissionSetIds = permissionSetData.permissions.map(
+        (p: any) => p.id
+      );
+      setInitialSelectedRows(selectedPermissionSetIds);
 
-      const selectedPermissionSets = (permissionSetData.permissionIdList || [])
+      const selectedPermissionSets = permissionSetData.permissions
         .map((selectedId) => rows.find((row: any) => row.id === selectedId))
         .filter(Boolean)
-        .map((row) => row.name);
+        .map((row: any) => row.name);
+
       setPermissionSetName(selectedPermissionSets);
-      setPermissionIdList(permissionSetData.permissionIdList || []);
+      setPermissionIdList(selectedPermissionSetIds);
     }
   }, [permissionSetData]);
-
   if (isLoading) {
     return <Box>Loading...</Box>;
   }
@@ -210,7 +213,7 @@ function EditPolicy() {
         <Button
           variant="contained"
           sx={{ ml: 2 }}
-          onClick={() => navigate("/AdminPage/PolicyPage")}
+          onClick={() => navigate("/AdminLoginPage/AdminPage/PolicyPage")}
         >
           CANCEL
         </Button>
@@ -261,7 +264,7 @@ function EditPolicy() {
               paginationModel: { page: 0, pageSize: 5 },
             },
           }}
-          rowSelectionModel={initialSelectedRows}
+          rowSelectionModel={initialSelectedRows.map((id) => id.toString())}
           pageSizeOptions={[5, 10, 100]}
           checkboxSelection
           onRowSelectionModelChange={(selection) => {
@@ -295,17 +298,21 @@ function EditPolicy() {
             Selected Permissions ({permissionSetName.length})
           </Typography>
 
-          {permissionSetName.map((name) => (
-            <SelectedPermissionSet
-              key={name}
-              name={name}
-              onRemove={() => {
-                setPermissionSetName((prev) =>
-                  prev.filter((item) => item !== name)
-                );
-              }}
-            />
-          ))}
+          {permissionIdList.map((id) => {
+            const row = rows.find((row: any) => row.id === id);
+            const name = row ? row.name : "";
+            return (
+              <SelectedPermissionSet
+                key={id}
+                name={name}
+                onRemove={() => {
+                  setPermissionIdList((prevIds) =>
+                    prevIds.filter((item) => item !== id)
+                  );
+                }}
+              />
+            );
+          })}
         </Box>
       </Box>
     </>

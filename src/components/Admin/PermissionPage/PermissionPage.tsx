@@ -26,7 +26,7 @@ function PermissionSetPage() {
   );
   const { refetch } = useGetPermissionQuery();
   const [deletePermissionMutation] = useDeletePermissionMutation();
-  const isParentRoute = location.pathname === "/AdminPage/PermissionPage";
+  const isParentRoute = location.pathname === "/AdminLoginPage/AdminPage/PermissionPage";
   const rows = permissionData
     ? permissionData.data.map((permission: any) => ({
         id: permission.id,
@@ -48,7 +48,7 @@ function PermissionSetPage() {
         <IconButton
           color="primary"
           onClick={(event) => {
-            navigate(`/AdminPage/PermissionPage/EditPermission/${params.id}`);
+            navigate(`/AdminLoginPage/AdminPage/PermissionPage/EditPermission/${params.id}`);
             event.stopPropagation();
           }}
         >
@@ -89,7 +89,7 @@ function PermissionSetPage() {
   });
 
   const handleNavigate = () => {
-    navigate("/AdminPage/PermissionPage/CreatePermission");
+    navigate("/AdminLoginPage/AdminPage/PermissionPage/CreatePermission");
   };
 
   const handleDeleteConfirmation = (id: any) => {
@@ -104,7 +104,7 @@ function PermissionSetPage() {
       await deletePermissionMutation(id);
       refetch();
       toast.success("Permission deleted successfully");
-      navigate("/AdminPage/PermissionPage");
+      navigate("/AdminLoginPage/AdminPage/PermissionPage");
     } catch (error) {
       console.error(error);
       toast.error("Error deleting Permission");

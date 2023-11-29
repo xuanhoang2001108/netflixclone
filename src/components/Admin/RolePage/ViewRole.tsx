@@ -44,8 +44,6 @@ function ViewRole() {
   const handleSelectionModelChange = (selection: any) => {
     setSelectedRows(selection);
   };
-  const { data: permissionSetData } = useGetPermissionSetQuery();
-  const { data: usernameHasPermission } = useGetAllUserQuery();
   const {
     data: roleData,
     error,
@@ -78,7 +76,7 @@ function ViewRole() {
       await deleteRoleMutation(id);
       refetch();
       toast.success("Role deleted successfully");
-      navigate("/AdminPage/RolePage");
+      navigate("/AdminLoginPage/AdminPage/RolePage");
     } catch (error) {
       console.error(error);
       toast.error("Error deleting Role");
@@ -86,35 +84,25 @@ function ViewRole() {
       setDeleteRole(null);
     }
   };
-  const { permissionSetIds, userIds } = roleData;
-  const rowTab0 = permissionSetIds.map((id) => {
-    const matchedPermissionSet = permissionSetData?.data.find(
-      (permissionSet: any) => permissionSet.id === id
-    );
+  const { permissionSets, userIds } = roleData;
 
-    return {
-      id,
-      name: matchedPermissionSet?.name || "",
-      sort: matchedPermissionSet?.sort || 0,
-    };
-  });
 
-  const rowTab1 = userIds.map((id) => {
-    const matchedUsernameHasPermission = usernameHasPermission?.data.find(
-      (UsernameHasPermission: any) => UsernameHasPermission.id === id
-    );
+  const rowTab0 = permissionSets.map((roleId: any) => ({
+    id: roleId.id,
+    name: roleId.name || "",
+    sort: roleId.sort || 0,
+  }));
 
-    return {
-      id,
-      userName: matchedUsernameHasPermission?.userName || "",
-    };
-  });
+  const rowTab1 = userIds? userIds.map((userId: any) => ({
+    id: userId.id,
+    userName: userId?.name || "",
+  })): [];
 
   const filteredRowTab0 = rowTab0.filter((row) =>
     row.name.toLowerCase().includes(searchText.toLowerCase())
   );
 
-  const filteredRowTab1 = rowTab1.filter((row) =>
+  const filteredRowTab1 = rowTab1.filter((row: any) =>
     row.userName.toLowerCase().includes(searchText.toLowerCase())
   );
   return (
@@ -125,13 +113,13 @@ function ViewRole() {
           <Button
             variant="contained"
             sx={{ ml: 72 }}
-            onClick={() => navigate(`/AdminPage/RolePage/EditRole/${roleId}`)}
+            onClick={() => navigate(`/AdminLoginPage/AdminPage/RolePage/EditRole/${roleId}`)}
           >
             <CreateIcon sx={{ mr: 1 }}></CreateIcon> EDIT
           </Button>
           <Button
             variant="contained"
-            sx={{ ml: 2 }}  
+            sx={{ ml: 2 }}
             onClick={(event) => {
               handleDeleteConfirmation(roleId);
               event.stopPropagation();
@@ -201,7 +189,8 @@ function ViewRole() {
                   pageSizeOptions={[5, 10, 100]}
                   onRowSelectionModelChange={handleSelectionModelChange}
                   rowSelectionModel={selectedRows}
-                  sx={{ mb: 2,
+                  sx={{
+                    mb: 2,
                     "& .MuiDataGrid-columnHeader, & .MuiDataGrid-cell, & .MuiTablePagination-root, & .MuiTablePagination-item":
                       {
                         color: "black",

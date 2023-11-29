@@ -48,7 +48,7 @@ function EditUser() {
     try {
       const { id } = userData;
       await editPhoneNumberMutation({ id, phoneNumber });
-      navigate("/AdminPage/UserPage");
+      navigate("/AdminLoginPage/AdminPage/UserPage");
       refetch();
     } catch (error) {
       console.log(error);
@@ -70,7 +70,7 @@ function EditUser() {
         <Button
           variant="contained"
           sx={{ ml: 2 }}
-          onClick={() => navigate("/AdminPage/UserPage")}
+          onClick={() => navigate("/AdminLoginPage/AdminPage/UserPage")}
         >
           CANCEL
         </Button>

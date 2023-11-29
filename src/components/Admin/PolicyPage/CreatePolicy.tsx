@@ -101,7 +101,7 @@ function CreatePolicy() {
 
       refetch();
       toast.success("Policy creation successful");
-      navigate("/AdminPage/PolicyPage");
+      navigate("/AdminLoginPage/AdminPage/PolicyPage");
     } catch (error) {
       toast.error("Policy creation failed");
     }
@@ -130,7 +130,7 @@ function CreatePolicy() {
           <Button
             variant="contained"
             sx={{ ml: 2 }}
-            onClick={() => navigate("/AdminPage/PolicyPage")}
+            onClick={() => navigate("/AdminLoginPage/AdminPage/PolicyPage")}
           >
             CANCEL
           </Button>

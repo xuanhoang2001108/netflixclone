@@ -66,7 +66,7 @@ export default function EditPermission() {
         });
         refetch();
         toast.success("Permission update successful");
-        navigate("/AdminPage/PermissionPage");
+        navigate("/AdminLoginPage/AdminPage/PermissionPage");
       } else {
         toast.error("Permission update failed - Permission is undefined");
       }
@@ -113,7 +113,7 @@ export default function EditPermission() {
             <Button
               variant="contained"
               sx={{ ml: 2 }}
-              onClick={() => navigate("/AdminPage/PermissionPage")}
+              onClick={() => navigate("/AdminLoginPage/AdminPage/PermissionPage")}
             >
               CANCEL
             </Button>

@@ -134,10 +134,9 @@ export type AddPermissionData = {
 export type ViewRoleData = {
   id: string,
   name: string,
-  permissionSetIds: [],
-  userIds: [],
+  permissionSets: any[],
   data: any
-  sort: number,
+  userIds: string[]
 };
 export interface ViewPermissionData {
   name: string;
@@ -147,13 +146,12 @@ export interface ViewPermissionData {
   permissionSetIdList: []
 
 }export interface ViewPermissionSetData {
-  name: string;
-  sort: number;
-  data: any;
   id: string
-  permissionIdList: string[]
-  roleIdList: []
+  name: string;
   description: string;
+  sort: number;
+  permissions: string[]
+  data: any;
 }
 
 export interface AddPolicyData {

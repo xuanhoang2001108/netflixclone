@@ -53,7 +53,7 @@ export default function PersistentDrawerLeft() {
   };
 
   const handleNavigateHome = () => {
-    navigate("/AdminPage");
+    navigate("/AdminLoginPage/AdminPage");
   };
 
   return (
@@ -110,7 +110,7 @@ export default function PersistentDrawerLeft() {
               <ListItemButton
                 sx={{ pl: 4 }}
                 onClick={() => {
-                  navigate("/AdminPage/UserPage");
+                  navigate("/AdminLoginPage/AdminPage/UserPage");
                 }}
               >
                 <GroupIcon />
@@ -119,7 +119,7 @@ export default function PersistentDrawerLeft() {
               <ListItemButton
                 sx={{ pl: 4 }}
                 onClick={() => {
-                  navigate("/AdminPage/RolePage");
+                  navigate("/AdminLoginPage/AdminPage/RolePage");
                 }}
               >
                 <SettingsIcon />
@@ -128,7 +128,7 @@ export default function PersistentDrawerLeft() {
               <ListItemButton
                 sx={{ pl: 4 }}
                 onClick={() => {
-                  navigate("/AdminPage/PolicyPage");
+                  navigate("/AdminLoginPage/AdminPage/PolicyPage");
                 }}
               >
                 <AdminPanelSettingsIcon />
@@ -137,7 +137,7 @@ export default function PersistentDrawerLeft() {
               <ListItemButton
                 sx={{ pl: 4 }}
                 onClick={() => {
-                  navigate("/AdminPage/PermissionPage");
+                  navigate("/AdminLoginPage/AdminPage/PermissionPage");
                 }}
               >
                 <KeyIcon />

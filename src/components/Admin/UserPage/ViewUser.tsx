@@ -60,7 +60,7 @@ function ViewUser() {
       await deleteAccountMutation(id);
       refetch();
       toast.success("User deleted successfully");
-      navigate("/AdminPage/UserPage");
+      navigate("/AdminLoginPage/AdminPage/UserPage");
     } catch (error) {
       console.error(error);
       toast.error("Error deleting user");
@@ -79,7 +79,7 @@ function ViewUser() {
         <Button
           variant="contained"
           sx={{ ml: 40 }}
-          onClick={() => navigate(`/AdminPage/UserPage/EditUser/${userId}`)}
+          onClick={() => navigate(`/AdminLoginPage/AdminPage/UserPage/EditUser/${userId}`)}
         >
           <CreateIcon sx={{ mr: 2 }}></CreateIcon> EDIT
         </Button>

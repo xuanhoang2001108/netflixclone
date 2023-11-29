@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 import { UserData, RoleData, ViewUserData, PermissionData, ViewRoleData, PermissionSetData, ViewPermissionData, ViewPermissionSetData } from "../../types/Movie"
-const accessToken = localStorage.getItem('accessToken');
 export const getUserApi = createApi({
     reducerPath: 'getUserApi',
     baseQuery: fetchBaseQuery({ baseUrl: 'http://192.168.100.60:56367/api/' }),
@@ -13,12 +12,12 @@ export const getUserApi = createApi({
 
         getRole: build.query<RoleData, void>({
             query: () => ({
-                url: `/Account/Role`,
+                url: `/Account/Role?IsDeep=true`,
             }),
         }),
         getRoleName: build.query<ViewRoleData, string>({
             query: (roleIds) => ({
-                url: `/Account/Role/${roleIds}`,
+                url: `/Account/Role/${roleIds}?isDeep=true`,
             }),
         }),
         getUserById: build.query<ViewUserData, string>({
@@ -46,13 +45,13 @@ export const getUserApi = createApi({
                 url: `/Account/PermissionSet?isDeep=true`,
             }),
         }),
-        getCurrentUser: build.query<ViewUserData, void>({
-            query: () => {
+        getCurrentUser: build.query<ViewUserData, {accessToken: string}>({
+            query: ({accessToken}) => {
 
                 return {
-                    url: `/Account/User/GetCurrentUser?isDeep=true`,
+                    url: "/Account/User/GetCurrentUser?isDeep=true",
                     headers: {
-                        Authorization: accessToken ? `Bearer ${accessToken}` : undefined,
+                        Authorization: accessToken  ? `Bearer ${accessToken}` : undefined,
                         accept: 'text/plain',
                     },
                 };

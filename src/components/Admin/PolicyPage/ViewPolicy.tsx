@@ -55,17 +55,13 @@ function ViewPolicy() {
   const handleDeleteConfirmation = (id: any) => {
     setDeletePermissionSet(id);
   };
-  const { name, permissionIdList } = permissionSetData;
+  const { name, permissions } = permissionSetData;
 
-  const rows = permissionIdList.map((id: any) => {
-    const matchedPermissionSet = permissionData?.data.find(
-      (permission: any) => permission.id === id
-    );
-    return {
-      id,
-      name: matchedPermissionSet?.name || "",
-    };
-  });
+  const rows = permissions.map((permission: any) => ({
+    id: permission.id,
+    name: permission.name || "",
+    sort: permission.sort || 0,
+  }));
 
   const columns = [
     { field: "name", headerName: "Name", width: 200 },
@@ -79,7 +75,7 @@ function ViewPolicy() {
       await deletePermissionSetMutation(id);
       refetch();
       toast.success("Permission deleted successfully");
-      navigate("/AdminPage/PolicyPage");
+      navigate("/AdminLoginPage/AdminPage/PolicyPage");
     } catch (error) {
       console.error(error);
       toast.error("Error deleting Policy");
@@ -95,11 +91,11 @@ function ViewPolicy() {
           variant="contained"
           sx={{ ml: 40 }}
           onClick={() =>
-            navigate(`/AdminPage/PolicyPage/EditPolicy/${permissionSetId}`)
+            navigate(`/AdminLoginPage/AdminPage/PolicyPage/EditPolicy/${permissionSetId}`)
           }
         >
           <CreateIcon sx={{ mr: 1 }}></CreateIcon> EDIT
-        </Button> 
+        </Button>
         <Button
           variant="contained"
           sx={{ ml: 2 }}

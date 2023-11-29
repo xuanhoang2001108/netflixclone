@@ -69,7 +69,7 @@ export default function TabsWrappedLabel() {
       await registerAccount(data);
       refetch();
       toast.success("User create successfully");
-      navigate("/AdminPage/UserPage");
+      navigate("/AdminLoginPage/AdminPage/UserPage");
     } catch (error) {
       toast.error("Registration failed");
     }
@@ -98,7 +98,7 @@ export default function TabsWrappedLabel() {
             className="rounded-md  "
             style={{ marginLeft: 4, marginBottom: 4 }}
             variant="contained"
-            onClick={() => navigate("/AdminPage/UserPage")}
+            onClick={() => navigate("/AdminLoginPage/AdminPage/UserPage")}
           >
             CANCEL
           </Button>

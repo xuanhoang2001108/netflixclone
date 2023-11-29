@@ -69,7 +69,7 @@ function ViewPermission() {
       await deletePermissionMutation(id);
       refetch();
       toast.success("Permission deleted successfully");
-      navigate("/AdminPage/PermissionPage");
+      navigate("/AdminLoginPage/AdminPage/PermissionPage");
     } catch (error) {
       console.error(error);
       toast.error("Error deleting Permission");
@@ -103,7 +103,7 @@ function ViewPermission() {
             sx={{ ml: 67 }}
             onClick={() =>
               navigate(
-                `/AdminPage/PermissionPage/EditPermission/${permissionId}`
+                `/AdminLoginPage/AdminPage/PermissionPage/EditPermission/${permissionId}`
               )
             }
           >

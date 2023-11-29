@@ -10,9 +10,9 @@ function PolicyPage() {
   const { data: permissionSetData } = useGetPermissionSetQuery();
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
-  const isParentRoute = location.pathname === "/AdminPage/PolicyPage";
+  const isParentRoute = location.pathname === "/AdminLoginPage/AdminPage/PolicyPage";
   const handleNavigate = () => {
-    navigate("/AdminPage/PolicyPage/CreatePolicy");
+    navigate("/AdminLoginPage/AdminPage/PolicyPage/CreatePolicy");
   };
 
   const handleSearchInputChange = (event: any) => {
@@ -23,7 +23,7 @@ function PolicyPage() {
     (permissionSet: any) =>
       permissionSet.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
-
+  console.log(permissionSetData);
   return (
     <>
       <Box
@@ -92,7 +92,7 @@ function PolicyPage() {
                     }}
                     onClick={() =>
                       navigate(
-                        `/AdminPage/PolicyPage/ViewPolicy/${permission.id}`
+                        `/AdminLoginPage/AdminPage/PolicyPage/ViewPolicy/${permission.id}`
                       )
                     }
                     key={permission.id}
@@ -101,14 +101,29 @@ function PolicyPage() {
                       sx={{
                         display: "flex",
                         flexDirection: "column",
-                        alignItems: "start",
+                      
                       }}
                     >
                       <Typography variant="h5">{permission.name}</Typography>
-                      <div className="flex flex-row mt-20">
+                      <div
+                        style={{
+                          overflow: "hidden",
+                          display: "-webkit-box",
+                          WebkitBoxOrient: "vertical",
+                          WebkitLineClamp:1, // Limit to 5 lines
+                          textOverflow: "ellipsis",
+                        
+                        }}
+                      >
+                        {permission.description}
+                      </div>
+                      <div className="flex flex-row mt-2">
                         <hr></hr>
                         <div className="bg-purple-600 text-sm text-white rounded-full p-1 ">
-                          ({permission.permissionIdList ? permission.length : 0}
+                          (
+                          {permission.permissions
+                            ? permission.permissions.length
+                            : 0}
                           ) permissions
                         </div>
                       </div>

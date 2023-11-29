@@ -33,7 +33,7 @@ export default function CreatePermission() {
       await addPermissionMutation(data);
       refetch();
       toast.success("Permission create successfully");
-      navigate("/AdminPage/PermissionPage");
+      navigate("/AdminLoginPage/AdminPage/PermissionPage");
     } catch (error) {
       toast.error("Permission create failed");
     }
@@ -53,7 +53,7 @@ export default function CreatePermission() {
           <Button
             sx={{ marginLeft: 1, bgcolor: "black", color: "white" }}
             onClick={() => {
-              navigate("/AdminPage/PermissionPage");
+              navigate("/AdminLoginPage/AdminPage/PermissionPage");
             }}
           >
             CANCEL

@@ -10,9 +10,9 @@ function RolePage() {
   const { data: roleData } = useGetRoleQuery();
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
-  const isParentRoute = location.pathname === "/AdminPage/RolePage";
+  const isParentRoute = location.pathname.startsWith ("/AdminLoginPage/AdminPage/RolePage");
   const handleNavigate = () => {
-    navigate("/AdminPage/RolePage/CreateRole");
+    navigate("/AdminLoginPage/AdminPage/RolePage/CreateRole");
   };
 
   const handleSearchInputChange = (event: any) => {
@@ -95,8 +95,8 @@ function RolePage() {
                       <div className="flex flex-row mt-20">
                         <div className="bg-purple-600 text-sm text-white rounded-full p-1 ">
                           permissionssets (
-                          {role.permissionSetIds
-                            ? role.permissionSetIds.length
+                          {role.permissionSets
+                            ? role.permissionSets.length
                             : 0}
                           )
                         </div>

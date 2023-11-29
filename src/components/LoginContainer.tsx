@@ -21,8 +21,6 @@ type UserSubmitForm = {
 const LoginContainer = () => {
   const navigate = useNavigate();
 
-  const { data: currentUserData } = useGetCurrentUserQuery();
-
   const validationSchema = Yup.object().shape({
     email: Yup.string().required("Email is required").email("Email is invalid"),
     password: Yup.string()
@@ -41,6 +39,9 @@ const LoginContainer = () => {
     resolver: yupResolver(validationSchema),
   });
   const [logIn, { data, isError, isSuccess, error }] = useLogInMutation();
+  const accessToken = localStorage.getItem("accessToken") ?? "";
+
+  const { data: currentUserData } = useGetCurrentUserQuery({ accessToken });
   useEffect(() => {
     const savedEmail = localStorage.getItem("email");
     const savedPassword = localStorage.getItem("password");
@@ -52,7 +53,7 @@ const LoginContainer = () => {
     }
   }, [setValue]);
 
-  const onSubmitHandler = (data: UserSubmitForm) => {
+  const onSubmitHandler = async (data: UserSubmitForm) => {
     if (data.rememberMe) {
       localStorage.setItem("rememberMe", "true");
       localStorage.setItem("email", data.email);
@@ -62,7 +63,7 @@ const LoginContainer = () => {
       localStorage.removeItem("email");
       localStorage.removeItem("password");
     }
-    logIn(data);
+    await logIn(data);
   };
 
   useEffect(() => {
@@ -70,19 +71,23 @@ const LoginContainer = () => {
       if (data?.accessToken) {
         localStorage.setItem("accessToken", data.accessToken);
 
-        if (
-          currentUserData?.roles?.some((role: any) => role.name === "Admin")
-        ) {
-          navigate("/AdminLoginPage");
-        } else {
-          navigate("/HomePage");
-        }
+        console.log(data);
       }
     } else if (isError) {
       console.log(error);
     }
-  }, [onSubmitHandler, isSuccess, isError, currentUserData]);
+  }, [isSuccess, isError, onSubmitHandler]);
 
+  useEffect(() => {
+    if (currentUserData) {
+      if (currentUserData?.roles?.some((role: any) => role.name === "User")) {
+        navigate("/AdminLoginPage");
+      } else {
+        navigate("/HomePage");
+      }
+    }
+  }, [navigate, currentUserData]);
+  console.log("currentUserData", currentUserData);
   return (
     <div className="justify-center">
       <AppBar

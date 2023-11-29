@@ -80,7 +80,7 @@ export default function CreateRole() {
       await addRoleMutation(data);
       refetch();
       toast.success("Role create successfully");
-      navigate("/AdminPage/RolePage");
+      navigate("/AdminLoginPage/AdminPage/RolePage");
     } catch (error) {
       toast.error("Role create failed");
     }
@@ -113,7 +113,7 @@ export default function CreateRole() {
           <Button
             sx={{ marginLeft: 1, bgcolor: "black", color: "white" }}
             onClick={() => {
-              navigate("/AdminPage/RolePage");
+              navigate("/AdminLoginPage/AdminPage/RolePage");
             }}
           >
             CANCEL

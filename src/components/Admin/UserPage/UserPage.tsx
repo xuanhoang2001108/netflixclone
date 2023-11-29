@@ -33,10 +33,10 @@ export default function UserPage() {
   const { data: usersData, refetch } = useGetAllUserQuery();
   const [deleteUserId, setDeleteUserId] = React.useState<string | null>(null);
   const navigate = useNavigate();
-  const location = useLocation();
   const { data: roleData } = useGetRoleQuery();
-
-  const isParentRoute = location.pathname === "/AdminPage/UserPage";
+  
+  const location = useLocation();
+  const isParentRoute = location.pathname === "/AdminLoginPage/AdminPage/UserPage";
 
   const columns = [
     { field: "email", headerName: "Email", width: 200 },
@@ -57,7 +57,7 @@ export default function UserPage() {
         <IconButton
           color="primary"
           onClick={(event) => {
-            navigate(`/AdminPage/UserPage/EditUser/${params.id}`);
+            navigate(`/AdminLoginPage/AdminPage/UserPage/EditUser/${params.id}`);
             event.stopPropagation();
           }}
         >
@@ -159,7 +159,7 @@ export default function UserPage() {
               <Button
                 variant="contained"
                 onClick={() => {
-                  navigate("/AdminPage/UserPage/CreateUser");
+                  navigate("/AdminLoginPage/AdminPage/UserPage/CreateUser");
                 }}
               >
                 CREATE NEW USER
@@ -192,7 +192,7 @@ export default function UserPage() {
                   },
               }}
               onRowClick={(params: any) => {
-                navigate(`/AdminPage/UserPage/ViewUser/${params.id}`);
+                navigate(`/AdminLoginPage/AdminPage/UserPage/ViewUser/${params.id}`);
               }}
             />
           </>

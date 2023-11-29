@@ -81,24 +81,19 @@ function EditRole() {
 
       <CancelIcon
         onClick={() => {
-          // Remove from the list of selected permissions
           onRemove();
-
-          // Update the DataGrid selection
           const deselectedId = rows.find((row: any) => row.name === name)?.id;
           const newSelection = initialSelectedRows.filter(
             (id) => id !== deselectedId
           );
-
           setInitialSelectedRows(newSelection);
-
-          // Update the permissionIdList
           setPermissionSetIds(newSelection);
         }}
         sx={{ color: "white", ml: 1 }}
       />
     </Box>
   );
+
   const [, setSelectionModel] = React.useState<string[]>([]);
 
   React.useEffect(() => {
@@ -111,14 +106,18 @@ function EditRole() {
   }, [isSuccess]);
   useEffect(() => {
     if (roleData) {
-      setInitialSelectedRows(roleData?.permissionSetIds || []);
+      const selectedPermissionSetIds = roleData.permissionSets.map(
+        (p: any) => p.id
+      );
+      setInitialSelectedRows(selectedPermissionSetIds);
 
-      const selectedPermissionSets = (roleData.permissionSetIds || [])
+      const selectedPermissionSets = roleData.permissionSets
         .map((selectedId) => rows.find((row: any) => row.id === selectedId))
         .filter(Boolean)
-        .map((row) => row.name);
+        .map((row: any) => row.name);
+
       setPermissionSetName(selectedPermissionSets);
-      setPermissionSetIds(roleData.permissionSetIds || []);
+      setPermissionSetIds(selectedPermissionSetIds);
     }
   }, [roleData]);
 
@@ -164,7 +163,7 @@ function EditRole() {
         });
         refetch();
         toast.success("Role update successful");
-        navigate("/AdminPage/RolePage");
+        navigate("/AdminLoginPage/AdminPage/RolePage");
       } else {
         toast.error("Role update failed - roleId is undefined");
       }
@@ -174,6 +173,7 @@ function EditRole() {
   };
 
   const { name } = roleData;
+
   return (
     <Box sx={{ marginLeft: "20%", marginRight: "10%" }}>
       <Typography variant="h5">EDIT ROLE</Typography>
@@ -203,7 +203,7 @@ function EditRole() {
         <Button
           variant="contained"
           sx={{ ml: 2 }}
-          onClick={() => navigate("/AdminPage/RolePage")}
+          onClick={() => navigate("/AdminLoginPage/AdminPage/RolePage")}
         >
           CANCEL
         </Button>
@@ -217,7 +217,7 @@ function EditRole() {
               paginationModel: { page: 0, pageSize: 5 },
             },
           }}
-          rowSelectionModel={initialSelectedRows}
+          rowSelectionModel={initialSelectedRows.map((id) => id.toString())}
           pageSizeOptions={[5, 10, 100]}
           checkboxSelection
           onRowSelectionModelChange={(selection) => {
@@ -250,18 +250,21 @@ function EditRole() {
           <Typography variant="h5">
             Selected Permissions ({permissionSetName.length})
           </Typography>
-
-          {permissionSetName.map((name) => (
-            <SelectedPermissionSet
-              key={name}
-              name={name}
-              onRemove={() => {
-                setPermissionSetName((prev) =>
-                  prev.filter((item) => item !== name)
-                );
-              }}
-            />
-          ))}
+          {permissionSetIds.map((id) => {
+            const row = rows.find((row: any) => row.id === id);
+            const name = row ? row.name : "";
+            return (
+              <SelectedPermissionSet
+                key={id}
+                name={name}
+                onRemove={() => {
+                  setPermissionSetIds((prevIds) =>
+                    prevIds.filter((item) => item !== id)
+                  );
+                }}
+              />
+            );
+          })}
         </Box>
       </Box>
       <ToastContainer />
