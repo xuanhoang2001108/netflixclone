@@ -68,7 +68,7 @@ const RegisterContainer = () => {
               backgroundSize: "cover",
             }}
           />
-          <div className="absolute">
+          <div className=" absolute">
             <LoginLogo sx={{ ml: { sm: 4 }, mt: 3 }} />
           </div>
           <div className="absolute flex flex-row left-0 right-0 place-content-center top-14">

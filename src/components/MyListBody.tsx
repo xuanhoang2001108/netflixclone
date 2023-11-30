@@ -1,7 +1,5 @@
 function MyListBody() {
-  return (
-    <div className='bg-black w-screen h-screen'></div>
-  )
+  return <div className="bg-black w-screen h-screen"></div>;
 }
 
-export default MyListBody
+export default MyListBody;
