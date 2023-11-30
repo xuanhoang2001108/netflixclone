@@ -87,7 +87,7 @@ function PolicyPage() {
                       height: "250px",
                       display: "flex",
                       alignItems: "center",
-                  
+
                       marginBottom: 2,
                       marginLeft: 2,
                     }}
@@ -117,18 +117,18 @@ function PolicyPage() {
                         >
                           {permission.description}
                         </div>
-                          <div className="flex flex-row mt-2">
-                            <hr></hr>
-                            <div className="bg-purple-600 text-sm text-white rounded-full p-1 ">
-                              (
-                              {permission.permissions
-                                ? permission.permissions.length
-                                : 0}
-                              ) permissions
-                            </div>
+                        <div className="flex flex-row mt-20">
+                          <hr></hr>
+                          <div className="bg-purple-600 text-sm text-white rounded-full p-1 ">
+                            (
+                            {permission.permissions
+                              ? permission.permissions.length
+                              : 0}  
+                            ) permissions
                           </div>
-                          </Box>
-                        </Box>
+                        </div>
+                      </Box>
+                    </Box>
                   </Box>
                 ))
               ) : (
