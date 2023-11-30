@@ -3,7 +3,9 @@ import { DataGrid } from "@mui/x-data-grid";
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import {
+  useGetAllPermissionQuery,
   useGetAllUserQuery,
+  useGetCurrentUserQuery,
   useGetRoleQuery,
 } from "../../../store/service/getUser.service";
 import TextField from "@mui/material/TextField";
@@ -24,19 +26,39 @@ interface UserData {
   email: string;
   userName: string;
   phoneNumber: string;
-  roleIds: string;
+  roles: Array<{ name: string; id: string }>; 
   id: string;
 }
 
 export default function UserPage() {
+  const accessToken = localStorage.getItem("accessToken") ?? "";
+  const { data: currentUserData } = useGetCurrentUserQuery({ accessToken });
+
+  const { data: permissionsOfUsers } = useGetAllPermissionQuery(
+    currentUserData?.id ?? ""
+  );
+
+  const hasPermission = (permission: string) => {
+    // Check if permissionsOfUsers is defined
+    if (permissionsOfUsers) {
+      // Explicitly assert the type to be an array of strings
+      const permissionsArray = permissionsOfUsers as string[];
+      return permissionsArray.includes(permission);
+    } else {
+      // Handle the case where permissionsOfUsers is undefined
+      return false;
+    }
+  };
+
   const [deleteAccountMutation] = useDeleteAccountMutation();
   const { data: usersData, refetch } = useGetAllUserQuery();
   const [deleteUserId, setDeleteUserId] = React.useState<string | null>(null);
   const navigate = useNavigate();
-  const { data: roleData } = useGetRoleQuery();
-  
+  useGetRoleQuery();
+
   const location = useLocation();
-  const isParentRoute = location.pathname === "/AdminLoginPage/AdminPage/UserPage";
+  const isParentRoute =
+    location.pathname === "/AdminLoginPage/AdminPage/UserPage";
 
   const columns = [
     { field: "email", headerName: "Email", width: 200 },
@@ -57,9 +79,16 @@ export default function UserPage() {
         <IconButton
           color="primary"
           onClick={(event) => {
-            navigate(`/AdminLoginPage/AdminPage/UserPage/EditUser/${params.id}`);
+            if (hasPermission("Edit User")) {
+              navigate(
+                `/AdminLoginPage/AdminPage/UserPage/EditUser/${params.id}`
+              );
+            } else {
+              console.log("Permission denied: Edit User");
+            }
             event.stopPropagation();
           }}
+          disabled={!hasPermission("Edit User")}
         >
           <EditIcon />
         </IconButton>
@@ -75,9 +104,15 @@ export default function UserPage() {
         <IconButton
           color="primary"
           onClick={(event) => {
-            handleDeleteConfirmation(params.id);
+            if (hasPermission("Delete User")) {
+              handleDeleteConfirmation(params.id);
+            } else {
+              // You can show a message or take other actions when the user doesn't have the permission
+              console.log("Permission denied: Delete User");
+            }
             event.stopPropagation();
           }}
+          disabled={!hasPermission("Delete User")}
         >
           <DeleteIcon />
         </IconButton>
@@ -86,19 +121,15 @@ export default function UserPage() {
   ];
   const rows = usersData
     ? usersData.data.map((user: UserData) => {
-        const userRoles = roleData?.data?.filter((r: any) =>
-          r.userIds?.includes(user.id)
-        );
-        const roleNames = userRoles
-          ? userRoles.map((role: any) => role.name)
-          : [];
+        const userRoles = user.roles;
+        const roleNames = userRoles.map((role: any) => role.name).join(", ");
 
         return {
           id: user.id,
           email: user.email,
           userName: user.userName,
           phoneNumber: user.phoneNumber,
-          roleNames: roleNames.join(", "),
+          roleNames: roleNames,
         };
       })
     : [];
@@ -134,6 +165,7 @@ export default function UserPage() {
     const rowData = Object.values(row).join(" ").toLowerCase();
     return rowData.includes(searchQuery.toLowerCase());
   });
+
   return (
     <>
       <Box sx={{ marginLeft: "20%", marginRight: "10%", marginTop: 10 }}>
@@ -158,9 +190,15 @@ export default function UserPage() {
 
               <Button
                 variant="contained"
-                onClick={() => {
-                  navigate("/AdminLoginPage/AdminPage/UserPage/CreateUser");
+                onClick={(event) => {
+                  if (hasPermission("Delete User")) {
+                    navigate("/AdminLoginPage/AdminPage/UserPage/CreateUser");
+                  } else {
+                    console.log("Permission denied: Add User");
+                  }
+                  event.stopPropagation();
                 }}
+                disabled={!hasPermission("Add User")}
               >
                 CREATE NEW USER
               </Button>
@@ -192,8 +230,13 @@ export default function UserPage() {
                   },
               }}
               onRowClick={(params: any) => {
-                navigate(`/AdminLoginPage/AdminPage/UserPage/ViewUser/${params.id}`);
+                if (hasPermission("View User")) {
+                  navigate(
+                    `/AdminLoginPage/AdminPage/UserPage/ViewUser/${params.id}`
+                  );
+                }
               }}
+              disableRowSelectionOnClick={!hasPermission("View User")}
             />
           </>
         )}

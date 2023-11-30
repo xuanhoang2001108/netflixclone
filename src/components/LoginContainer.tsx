@@ -70,8 +70,6 @@ const LoginContainer = () => {
     if (isSuccess) {
       if (data?.accessToken) {
         localStorage.setItem("accessToken", data.accessToken);
-
-        console.log(data);
       }
     } else if (isError) {
       console.log(error);
@@ -87,7 +85,7 @@ const LoginContainer = () => {
       }
     }
   }, [navigate, currentUserData]);
-  console.log("currentUserData", currentUserData);
+
   return (
     <div className="justify-center">
       <AppBar

@@ -1,7 +1,8 @@
 import Box from "@mui/material/Box";
 import { useNavigate, useParams } from "react-router-dom";
 import {
-  useGetAllUserQuery,
+  useGetAllPermissionQuery,
+  useGetCurrentUserQuery,
   useGetRoleNameQuery,
   useGetUserByIdQuery,
 } from "../../../store/service/getUser.service";
@@ -26,14 +27,33 @@ import React from "react";
 import { toast } from "react-toastify";
 
 function ViewUser() {
+  const accessToken = localStorage.getItem("accessToken") ?? "";
+  const { data: currentUserData } = useGetCurrentUserQuery({ accessToken });
+
+  const { data: permissionsOfUsers } = useGetAllPermissionQuery(
+    currentUserData?.id ?? ""
+  );
+  const hasPermission = (permission: string) => {
+    // Check if permissionsOfUsers is defined
+    if (permissionsOfUsers) {
+      // Explicitly assert the type to be an array of strings
+      const permissionsArray = permissionsOfUsers as string[];
+      return permissionsArray.includes(permission);
+    } else {
+      // Handle the case where permissionsOfUsers is undefined
+      return false;
+    }
+  };
+
   const { userId } = useParams();
   const navigate = useNavigate();
   const [deleteAccountMutation] = useDeleteAccountMutation();
-  const { refetch } = useGetAllUserQuery();
+
   const [deleteUserId, setDeleteUserId] = React.useState<string | null>(null);
   const {
     data: userData,
     error,
+    refetch,
     isLoading,
   } = useGetUserByIdQuery(userId || "");
 
@@ -68,7 +88,7 @@ function ViewUser() {
       setDeleteUserId(null);
     }
   };
-  const { userName, email, phoneNumber, roleIds } = userData;
+  const { userName, email, phoneNumber, roles } = userData;
 
   return (
     <Box sx={{ marginLeft: "20%", marginRight: "10%", marginTop: 10 }}>
@@ -79,7 +99,15 @@ function ViewUser() {
         <Button
           variant="contained"
           sx={{ ml: 40 }}
-          onClick={() => navigate(`/AdminLoginPage/AdminPage/UserPage/EditUser/${userId}`)}
+          onClick={(event) => {
+            if (hasPermission("Edit User")) {
+              navigate(`/AdminLoginPage/AdminPage/UserPage/EditUser/${userId}`);
+            } else {
+              console.log("Permission denied: Edit User");
+            }
+            event.stopPropagation();
+          }}
+          disabled={!hasPermission("Edit User")}
         >
           <CreateIcon sx={{ mr: 2 }}></CreateIcon> EDIT
         </Button>
@@ -87,9 +115,15 @@ function ViewUser() {
           variant="contained"
           sx={{ ml: 2 }}
           onClick={(event) => {
-            handleDeleteConfirmation(userId);
+            if (hasPermission("Delete User")) {
+              handleDeleteConfirmation(userId);
+              event.stopPropagation();
+            } else {
+              console.log("Permission denied: Delete User");
+            }
             event.stopPropagation();
           }}
+          disabled={!hasPermission("Delete User")}
         >
           <DeleteIcon sx={{ mr: 2 }}></DeleteIcon> DELETE
         </Button>
@@ -134,16 +168,24 @@ function ViewUser() {
             </TableRow>
           </TableHead>
           <TableBody sx={{ border: "1px solid #ddd" }}>
-            {Array.isArray(roleIds) &&
-              roleIds.map((roleId) => (
-                <TableRow key={roleId}>
+            {Array.isArray(roles) && roles.length > 0 ? (
+              roles.map((roles) => (
+                <TableRow key={roles}>
                   <TableCell sx={{ color: "black" }}>
                     <Box sx={{ mb: 1 }}>
-                      <RoleName roleId={roleId} />
+                      {/* Use RoleName component here */}
+                      <RoleName role={roles} />
                     </Box>
                   </TableCell>
                 </TableRow>
-              ))}
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={1} sx={{ color: "black" }}>
+                  No roles assigned
+                </TableCell>
+              </TableRow>
+            )}
           </TableBody>
         </Table>
       </Box>
@@ -175,12 +217,17 @@ function ViewUser() {
   );
 }
 
-export function RoleName({ roleId }: { roleId: string }) {
+export function RoleName({ role }: { role: string | string[] }) {
+  // Ensure role is an array
+  const roleArray = Array.isArray(role) ? role : [role];
+
+  const roleIds = roleArray.map((role: any) => role.id).join(',');
+
   const {
     data: roleNameData,
     error: roleNameError,
     isLoading: roleNameIsLoading,
-  } = useGetRoleNameQuery(roleId);
+  } = useGetRoleNameQuery(roleIds);
 
   if (roleNameIsLoading) {
     return <Box>Loading role name...</Box>;
@@ -190,7 +237,12 @@ export function RoleName({ roleId }: { roleId: string }) {
     return <Box>Error loading role name</Box>;
   }
 
-  return <div>{roleNameData?.name || "Role Name Not Found"}</div>;
+  // Check if roleNameData is defined and has a name property
+  const roleName = roleNameData?.name || "Role Name Not Found";
+
+  return <div>{roleName}</div>;
 }
+
+
 
 export default ViewUser;

@@ -6,8 +6,6 @@ function AdminPage() {
   const isParentRoute = location.pathname.startsWith(
     "/AdminLoginPage/AdminPage"
   );
-  console.log("pathname:", location.pathname);
-  console.log("isParentRoute:", isParentRoute);
 
   return (
     <>

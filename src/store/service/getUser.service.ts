@@ -6,7 +6,7 @@ export const getUserApi = createApi({
     endpoints: build => ({
         getAllUser: build.query<UserData, void>({
             query: () => ({
-                url: "/Account/User",
+                url: "/Account/User?IsDeep=true",
             }),
         }),
 
@@ -22,7 +22,7 @@ export const getUserApi = createApi({
         }),
         getUserById: build.query<ViewUserData, string>({
             query: (id) => ({
-                url: `/Account/User/${id}`,
+                url: `/Account/User/${id}?isDeep=true`,
             }),
         }),
         getPermission: build.query<PermissionData, void>({
@@ -57,8 +57,12 @@ export const getUserApi = createApi({
                 };
             },
         }),
-
+        getAllPermission: build.query<{}, string>({
+            query: (userId) => ({
+                url: `/Account/User/GetAllPermissions?userId=${userId}`,
+            }),
+        }),
     })
 })
 
-export const { useGetCurrentUserQuery, useGetPermissionByIdQuery, useGetAllUserQuery, useGetRoleQuery, useGetUserByIdQuery, useGetRoleNameQuery, useGetPermissionQuery, useGetPermissionSetQuery, useGetPermissionSetByIdQuery } = getUserApi
+export const {useGetAllPermissionQuery, useGetCurrentUserQuery, useGetPermissionByIdQuery, useGetAllUserQuery, useGetRoleQuery, useGetUserByIdQuery, useGetRoleNameQuery, useGetPermissionQuery, useGetPermissionSetQuery, useGetPermissionSetByIdQuery } = getUserApi

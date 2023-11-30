@@ -11,7 +11,6 @@ export const registerApi = createApi({
                     url: '/User',
                     method: 'POST',
                     body,
-
                 }
             }
         }),
@@ -93,6 +92,17 @@ export const registerApi = createApi({
 
             }),
         }),
+        editUser: build.mutation<{}, { id: any, roleIds: string[], phoneNumber: string, email: string }>({
+            query: ({ id, roleIds, phoneNumber, email }) => ({
+                url: `/User/${id}`,
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id, roleIds, phoneNumber, email })
+
+            }),
+        }),
         deleteRole: build.mutation<{}, Omit<{}, 'id'>>({
             query(id) {
                 return {
@@ -122,4 +132,4 @@ export const registerApi = createApi({
 
 })
 
-export const { useAddPolicyMutation, useEditPolicyMutation, useDeletePermissionSetMutation, useEditPermissionMutation, useDeletePermissionMutation, useAddPermissionMutation, useAddAccountMutation, useDeleteRoleMutation, useDeleteAccountMutation, useEditPhoneNumberMutation, useAddRoleMutation, useEditRoleMutation } = registerApi 
+export const { useEditUserMutation, useAddPolicyMutation, useEditPolicyMutation, useDeletePermissionSetMutation, useEditPermissionMutation, useDeletePermissionMutation, useAddPermissionMutation, useAddAccountMutation, useDeleteRoleMutation, useDeleteAccountMutation, useEditPhoneNumberMutation, useAddRoleMutation, useEditRoleMutation } = registerApi 

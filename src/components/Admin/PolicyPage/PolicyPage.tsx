@@ -24,7 +24,7 @@ function PolicyPage() {
     (permissionSet: any) =>
       permissionSet.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
-  console.log(permissionSetData);
+
   return (
     <>
       <Box
@@ -104,7 +104,7 @@ function PolicyPage() {
                         flexDirection: "column",
                       }}
                     >
-                      <Box sx={{ ml: 2 }}>
+                      <Box sx={{ ml: 4 }}>
                         <Typography variant="h5">{permission.name}</Typography>
                         <div
                           style={{

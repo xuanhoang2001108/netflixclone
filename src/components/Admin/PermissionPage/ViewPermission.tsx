@@ -77,7 +77,6 @@ function ViewPermission() {
       setDeletePermission(null);
     }
   };
-  console.log(permissionData);
   const { permissionSetIdList } = permissionData;
 
   const rowTab0 = permissionSetIdList? permissionSetIdList.map((id: any) => {

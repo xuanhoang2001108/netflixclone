@@ -184,7 +184,7 @@ function EditPolicy() {
     return <Box>User not found</Box>;
   }
   const { name, description } = permissionSetData;
-  console.log(initialSelectedRows);
+
   return (
     <>
       <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
