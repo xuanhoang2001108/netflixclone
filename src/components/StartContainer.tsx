@@ -21,7 +21,7 @@ const StartContainer = () => {
       >
         <img
           className="w-screen h-screen"
-          src="src/assets/background-image.jpg"
+          src="/assets/background-image.jpg"
           alt="Background"
           style={{
             objectFit: "cover",

@@ -104,7 +104,7 @@ const LoginContainer = () => {
         >
           <img
             className="h-screen w-screen"
-            src="src/assets/background-image.jpg"
+            src="/assets/background-image.jpg"
             alt="Background"
             style={{
               objectFit: "fill",

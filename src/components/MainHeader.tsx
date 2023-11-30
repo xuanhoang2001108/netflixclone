@@ -134,7 +134,7 @@ export default function MainHeader() {
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
               <Avatar
                 alt="user_avatar"
-                src="src/assets/avatar.png"
+                src="/assets/avatar.png"
                 variant="rounded"
               />
             </IconButton>
