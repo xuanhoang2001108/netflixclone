@@ -15,7 +15,7 @@ type UserSubmitRegisterForm = {
   name: string;
   confirmPassword: string;
   phoneNumber: string;
-  };
+};
 
 const RegisterContainer = () => {
   const [registerAccount] = useAddAccountMutation();
@@ -41,7 +41,6 @@ const RegisterContainer = () => {
   });
 
   const onSubmitHandler = (data: UserSubmitRegisterForm) => {
-    console.log({ data });
     registerAccount(data);
   };
 

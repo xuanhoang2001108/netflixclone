@@ -164,7 +164,7 @@ function EditPolicy() {
       setInitialSelectedRows(selectedPermissionSetIds);
 
       const selectedPermissionSets = permissionSetData.permissions
-        .map((selectedId) => rows.find((row: any) => row.id === selectedId))
+        .map((selectedId: any) => rows.find((row: any) => row.id === selectedId))
         .filter(Boolean)
         .map((row: any) => row.name);
 

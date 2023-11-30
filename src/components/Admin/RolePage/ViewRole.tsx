@@ -1,7 +1,5 @@
 import Box from "@mui/material/Box";
 import {
-  useGetAllUserQuery,
-  useGetPermissionSetQuery,
   useGetRoleNameQuery,
   useGetRoleQuery,
 } from "../../../store/service/getUser.service";

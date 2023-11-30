@@ -65,7 +65,6 @@ export type UserRegisterData = {
   password: string;
   confirmPassword: string;
   phoneNumber: string;
-  roleIds: string[];
 };
 export type UserLoginData = {
   email: string;

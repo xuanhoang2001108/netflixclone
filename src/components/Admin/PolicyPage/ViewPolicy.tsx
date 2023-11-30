@@ -23,7 +23,7 @@ import {
 function ViewPolicy() {
   const { permissionSetId } = useParams();
   const navigate = useNavigate();
-  const { data: permissionData } = useGetPermissionQuery();
+  useGetPermissionQuery();
   const [deletePermissionSet, setDeletePermissionSet] = React.useState<
     string | null
   >(null);
@@ -91,7 +91,9 @@ function ViewPolicy() {
           variant="contained"
           sx={{ ml: 40 }}
           onClick={() =>
-            navigate(`/AdminLoginPage/AdminPage/PolicyPage/EditPolicy/${permissionSetId}`)
+            navigate(
+              `/AdminLoginPage/AdminPage/PolicyPage/EditPolicy/${permissionSetId}`
+            )
           }
         >
           <CreateIcon sx={{ mr: 1 }}></CreateIcon> EDIT

@@ -1,5 +1,5 @@
 import Box from "@mui/material/Box";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useGetCurrentUserQuery } from "../store/service/getUser.service";
 import { useNavigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";
