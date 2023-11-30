@@ -11,7 +11,6 @@ import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import SaveIcon from "@mui/icons-material/Save";
-import React from "react";
 type AddPermissionData = {
   name: string;
   sort: number;
