@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
-import { Outlet, RouterProvider } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./index.css";
 import MainLoadingScreen from "./components/MainLoadingScreen";
@@ -20,7 +20,6 @@ root.render(
           router={router}
           fallbackElement={<MainLoadingScreen />}
         />
-      
       </ThemeProvider>
     </React.StrictMode>
   </Provider>
