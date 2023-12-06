@@ -1,5 +1,5 @@
 import AppBar from "@mui/material/AppBar";
-import { APP_BAR_HEIGHT } from "../constant";
+
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import { StartHeader } from "./StartHeader";
@@ -14,7 +14,6 @@ const StartContainer = () => {
     <div className="justify-center">
       <AppBar
         sx={{
-          height: APP_BAR_HEIGHT,
           backgroundImage: "none",
           boxShadow: 0,
         }}
