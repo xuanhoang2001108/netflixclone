@@ -1,0 +1,124 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StartContainer should navigate to /LoginPage when Get Started button is clicked 1`] = `
+<div
+  className="justify-center"
+>
+  <header
+    className="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed mui-fixed css-12g3m0k-MuiPaper-root-MuiAppBar-root"
+  >
+    <img
+      alt="Background"
+      className="w-screen h-screen"
+      src="/assets/background-image.jpg"
+      style={
+        {
+          "objectFit": "cover",
+          "position": "absolute",
+        }
+      }
+    />
+    <div
+      className="absolute w-screen  flex flex-row items-center  place-content-between"
+    >
+      <a
+        href="/"
+        onClick={[Function]}
+      >
+        <img
+          alt="Netflix Logo"
+          className="MuiBox-root css-1ujvwfr"
+          src="/assets/netflix-logo.png"
+        />
+      </a>
+      <button
+        className="rounded-md bg-red-600 w-20 h-8 font-semibold mr-40 items-center"
+        onClick={[Function]}
+      >
+        Sign In
+      </button>
+    </div>
+    <div
+      className="absolute  w-screen h-screen text-center mt-72"
+    >
+      <h1
+        className="font-bold text-5xl"
+      >
+        Unlimited movies, TV shows, and more
+      </h1>
+      <h1
+        className=" text-2xl mt-6"
+      >
+        Watch anywhere. Cancel anytime
+      </h1>
+      <h1
+        className=" text-2xl mt-6"
+      >
+        Ready to watch? Enter your email to create or restart your membership.
+      </h1>
+      <div
+        className="flex justify-center"
+      >
+        <div
+          className="MuiStack-root css-1krzmza-MuiStack-root"
+        >
+          <div
+            className="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
+            style={
+              {
+                "backgroundColor": "rgba(61, 66, 61, 0.3)",
+                "width": 400,
+              }
+            }
+          >
+            <label
+              className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root"
+              data-shrink={false}
+              htmlFor=":r0:"
+              id=":r0:-label"
+            >
+              Email Address
+            </label>
+            <div
+              className="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root"
+              onClick={[Function]}
+            >
+              <input
+                aria-invalid={false}
+                autoFocus={false}
+                className="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
+                disabled={false}
+                id=":r0:"
+                onAnimationStart={[Function]}
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                required={false}
+                type="text"
+              />
+              <fieldset
+                aria-hidden={true}
+                className="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+              >
+                <legend
+                  className="css-yjsfm1"
+                >
+                  <span>
+                    Email Address
+                  </span>
+                </legend>
+              </fieldset>
+            </div>
+          </div>
+          <button
+            className="rounded-md bg-red-600 w-44 h-18 text-2xl font-bold"
+            onClick={[Function]}
+          >
+            Get Started
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+</div>
+`;
