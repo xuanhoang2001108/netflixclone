@@ -25,11 +25,16 @@ import CreatePolicy from "../components/Admin/PolicyPage/CreatePolicy";
 import EditPolicy from "../components/Admin/PolicyPage/EditPolicy";
 import ViewPolicy from "../components/Admin/PolicyPage/ViewPolicy";
 import AdminLoginPage from "../pages/AdminLoginPage";
+import Notification from "../components/Notification";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <StartPage />,
+  },
+  {
+    path: "/Notification",
+    element: <Notification />,
   },
   {
     path: "/LoginPage",

@@ -29,7 +29,7 @@
     "src/**/*.tsx",
     "__tests__/**/*.ts",
     "__tests__/**/*.tsx"
-  ],
+, "src/firebase.tsx", "firebase-messaging-sw.js", "firebase-messaging-sw.js"  ],
 
   "references": [{ "path": "./tsconfig.node.json" }]
 }
