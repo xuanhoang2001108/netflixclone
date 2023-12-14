@@ -53,10 +53,12 @@ function ViewUser() {
   const {
     data: userData,
     error,
-    refetch,
+    refetch: refetchId,
     isLoading,
   } = useGetUserByIdQuery(userId || "");
-
+  React.useEffect(() => {
+    refetchId();
+  }, [userId]);
   if (isLoading) {
     return <Box>Loading...</Box>;
   }
@@ -78,7 +80,7 @@ function ViewUser() {
   const handleDelete = async (id: string) => {
     try {
       await deleteAccountMutation(id);
-      refetch();
+      refetchId();
       toast.success("User deleted successfully");
       navigate("/AdminLoginPage/AdminPage/UserPage");
     } catch (error) {
@@ -221,7 +223,7 @@ export function RoleName({ role }: { role: string | string[] }) {
   // Ensure role is an array
   const roleArray = Array.isArray(role) ? role : [role];
 
-  const roleIds = roleArray.map((role: any) => role.id).join(',');
+  const roleIds = roleArray.map((role: any) => role.id).join(",");
 
   const {
     data: roleNameData,
@@ -242,7 +244,5 @@ export function RoleName({ role }: { role: string | string[] }) {
 
   return <div>{roleName}</div>;
 }
-
-
 
 export default ViewUser;
