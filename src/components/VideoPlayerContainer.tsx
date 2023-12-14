@@ -17,8 +17,10 @@ import NetflixIconButton from "./NetflixIconButton";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import VolumeOffIcon from "@mui/icons-material/VolumeOff";
 import MaturityRate from "./MaturityRate";
+import { useNavigate } from "react-router-dom";
 
 export function VideoPlayerContainer() {
+  const navigate = useNavigate()
   const [getVideoDetail, { data: detail }] = useLazyGetAppendedVideosQuery();
   const [video, setVideo] = useState<Movie | null>(null);
   const playerRef = useRef<Player | null>(null);
@@ -144,7 +146,7 @@ export function VideoPlayerContainer() {
                 {video.overview}
               </MaxLineTypography>
               <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
-                <PlayButton size="large" />
+                <PlayButton size="large" onClick={()=>{navigate('/WatchPage/466420')}} />
                 <MoreInfoButton size="large" />
               </Stack>
             </Stack>

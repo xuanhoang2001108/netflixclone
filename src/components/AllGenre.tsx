@@ -193,12 +193,7 @@ export default function AllGenre() {
                   width: 1000,
                 }}
               >
-                <PlayButton
-                  size="large"
-                  onClick={() => {
-                    navigate(`/WatchPage`);
-                  }}
-                />
+                <PlayButton size="large" />
                 <NetflixIconButton size="large">
                   <AddIcon />
                 </NetflixIconButton>

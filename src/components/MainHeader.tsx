@@ -55,12 +55,6 @@ export default function MainHeader() {
         px: "60px",
         height: APP_BAR_HEIGHT,
         backgroundImage: "none",
-        // ...(isOffset
-        //   ? {
-        //       bgcolor: "primary.main",
-        //       boxShadow: (theme) => theme.shadows[4],
-        //     }
-        //   : { boxShadow: 0, bgcolor: "transparent" }),
       }}
     >
       <Toolbar disableGutters>
