@@ -1,5 +1,5 @@
 import { Outlet, useLocation } from "react-router-dom";
-import Dashboard from "../Dashboard";
+import Dashboard from "./Dashboard";
 
 function AdminPage() {
   const location = useLocation();
@@ -10,6 +10,7 @@ function AdminPage() {
   return (
     <>
       {isParentRoute && <Dashboard />}
+
       <Outlet />
     </>
   );

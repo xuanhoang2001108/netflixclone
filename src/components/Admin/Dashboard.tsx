@@ -26,7 +26,7 @@ import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import { useNavigate } from "react-router-dom";
 import { Typography } from "@mui/material";
 import { Button } from "@mui/base/Button";
-import { useGetCurrentUserQuery } from "../store/service/getUser.service";
+import { useGetCurrentUserQuery } from "../../store/service/getUser.service";
 
 export default function PersistentDrawerLeft() {
   const drawerWidth = 240;
@@ -76,7 +76,7 @@ export default function PersistentDrawerLeft() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1, ml: 30 }} onClick={()=> {navigate('/AdminLoginPage')}}>
             {currentUserData?.userName}
           </Typography>
           <Button color="inherit" onClick={handleLogout}>
