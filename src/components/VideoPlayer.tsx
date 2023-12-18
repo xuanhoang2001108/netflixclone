@@ -10,6 +10,7 @@ import Player from "video.js/dist/types/player";
 import { useParams } from "react-router-dom";
 import { MainHeader } from ".";
 
+
 export const IMG_URL = "https://image.tmdb.org/t/p/w500/";
 
 export function VideoPlayer() {
@@ -17,6 +18,7 @@ export function VideoPlayer() {
   const [video, setVideo] = useState<Movie | null>(null);
   const playerRef = useRef<Player | null>(null);
   const { movieId } = useParams();
+
   const handleReady = useCallback((player: Player) => {
     playerRef.current = player;
   }, []);
@@ -32,6 +34,24 @@ export function VideoPlayer() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [data]
   );
+  const [videoDimensions, setVideoDimensions] = useState({
+    width: window.innerWidth, // set initial width to window width
+    height: window.innerHeight, // set initial height to window height
+  });
+  useEffect(() => {
+    const handleResize = () => {
+      setVideoDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     if (video) {
@@ -43,16 +63,17 @@ export function VideoPlayer() {
     <>
       <MainHeader></MainHeader>
       {video && (
-        <div style={{ overflow: "hidden", marginTop: "14px" }}>
+        <div style={{ overflow: "hidden"}}>
           {detail && (
             <VideoJSPlayer
               options={{
                 loop: true,
                 muted: true,
                 autoplay: true,
-                controls: false,
-                fluid: true,
-                height: 400,
+                controls: true,
+                width: videoDimensions.width,
+                height: videoDimensions.height,
+
                 techOrder: ["youtube"],
                 sources: [
                   {
@@ -66,6 +87,7 @@ export function VideoPlayer() {
               onReady={handleReady}
             />
           )}
+        
         </div>
       )}
     </>
