@@ -107,7 +107,7 @@ export default function UserPage() {
             if (hasPermission("Delete User")) {
               handleDeleteConfirmation(params.id);
             } else {
-              // You can show a message or take other actions when the user doesn't have the permission
+              
               console.log("Permission denied: Delete User");
             }
             event.stopPropagation();
