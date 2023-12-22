@@ -84,7 +84,7 @@ const LoginContainer = () => {
         navigate("/HomePage");
       }
     }
-  }, [navigate, currentUserData]);
+  }, [navigate, currentUserData]);  
 
   return (
     <div className="justify-center">

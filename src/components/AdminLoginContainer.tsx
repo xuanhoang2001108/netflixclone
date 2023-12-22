@@ -22,7 +22,7 @@ function AdminLoginContainer() {
   }, [navigate]);
   useEffect(() => {
     if (currentUserData) {
-      if (currentUserData?.roles?.some((role: any) => role.name === "User")) {
+      if (currentUserData?.roles?.some((role: any) => role.name === "Admin")) {
         navigate("/AdminLoginPage");
       } else {
         navigate("/HomePage");
