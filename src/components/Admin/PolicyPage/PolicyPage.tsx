@@ -8,6 +8,29 @@ import { useState } from "react";
 
 function PolicyPage() {
   const { data: permissionSetData } = useGetPermissionSetQuery();
+
+  // const mockedPermissionSetData = {
+  //   data: [
+  //     {
+  //       id: 1,
+  //       name: "Policy 1",
+  //       description: "",
+  //       permissions: [
+  //         /* Permissions data */
+  //       ],
+  //     },
+  //     {
+  //       id: 2,
+  //       name: "Policy 2",
+  //       description: "Description for Policy 2",
+  //       permissions: [
+  //         /* Permissions data */
+  //       ],
+  //     },
+  //     // Add more mocked data as needed
+  //   ],
+  // };
+  // const permissionSetData = mockedPermissionSetData;
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const isParentRoute =
@@ -106,24 +129,33 @@ function PolicyPage() {
                     >
                       <Box sx={{ ml: 4 }}>
                         <Typography variant="h5">{permission.name}</Typography>
-                        <div
-                          style={{
-                            overflow: "hidden",
-                            display: "-webkit-box",
-                            WebkitBoxOrient: "vertical",
-                            WebkitLineClamp: 1, // Limit to 5 lines
-                            textOverflow: "ellipsis",
-                          }}
-                        >
-                          {permission.description}
-                        </div>
+                        {permission.description ? (
+                          <div
+                            style={{
+                              overflow: "hidden",
+                              display: "-webkit-box",
+                              WebkitBoxOrient: "vertical",
+                              WebkitLineClamp: 1,
+                              textOverflow: "ellipsis",
+                              minHeight: "1.2em", 
+                            }}
+                          >
+                            {permission.description}
+                          </div>
+                        ) : (
+                          <div
+                            style={{
+                              minHeight: "1.2em",
+                            }}
+                          ></div>
+                        )}
                         <div className="flex flex-row mt-20">
                           <hr></hr>
                           <div className="bg-purple-600 text-sm text-white rounded-full p-1 ">
                             (
                             {permission.permissions
                               ? permission.permissions.length
-                              : 0}  
+                              : 0}
                             ) permissions
                           </div>
                         </div>

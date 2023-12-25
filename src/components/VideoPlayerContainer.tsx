@@ -18,13 +18,18 @@ import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import VolumeOffIcon from "@mui/icons-material/VolumeOff";
 import MaturityRate from "./MaturityRate";
 import { useNavigate } from "react-router-dom";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 
 export function VideoPlayerContainer() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [getVideoDetail, { data: detail }] = useLazyGetAppendedVideosQuery();
   const [video, setVideo] = useState<Movie | null>(null);
   const playerRef = useRef<Player | null>(null);
   const [muted, setMuted] = useState(true);
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const shouldShowInformation = useMediaQuery("(min-width: 640px)");
   const maturityRate = useMemo(() => {
     return getRandomNumber(20);
   }, []);
@@ -68,18 +73,22 @@ export function VideoPlayerContainer() {
           alignItems: "center",
           position: "absolute",
           right: 0,
-          top: 500,
+          top: isSmallScreen ? 100 : 500, 
           bottom: "35%",
         }}
       >
-        <NetflixIconButton
-          size="large"
-          onClick={() => handleMute(muted)}
-          sx={{ zIndex: 1 }}
-        >
-          {!muted ? <VolumeUpIcon /> : <VolumeOffIcon />}
-        </NetflixIconButton>
-        <MaturityRate>{`${maturityRate}+`}</MaturityRate>
+        {shouldShowInformation && (
+          <>
+            <NetflixIconButton
+              size="large"
+              onClick={() => handleMute(muted)}
+              sx={{ zIndex: 1 }}
+            >
+              {!muted ? <VolumeUpIcon /> : <VolumeOffIcon />}
+            </NetflixIconButton>
+            <MaturityRate>{`${maturityRate}+`}</MaturityRate>
+          </>
+        )}
       </Stack>
       {video && (
         <>
@@ -115,42 +124,57 @@ export function VideoPlayerContainer() {
               />
             )}
           </Box>
-
-          <Box
-            sx={{
-              position: "absolute",
-              top: 200,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              width: "100%",
-              height: "100%",
-            }}
-          >
-            <Stack
-              spacing={4}
+          {shouldShowInformation && (
+            <Box
+              id="information"
               sx={{
-                bottom: "35%",
                 position: "absolute",
-                left: { xs: "4%", md: "60px" },
-                top: 0,
-                width: "36%",
-                zIndex: 10,
-                justifyContent: "flex-end",
+                top: 100,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                width: "100%",
+                height: "100%",
               }}
             >
-              <MaxLineTypography variant="h2" maxLine={1} color="text.primary">
-                {video.title}
-              </MaxLineTypography>
-              <MaxLineTypography variant="h5" maxLine={3} color="text.primary">
-                {video.overview}
-              </MaxLineTypography>
-              <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
-                <PlayButton size="large" onClick={()=>{navigate('/WatchPage/466420')}} />
-                <MoreInfoButton size="large" />
+              <Stack
+                spacing={4}
+                sx={{
+                  bottom: isSmallScreen ? "10%" : "35%",
+                  position: "absolute",
+                  left: { xs: "4%", md: "60px" },
+                  top: 0,
+                  width: isSmallScreen ? "80%" : "36%",
+                  zIndex: 10,
+                  justifyContent: "flex-end",
+                }}
+              >
+                <MaxLineTypography
+                  variant="h2"
+                  maxLine={1}
+                  color="text.primary"
+                >
+                  {video.title}
+                </MaxLineTypography>
+                <MaxLineTypography
+                  variant="h5"
+                  maxLine={3}
+                  color="text.primary"
+                >
+                  {video.overview}
+                </MaxLineTypography>
+                <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
+                  <PlayButton
+                    size="large"
+                    onClick={() => {
+                      navigate("/WatchPage/466420");
+                    }}
+                  />
+                  <MoreInfoButton size="large" />
+                </Stack>
               </Stack>
-            </Stack>
-          </Box>
+            </Box>
+          )}
         </>
       )}
     </Box>

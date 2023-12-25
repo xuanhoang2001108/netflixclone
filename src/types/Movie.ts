@@ -64,7 +64,7 @@ export type UserRegisterData = {
   email: string;
   password: string;
   confirmPassword: string;
-  phoneNumber: string;
+
 };
 export type UserLoginData = {
   email: string;

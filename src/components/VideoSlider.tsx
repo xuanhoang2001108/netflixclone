@@ -63,7 +63,26 @@ export function VideoSlider(props: VideoSliderProps) {
   const handleMouseLeave = () => {
     setShowContainer2(false);
   };
-
+  const breakpoints = {
+    0: {
+      slidesPerView: 1,
+    },
+    320: {
+      slidesPerView: 2,
+    },
+    480: {
+      slidesPerView: 3,
+    },
+    640: {
+      slidesPerView: 4,
+    },
+    768: {
+      slidesPerView: 5,
+    },
+    1024: {
+      slidesPerView: 6,
+    },
+  };
   return (
     <Container
       maxWidth={false}
@@ -96,7 +115,8 @@ export function VideoSlider(props: VideoSliderProps) {
       <Swiper
         navigation={true}
         slidesPerView={6}
-        spaceBetween={0}
+        spaceBetween={6}
+        breakpoints={breakpoints}
         modules={[Navigation]}
       >
         {!isFetching &&
@@ -116,24 +136,25 @@ export function VideoSlider(props: VideoSliderProps) {
                   <img
                     className="rounded-lg h-80"
                     src={`${IMG_URL}${movieDetail.poster_path}`}
+                    style={{ width: "100%", height: "auto" }}
                   />
 
                   {showContainer && hoveredMovie === movieDetail && (
-                    <div className="-translate-y-80 translate-x-0 w-80 h-80 z-50 absolute bg-black">
+                    <div className="-translate-y-[21rem]  w-80 h-[22rem] z-50 absolute bg-black">
                       <img
-                        className="rounded-lg "
+                        className="rounded-lg"
                         src={`${IMG_URL}${movieDetail.backdrop_path}`}
                       />
 
-                      <div className="translate-x-4 translate-y-10">
+                      <div className="translate-x-4 translate-y-5">
                         <Stack direction="row" spacing={1}>
-                          <NetflixIconButton sx={{ p: 0 }}>
-                            <PlayCircleIcon
-                              sx={{ width: 40, height: 40 }}
-                              onClick={() => {
-                                navigate(`/WatchPage/${movieDetail.id}`);
-                              }}
-                            />
+                          <NetflixIconButton
+                            sx={{ p: 0 }}
+                            onClick={() => {
+                              navigate(`/WatchPage/${movieDetail.id}`);
+                            }}
+                          >
+                            <PlayCircleIcon sx={{ width: 40, height: 40 }} />
                           </NetflixIconButton>
                           <NetflixIconButton>
                             <AddIcon />
@@ -141,7 +162,7 @@ export function VideoSlider(props: VideoSliderProps) {
                           <NetflixIconButton>
                             <ThumbUpOffAltIcon />
                           </NetflixIconButton>
-                          <div style={{ flexGrow: 0.75 }} />
+
                           <NetflixIconButton
                             onClick={() => {
                               setShowModal(true);
@@ -151,7 +172,7 @@ export function VideoSlider(props: VideoSliderProps) {
                             <ExpandMoreIcon />
                           </NetflixIconButton>
                         </Stack>
-                        <div className="text-white mt-6">
+                        <div className="text-white mr-4">
                           {movieDetail.original_title}
                         </div>
                       </div>
