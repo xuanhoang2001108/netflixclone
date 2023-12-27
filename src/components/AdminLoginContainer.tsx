@@ -14,21 +14,21 @@ function AdminLoginContainer() {
 
   useGetAllPermissionQuery(currentUserData?.id ?? "");
   const navigate = useNavigate();
-  // useEffect(() => {
-  //   const storedAccessToken = localStorage.getItem("accessToken");
-  //   if (!storedAccessToken) {
-  //     navigate("/LoginPage");
-  //   }
-  // }, [navigate]);
-  // useEffect(() => {
-  //   if (currentUserData) {
-  //     if (currentUserData?.roles?.some((role: any) => role.name === "Admin")) {
-  //       navigate("/AdminLoginPage");
-  //     } else {
-  //       navigate("/HomePage");
-  //     }
-  //   }
-  // }, [navigate, currentUserData]);
+  useEffect(() => {
+    const storedAccessToken = localStorage.getItem("accessToken");
+    if (!storedAccessToken) {
+      navigate("/LoginPage");
+    }
+  }, [navigate]);
+  useEffect(() => {
+    if (currentUserData) {
+      if (currentUserData?.roles?.some((role: any) => role.name === "Admin")) {
+        navigate("/AdminLoginPage");
+      } else {
+        navigate("/HomePage");
+      }
+    }
+  }, [navigate, currentUserData]);
   const isAdminPage = location.pathname.startsWith("/AdminLoginPage/AdminPage");
 
   return (
